@@ -9,9 +9,7 @@ import {
   Mail, 
   X, 
   Check, 
-  Copy, 
-  ExternalLink,
-  SlidersHorizontal
+  Copy
 } from "lucide-react";
 
 export default function HomePage() {
@@ -51,13 +49,13 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0c0d0e] text-[#e1e2e4] antialiased">
+    <div className="min-h-screen bg-[#fafaf9] text-[#111213] antialiased">
       
-      {/* 1. Header (Minimalissimo Style: Pure Typography, Generous Whitespace) */}
-      <header className="border-b border-[#1d1f22]">
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 h-24 flex items-center justify-between">
+      {/* 1. Header (Minimalissimo Gallery Style: Clean Off-White with Hairline Border) */}
+      <header className="border-b border-[#e5e5e5] bg-[#fafaf9]/90 backdrop-blur-md sticky top-0 z-30">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="font-serif text-lg tracking-tight text-white font-medium">Izam Rosiawan</span>
+            <span className="font-serif text-lg tracking-tight text-[#111213] font-medium">Izam Rosiawan</span>
             <span className="text-[11px] font-mono text-[#73767c] tracking-wider uppercase">Quantitative Data Science & Actuarial Research</span>
           </div>
 
@@ -66,13 +64,13 @@ export default function HomePage() {
               href="https://github.com/izamrosiawan"
               target="_blank"
               rel="noreferrer"
-              className="text-[#a0a3a8] hover:text-white transition-colors editorial-link"
+              className="text-[#4b5563] hover:text-[#111213] transition-colors editorial-link"
             >
               GitHub ↗
             </a>
             <a
               href="mailto:izamrosiawan13@gmail.com"
-              className="text-[#a0a3a8] hover:text-white transition-colors editorial-link"
+              className="text-[#4b5563] hover:text-[#111213] transition-colors editorial-link"
             >
               Email ↗
             </a>
@@ -85,19 +83,19 @@ export default function HomePage() {
         
         {/* Editorial Introduction */}
         <section className="mb-20 sm:mb-28 max-w-3xl">
-          <p className="text-xs font-mono text-[#73767c] uppercase tracking-widest mb-6">
+          <p className="text-xs font-mono text-[#8c9199] uppercase tracking-widest mb-6">
             Selected Works (2024 — 2026)
           </p>
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-[3.25rem] text-white leading-[1.15] font-normal">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-[3.25rem] text-[#111213] leading-[1.15] font-normal">
             A disciplined collection of applied machine learning, actuarial formulations, and financial risk architectures.
           </h1>
-          <p className="mt-8 text-sm sm:text-base text-[#8f9298] leading-relaxed font-light max-w-2xl">
+          <p className="mt-8 text-sm sm:text-base text-[#4b5563] leading-relaxed font-light max-w-2xl">
             Each repository adheres to rigorous mathematical formulation, zero-leakage preprocessing pipelines, and automated verification suites.
           </p>
         </section>
 
         {/* Curation Filter & Search Strip */}
-        <section className="border-t border-b border-[#1d1f22] py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
+        <section className="border-t border-b border-[#e5e5e5] py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
           {/* Categories */}
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono">
             {categories.map((cat) => {
@@ -108,8 +106,8 @@ export default function HomePage() {
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`transition-colors text-left ${
                     isActive
-                      ? "text-white font-medium underline underline-offset-8 decoration-1 decoration-white"
-                      : "text-[#73767c] hover:text-[#c5c7cb]"
+                      ? "text-[#111213] font-semibold underline underline-offset-8 decoration-1 decoration-[#111213]"
+                      : "text-[#8c9199] hover:text-[#111213]"
                   }`}
                 >
                   {cat.label}
@@ -119,49 +117,49 @@ export default function HomePage() {
           </div>
 
           {/* Search */}
-          <div className="relative min-w-[220px]">
+          <div className="relative min-w-[240px]">
             <input
               type="text"
               placeholder="Search by topic, formula, algorithm..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-0 border-b border-[#292c31] py-1 text-xs text-white placeholder-[#54575d] focus:outline-none focus:border-white transition-colors font-mono"
+              className="w-full bg-transparent border-0 border-b border-[#d1d5db] py-1 text-xs text-[#111213] placeholder-[#9ca3af] focus:outline-none focus:border-[#111213] transition-colors font-mono"
             />
           </div>
         </section>
 
-        {/* 3. Projects List (Minimalissimo Editorial Grid) */}
-        <section className="divide-y divide-[#1d1f22]">
+        {/* 3. Projects List (Minimalissimo Gallery Grid) */}
+        <section className="divide-y divide-[#e5e5e5]">
           {filteredProjects.map((project, idx) => (
             <article
               key={project.id}
               onClick={() => setActiveProject(project)}
-              className="py-10 sm:py-12 group cursor-pointer transition-colors hover:bg-white/[0.01]"
+              className="py-10 sm:py-12 group cursor-pointer transition-colors hover:bg-black/[0.015] -mx-4 px-4 rounded-lg"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-baseline">
                 {/* Index & Domain */}
                 <div className="lg:col-span-3">
-                  <span className="text-[11px] font-mono text-[#54575d] block mb-1">
+                  <span className="text-[11px] font-mono text-[#8c9199] block mb-1">
                     {String(idx + 1).padStart(2, "0")} / {project.domain}
                   </span>
-                  <div className="text-[11px] font-mono text-[#73767c]">
+                  <div className="text-[11px] font-mono text-[#6b7280]">
                     {project.datasetInfo.name}
                   </div>
                 </div>
 
                 {/* Title & Problem */}
                 <div className="lg:col-span-6">
-                  <h2 className="font-serif text-xl sm:text-2xl text-white group-hover:text-[#f3f4f6] transition-colors leading-snug">
+                  <h2 className="font-serif text-xl sm:text-2xl text-[#111213] group-hover:text-black transition-colors leading-snug font-medium">
                     {project.title}
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#8a8d93] mt-3 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-[#4b5563] mt-3 leading-relaxed font-light">
                     {project.problem}
                   </p>
                   
                   {/* Tech stack inline */}
                   <div className="flex flex-wrap gap-2 mt-4">
                     {project.techStack.map((t, i) => (
-                      <span key={i} className="text-[10px] font-mono text-[#61646b]">
+                      <span key={i} className="text-[10px] font-mono text-[#9ca3af]">
                         #{t}
                       </span>
                     ))}
@@ -171,15 +169,15 @@ export default function HomePage() {
                 {/* Primary Metric & Link CTA */}
                 <div className="lg:col-span-3 lg:text-right flex lg:flex-col justify-between items-end gap-2">
                   <div>
-                    <div className="text-[10px] font-mono text-[#54575d] uppercase">
+                    <div className="text-[10px] font-mono text-[#8c9199] uppercase">
                       {project.metrics[0].label}
                     </div>
-                    <div className="font-mono text-base sm:text-lg font-medium text-white mt-0.5">
+                    <div className="font-mono text-base sm:text-lg font-semibold text-[#111213] mt-0.5">
                       {project.metrics[0].value}
                     </div>
                   </div>
 
-                  <span className="inline-flex items-center gap-1 text-xs font-mono text-[#73767c] group-hover:text-white transition-colors pt-2">
+                  <span className="inline-flex items-center gap-1 text-xs font-mono text-[#6b7280] group-hover:text-[#111213] transition-colors pt-2">
                     <span>Inspect Case</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </span>
@@ -192,8 +190,8 @@ export default function HomePage() {
       </main>
 
       {/* 4. Footer */}
-      <footer className="border-t border-[#1d1f22] py-12">
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#54575d]">
+      <footer className="border-t border-[#e5e5e5] py-12">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#8c9199]">
           <div>© {new Date().getFullYear()} Izam Rosiawan. All rights reserved.</div>
           <div>Strict Zero-Leakage & Actuarial Precision</div>
         </div>
@@ -201,22 +199,22 @@ export default function HomePage() {
 
       {/* 5. Minimal Modal (Editorial Monograph Overlay) */}
       {activeProject && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
-          <div className="bg-[#0f1012] border border-[#23262a] max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
+          <div className="bg-[#ffffff] border border-[#e5e5e5] max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl rounded-none">
             {/* Modal Header */}
-            <div className="p-8 border-b border-[#1d1f22] flex items-start justify-between gap-6 sticky top-0 bg-[#0f1012] z-10">
+            <div className="p-8 border-b border-[#e5e5e5] flex items-start justify-between gap-6 sticky top-0 bg-[#ffffff] z-10">
               <div>
-                <div className="text-[11px] font-mono text-[#73767c] uppercase tracking-widest mb-1">
+                <div className="text-[11px] font-mono text-[#8c9199] uppercase tracking-widest mb-1">
                   {activeProject.domain} — {activeProject.datasetInfo.name}
                 </div>
-                <h2 className="font-serif text-2xl sm:text-3xl text-white font-normal leading-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#111213] font-medium leading-tight">
                   {activeProject.title}
                 </h2>
               </div>
 
               <button
                 onClick={() => setActiveProject(null)}
-                className="p-1.5 text-[#73767c] hover:text-white transition-colors"
+                className="p-1.5 text-[#8c9199] hover:text-[#111213] transition-colors"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -224,52 +222,52 @@ export default function HomePage() {
             </div>
 
             {/* Modal Content */}
-            <div className="p-8 space-y-8 text-xs sm:text-sm">
+            <div className="p-8 space-y-8 text-xs sm:text-sm text-[#374151]">
               
               {/* Problem Statement */}
               <div>
-                <h3 className="text-xs font-mono text-[#73767c] uppercase tracking-widest mb-3">
+                <h3 className="text-xs font-mono text-[#8c9199] uppercase tracking-widest mb-3">
                   01 / Problem Context
                 </h3>
-                <p className="text-[#a6a9af] leading-relaxed font-light">
+                <p className="text-[#374151] leading-relaxed font-light">
                   {activeProject.problem}
                 </p>
               </div>
 
               {/* Methodology */}
               <div>
-                <h3 className="text-xs font-mono text-[#73767c] uppercase tracking-widest mb-3">
+                <h3 className="text-xs font-mono text-[#8c9199] uppercase tracking-widest mb-3">
                   02 / Computational Methodology
                 </h3>
-                <p className="text-[#a6a9af] leading-relaxed font-light">
+                <p className="text-[#374151] leading-relaxed font-light">
                   {activeProject.methodology}
                 </p>
               </div>
 
               {/* Mathematical Formulation */}
               <div>
-                <h3 className="text-xs font-mono text-[#73767c] uppercase tracking-widest mb-3">
+                <h3 className="text-xs font-mono text-[#8c9199] uppercase tracking-widest mb-3">
                   03 / Mathematical Formulation ({activeProject.formula.title})
                 </h3>
-                <div className="p-4 bg-[#070809] border border-[#1d1f22] font-mono text-white text-xs overflow-x-auto my-2">
+                <div className="p-4 bg-[#f4f4f5] border border-[#e5e5e5] font-mono text-[#111213] text-xs overflow-x-auto my-2">
                   <code>{activeProject.formula.latex}</code>
                 </div>
-                <p className="text-[11px] font-mono text-[#73767c]">
+                <p className="text-[11px] font-mono text-[#6b7280]">
                   {activeProject.formula.explanation}
                 </p>
               </div>
 
               {/* Metrics Grid */}
               <div>
-                <h3 className="text-xs font-mono text-[#73767c] uppercase tracking-widest mb-3">
+                <h3 className="text-xs font-mono text-[#8c9199] uppercase tracking-widest mb-3">
                   04 / Empirical Verification Metrics
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {activeProject.metrics.map((m, idx) => (
-                    <div key={idx} className="p-4 bg-[#070809] border border-[#1d1f22]">
-                      <div className="text-[10px] font-mono text-[#73767c] uppercase">{m.label}</div>
-                      <div className="font-mono text-lg font-medium text-white mt-1">{m.value}</div>
-                      <div className="text-[10px] font-mono text-[#54575d] mt-1">{m.desc}</div>
+                    <div key={idx} className="p-4 bg-[#fafaf9] border border-[#e5e5e5]">
+                      <div className="text-[10px] font-mono text-[#8c9199] uppercase">{m.label}</div>
+                      <div className="font-mono text-lg font-semibold text-[#111213] mt-1">{m.value}</div>
+                      <div className="text-[10px] font-mono text-[#6b7280] mt-1">{m.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -277,13 +275,13 @@ export default function HomePage() {
 
               {/* Findings */}
               <div>
-                <h3 className="text-xs font-mono text-[#73767c] uppercase tracking-widest mb-3">
+                <h3 className="text-xs font-mono text-[#8c9199] uppercase tracking-widest mb-3">
                   05 / Analytical Findings
                 </h3>
-                <ul className="space-y-2 text-[#a6a9af] font-light">
+                <ul className="space-y-2 text-[#374151] font-light">
                   {activeProject.findings.map((f, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                      <span className="text-[#54575d] font-mono text-xs">—</span>
+                      <span className="text-[#9ca3af] font-mono text-xs">—</span>
                       <span className="leading-relaxed">{f}</span>
                     </li>
                   ))}
@@ -292,24 +290,24 @@ export default function HomePage() {
 
               {/* Code Snippet */}
               <div>
-                <div className="flex items-center justify-between text-xs font-mono text-[#73767c] mb-2">
+                <div className="flex items-center justify-between text-xs font-mono text-[#8c9199] mb-2">
                   <span>06 / Production Code Sample</span>
                   <button
                     onClick={() => handleCopyCode(activeProject.codeSnippet)}
-                    className="text-[#73767c] hover:text-white transition-colors"
+                    className="text-[#4b5563] hover:text-[#111213] font-medium transition-colors"
                   >
                     {copiedCode ? "[Copied]" : "[Copy Snippet]"}
                   </button>
                 </div>
-                <pre className="p-4 bg-[#070809] border border-[#1d1f22] font-mono text-xs text-[#c5c7cb] overflow-x-auto leading-relaxed">
+                <pre className="p-4 bg-[#18181b] border border-[#27272a] font-mono text-xs text-[#e4e4e7] overflow-x-auto leading-relaxed">
                   <code>{activeProject.codeSnippet}</code>
                 </pre>
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="p-8 border-t border-[#1d1f22] bg-[#0f1012] flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0">
-              <span className="text-[11px] font-mono text-[#54575d]">
+            <div className="p-8 border-t border-[#e5e5e5] bg-[#fafaf9] flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0">
+              <span className="text-[11px] font-mono text-[#6b7280]">
                 {activeProject.datasetInfo.size}
               </span>
 
@@ -317,7 +315,7 @@ export default function HomePage() {
                 href={activeProject.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-black hover:bg-[#eaeaea] font-mono font-medium text-xs transition-colors"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#111213] text-white hover:bg-black font-mono font-medium text-xs transition-colors shadow-sm"
               >
                 <span>View GitHub Repository</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />

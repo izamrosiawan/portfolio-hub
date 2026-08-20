@@ -30,7 +30,12 @@ import {
   BarChart3,
   Flame,
   CheckCircle2,
-  Atom
+  Atom,
+  ArrowUpRight,
+  TrendingDown,
+  LineChart,
+  BrainCircuit,
+  PieChart
 } from "lucide-react";
 
 export default function HomePage() {
@@ -73,11 +78,11 @@ export default function HomePage() {
   const liveAcceptanceRate = ((quota / (applicants || 1)) * 100).toFixed(2);
 
   const categories = [
-    { id: "All", label: "All Repositories", count: DETAILED_PROJECTS.length },
-    { id: "Insurance", label: "Actuarial & Insurance", count: DETAILED_PROJECTS.filter(p => p.category === "Insurance").length },
-    { id: "Banking", label: "Quantitative Finance", count: DETAILED_PROJECTS.filter(p => p.category === "Banking").length },
+    { id: "All", label: "Semua Proyek", count: DETAILED_PROJECTS.length },
+    { id: "Insurance", label: "Aktuaria & Asuransi", count: DETAILED_PROJECTS.filter(p => p.category === "Insurance").length },
+    { id: "Banking", label: "Keuangan Kuantitatif", count: DETAILED_PROJECTS.filter(p => p.category === "Banking").length },
     { id: "SupplyChain", label: "Supply Chain & Ops", count: DETAILED_PROJECTS.filter(p => p.category === "SupplyChain").length },
-    { id: "PublicPolicy", label: "Public Policy & Impact", count: DETAILED_PROJECTS.filter(p => p.category === "PublicPolicy").length },
+    { id: "PublicPolicy", label: "Kebijakan Publik", count: DETAILED_PROJECTS.filter(p => p.category === "PublicPolicy").length },
     { id: "Healthcare", label: "Healthcare AI", count: DETAILED_PROJECTS.filter(p => p.category === "Healthcare").length },
     { id: "Systems", label: "MLOps & Systems", count: DETAILED_PROJECTS.filter(p => p.category === "Systems").length },
   ];
@@ -102,219 +107,224 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-[#07090e] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
       
-      {/* Top Floating Glass Navigation */}
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-[#080c14]/80 border-b border-slate-800/80">
+      {/* Top Floating Glass Header */}
+      <header className="sticky top-0 z-40 bg-[#07090e]/80 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-mono font-bold text-sm shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-mono font-bold text-sm shadow-lg shadow-indigo-500/20">
               IR
             </div>
             <div>
-              <span className="font-bold text-sm tracking-tight text-slate-100">Izam Rosiawan</span>
-              <span className="text-[11px] text-slate-400 font-mono block -mt-0.5">Quantitative Data Scientist</span>
+              <span className="font-bold text-sm text-white tracking-tight">Izam Rosiawan</span>
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span className="text-[11px] text-slate-400 font-mono">Data Scientist & Quantitative Analyst</span>
+              </div>
             </div>
           </div>
 
-          {/* Navigation Mode Pill Tabs */}
-          <div className="hidden md:flex items-center p-1 rounded-lg bg-slate-900/90 border border-slate-800 text-xs">
+          {/* Mode Pill Switcher */}
+          <div className="hidden md:flex items-center p-1 rounded-xl bg-white/[0.03] border border-white/[0.06]">
             <button
               onClick={() => setActiveTab("projects")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs transition-all ${
                 activeTab === "projects"
-                  ? "bg-indigo-600 text-white shadow-sm font-semibold"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                  ? "bg-white/10 text-white font-semibold shadow-sm backdrop-blur-sm border border-white/10"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]"
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Repositories ({DETAILED_PROJECTS.length})</span>
+              <span>Koleksi Proyek ({DETAILED_PROJECTS.length})</span>
             </button>
 
             <button
               onClick={() => setActiveTab("benchmarks")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs transition-all ${
                 activeTab === "benchmarks"
-                  ? "bg-indigo-600 text-white shadow-sm font-semibold"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                  ? "bg-white/10 text-white font-semibold shadow-sm backdrop-blur-sm border border-white/10"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]"
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
-              <span>Empirical Benchmarks</span>
+              <span>Matriks Evaluasi</span>
             </button>
 
             <button
               onClick={() => setActiveTab("simulator")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs transition-all ${
                 activeTab === "simulator"
-                  ? "bg-indigo-600 text-white shadow-sm font-semibold"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                  ? "bg-white/10 text-white font-semibold shadow-sm backdrop-blur-sm border border-white/10"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.02]"
               }`}
             >
               <Atom className="w-3.5 h-3.5" />
-              <span>Live Inference Simulator</span>
+              <span>Simulator Inferensi</span>
             </button>
           </div>
 
-          {/* Social & Contact Actions */}
-          <div className="flex items-center gap-2.5">
+          {/* Quick Actions */}
+          <div className="flex items-center gap-2">
             <a
               href="https://github.com/izamrosiawan"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-xs font-mono text-slate-300 transition-all active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] text-xs font-mono text-slate-300 transition-all active:scale-[0.98]"
             >
               <Github className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">GitHub</span>
             </a>
             <a
               href="mailto:izamrosiawan13@gmail.com"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition-all shadow-sm active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition-all shadow-md shadow-indigo-600/20 active:scale-[0.98]"
             >
               <Mail className="w-3.5 h-3.5" />
-              <span>Contact</span>
+              <span>Hubungi</span>
             </a>
           </div>
         </div>
       </header>
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        {/* Executive Hero Section */}
-        <section className="border-b border-slate-800/80 pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-mono mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-            <span>Production ML & Actuarial Quantitative Portfolio</span>
+        {/* Editorial Hero Banner */}
+        <section className="relative pb-12 mb-8 border-b border-white/[0.06]">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Pusat Riset Data Kuantitatif & Machine Learning Terapan</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.1] font-sans">
+              Industrial Data Science & Actuarial Quantitative Engineering.
+            </h1>
+            
+            <p className="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+              Portofolio riset dan implementasi sistem komputasi berstandar industri: pemodelan aktuaria (*pure premium GLM*), analisis risiko keuangan ekor gemuk (*VaR & ES 95%*), hingga pemrosesan rantai pasok dengan validasi zero-leakage.
+            </p>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-100 tracking-tight max-w-4xl leading-[1.15]">
-            Industrial Data Science, Actuarial Pricing & Financial Modeling.
-          </h1>
-          
-          <p className="mt-5 text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
-            Menghubungkan teori aktuaria mendalam, ekonometrika keuangan, dan machine learning skala produksi. Dilengkapi validasi pengujian otomatis Pytest 100%, protokol anti kebocoran data terisolasi, dan inferensi matematis teruji.
-          </p>
-
-          {/* Key Executive Metrics Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-            <div className="p-4 rounded-xl bg-[#0d1322] border border-slate-800/80 hover:border-slate-700 transition-all">
-              <div className="text-[11px] text-slate-400 font-mono uppercase tracking-wider">Total Repositories</div>
-              <div className="text-2xl font-bold font-mono text-slate-100 mt-1">{DETAILED_PROJECTS.length} Proyek</div>
-              <div className="text-[11px] text-slate-500 mt-1">Verified on GitHub</div>
+          {/* Minimalist Stats Strip */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Repositori Terverifikasi</div>
+              <div className="text-2xl font-bold font-mono text-white mt-1">{DETAILED_PROJECTS.length} Proyek</div>
+              <div className="text-[11px] text-slate-400 mt-1">Open Source di GitHub</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#0d1322] border border-slate-800/80 hover:border-slate-700 transition-all">
-              <div className="text-[11px] text-slate-400 font-mono uppercase tracking-wider">Automated Tests</div>
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Automated Testing</div>
               <div className="text-2xl font-bold font-mono text-emerald-400 mt-1">100% Passed</div>
-              <div className="text-[11px] text-slate-500 mt-1">Pytest & Integration Suites</div>
+              <div className="text-[11px] text-slate-400 mt-1">Pytest Test Suites</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#0d1322] border border-slate-800/80 hover:border-slate-700 transition-all">
-              <div className="text-[11px] text-slate-400 font-mono uppercase tracking-wider">Integrity Audit</div>
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Integritas Preprocessing</div>
               <div className="text-2xl font-bold font-mono text-amber-400 mt-1">Zero Leakage</div>
-              <div className="text-[11px] text-slate-500 mt-1">Strict Train-Test Isolation</div>
+              <div className="text-[11px] text-slate-400 mt-1">Isolasi Train-Test Ketat</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#0d1322] border border-slate-800/80 hover:border-slate-700 transition-all">
-              <div className="text-[11px] text-slate-400 font-mono uppercase tracking-wider">Specialized Domains</div>
-              <div className="text-2xl font-bold font-mono text-indigo-400 mt-1">6 Verticals</div>
-              <div className="text-[11px] text-slate-500 mt-1">Actuarial to Macro Policy</div>
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Domain Vertikal</div>
+              <div className="text-2xl font-bold font-mono text-indigo-400 mt-1">6 Industri</div>
+              <div className="text-[11px] text-slate-400 mt-1">Aktuaria hingga Kebijakan Publik</div>
             </div>
           </div>
         </section>
 
-        {/* Tab 1: Live Mathematical Simulators */}
+        {/* Tab 1: Live Simulators */}
         {activeTab === "simulator" && (
-          <section className="py-8">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-100">Live Mathematical Inference Simulators</h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Uji langsung model matematika dan formulasi aktuaria yang telah diterapkan pada repositori terkait:
+          <section className="py-6">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-white">Simulator Inferensi Model Live</h2>
+              <p className="text-sm text-slate-400 mt-1">
+                Kalkulasi interaktif langsung dari formulasi matematika yang diimplementasikan pada repositori:
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* 1. Quantitative Finance VaR Simulator */}
-              <div className="p-5 rounded-xl bg-[#0d1322] border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all">
+              {/* 1. Quant Finance VaR Simulator */}
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col justify-between hover:border-indigo-500/30 transition-all">
                 <div>
-                  <div className="flex items-center justify-between text-xs mb-3">
-                    <span className="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-mono text-[11px] border border-indigo-500/20 font-medium">Quant Finance</span>
+                  <div className="flex items-center justify-between text-xs mb-4">
+                    <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 font-mono border border-indigo-500/20">Keuangan Kuantitatif</span>
                     <span className="text-slate-400 font-mono text-[11px]">VaR & ES 95%</span>
                   </div>
-                  <h3 className="text-sm font-bold text-slate-100">Portfolio Value at Risk Simulator</h3>
-                  <p className="text-xs text-slate-400 mt-1">Estimasi risiko kerugian harian saham Big Four Bank Indonesia.</p>
+                  <h3 className="text-base font-bold text-white">Value at Risk Portofolio Saham Bank</h3>
+                  <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">Estimasi potensi kerugian harian saham Big Four Bank Indonesia.</p>
 
-                  <div className="mt-4 space-y-3 text-xs">
+                  <div className="mt-6 space-y-4 text-xs">
                     <div>
-                      <label className="text-slate-400 block mb-1">Pilih Emiten Perbankan:</label>
+                      <label className="text-slate-300 font-medium block mb-1.5">Pilih Emiten Bank:</label>
                       <div className="grid grid-cols-4 gap-1.5">
                         {(["BBCA", "BBRI", "BMRI", "BBNI"] as const).map((bank) => (
                           <button
                             key={bank}
                             onClick={() => setSelectedBank(bank)}
-                            className={`py-1.5 rounded-lg font-mono font-bold text-xs transition-all active:scale-[0.98] ${
+                            className={`py-2 rounded-xl font-mono font-bold text-xs transition-all active:scale-[0.98] ${
                               selectedBank === bank
-                                ? "bg-indigo-600 text-white shadow-sm"
-                                : "bg-slate-950 text-slate-400 border border-slate-800 hover:bg-slate-800"
+                                ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+                                : "bg-white/[0.03] text-slate-400 border border-white/[0.06] hover:bg-white/[0.06]"
                             }`}
                           >
                             {bank}
                           </button>
                         ))}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1.5 font-mono italic">
+                      <div className="text-[11px] text-slate-400 mt-2 font-mono italic">
                         {bankRiskParams[selectedBank].label}
                       </div>
                     </div>
 
                     <div>
-                      <label className="text-slate-400 block mb-1">Nominal Portofolio (IDR):</label>
+                      <label className="text-slate-300 font-medium block mb-1.5">Nilai Portofolio (IDR):</label>
                       <input
                         type="number"
                         value={portfolioValue}
                         onChange={(e) => setPortfolioValue(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-1.5 font-mono text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                        className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-3.5 py-2 font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-800 space-y-2 text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Value at Risk 95% (1 Hari):</span>
-                    <span className="font-mono font-bold text-amber-400">
+                <div className="mt-6 pt-4 border-t border-white/[0.06] space-y-2.5 text-xs">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Value at Risk (1 Hari 95%):</span>
+                    <span className="font-mono font-bold text-amber-400 text-sm">
                       Rp {(portfolioValue * bankRiskParams[selectedBank].var95).toLocaleString("id-ID")}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Expected Shortfall 95% (Tail Risk):</span>
-                    <span className="font-mono font-bold text-red-400">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Expected Shortfall (Tail Risk):</span>
+                    <span className="font-mono font-bold text-red-400 text-sm">
                       Rp {(portfolioValue * bankRiskParams[selectedBank].es95).toLocaleString("id-ID")}
                     </span>
                   </div>
-                  <div className="flex justify-between pt-1 border-t border-slate-800">
-                    <span className="text-slate-300">Sensitivitas Pasar (Beta):</span>
-                    <span className="font-mono font-bold text-slate-100">{bankRiskParams[selectedBank].beta}</span>
+                  <div className="flex justify-between items-center pt-2 border-t border-white/[0.04]">
+                    <span className="text-slate-400">Sensitivitas Pasar (Beta):</span>
+                    <span className="font-mono font-bold text-white">{bankRiskParams[selectedBank].beta}</span>
                   </div>
                 </div>
               </div>
 
               {/* 2. Actuarial Pure Premium Simulator */}
-              <div className="p-5 rounded-xl bg-[#0d1322] border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all">
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col justify-between hover:border-emerald-500/30 transition-all">
                 <div>
-                  <div className="flex items-center justify-between text-xs mb-3">
-                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[11px] border border-emerald-500/20 font-medium">Actuarial Science</span>
+                  <div className="flex items-center justify-between text-xs mb-4">
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">Sains Aktuaria</span>
                     <span className="text-slate-400 font-mono text-[11px]">GLM Poisson-Gamma</span>
                   </div>
-                  <h3 className="text-sm font-bold text-slate-100">Pure Premium Pricing Calculator</h3>
-                  <p className="text-xs text-slate-400 mt-1">Simulasi penetapan premi murni asuransi motor freMTPL2.</p>
+                  <h3 className="text-base font-bold text-white">Kalkulator Premi Murni Asuransi Motor</h3>
+                  <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">Simulasi kalkulasi premi murni frekuensi x keparahan klaim.</p>
 
-                  <div className="mt-4 space-y-3 text-xs">
+                  <div className="mt-6 space-y-4 text-xs">
                     <div>
-                      <div className="flex justify-between text-slate-400 mb-1">
-                        <span>Tenaga Mesin Kendaraan (VehPower):</span>
-                        <span className="font-mono font-bold text-slate-200">{vehPower}</span>
+                      <div className="flex justify-between text-slate-300 font-medium mb-1.5">
+                        <span>Kekuatan Kendaraan (VehPower):</span>
+                        <span className="font-mono font-bold text-white">{vehPower}</span>
                       </div>
                       <input
                         type="range"
@@ -327,9 +337,9 @@ export default function HomePage() {
                     </div>
 
                     <div>
-                      <div className="flex justify-between text-slate-400 mb-1">
+                      <div className="flex justify-between text-slate-300 font-medium mb-1.5">
                         <span>Usia Pengemudi (DrivAge):</span>
-                        <span className="font-mono font-bold text-slate-200">{drivAge} Tahun</span>
+                        <span className="font-mono font-bold text-white">{drivAge} Tahun</span>
                       </div>
                       <input
                         type="range"
@@ -342,9 +352,9 @@ export default function HomePage() {
                     </div>
 
                     <div>
-                      <div className="flex justify-between text-slate-400 mb-1">
-                        <span>Bonus-Malus Coefficient:</span>
-                        <span className="font-mono font-bold text-slate-200">{bonusMalus}</span>
+                      <div className="flex justify-between text-slate-300 font-medium mb-1.5">
+                        <span>Koefisien Bonus-Malus:</span>
+                        <span className="font-mono font-bold text-white">{bonusMalus}</span>
                       </div>
                       <input
                         type="range"
@@ -358,67 +368,67 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-800 space-y-2 text-xs">
-                  <div className="flex justify-between">
+                <div className="mt-6 pt-4 border-t border-white/[0.06] space-y-2.5 text-xs">
+                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Ekspektasi Frekuensi Klaim:</span>
-                    <span className="font-mono font-bold text-slate-200">{(baseFreq * 100).toFixed(2)}% / thn</span>
+                    <span className="font-mono font-bold text-white">{(baseFreq * 100).toFixed(2)}% / thn</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Ekspektasi Severitas Biaya:</span>
-                    <span className="font-mono font-bold text-slate-200">€{baseSev.toFixed(2)}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Ekspektasi Biaya Klaim:</span>
+                    <span className="font-mono font-bold text-white">€{baseSev.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between pt-1 border-t border-slate-800">
-                    <span className="text-slate-300 font-semibold">Rekomendasi Premi Murni E[Y]:</span>
-                    <span className="font-mono font-bold text-emerald-400 text-sm">€{livePurePremium.toFixed(2)}</span>
+                  <div className="flex justify-between items-center pt-2 border-t border-white/[0.04]">
+                    <span className="text-emerald-400 font-semibold">Premi Murni Rekomendasi E[Y]:</span>
+                    <span className="font-mono font-bold text-emerald-400 text-base">€{livePurePremium.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
               {/* 3. Higher Education SNBT Calculator */}
-              <div className="p-5 rounded-xl bg-[#0d1322] border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all">
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col justify-between hover:border-blue-500/30 transition-all">
                 <div>
-                  <div className="flex items-center justify-between text-xs mb-3">
-                    <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-mono text-[11px] border border-blue-500/20 font-medium">Public Policy</span>
-                    <span className="text-slate-400 font-mono text-[11px]">Campus-ID Metric</span>
+                  <div className="flex items-center justify-between text-xs mb-4">
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 font-mono border border-blue-500/20">Kebijakan Publik</span>
+                    <span className="text-slate-400 font-mono text-[11px]">Campus-ID Analytics</span>
                   </div>
-                  <h3 className="text-sm font-bold text-slate-100">SNBT Competition & Acceptance Calculator</h3>
-                  <p className="text-xs text-slate-400 mt-1">Menghitung peluang kelolosan dan rasio keketatan prodi.</p>
+                  <h3 className="text-base font-bold text-white">Kalkulator Keketatan & Peluang SNBT</h3>
+                  <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">Estimasi peluang kelolosan prodi perguruan tinggi negeri.</p>
 
-                  <div className="mt-4 space-y-3 text-xs">
+                  <div className="mt-6 space-y-4 text-xs">
                     <div>
-                      <label className="text-slate-400 block mb-1">Daya Tampung / Kuota Kursi:</label>
+                      <label className="text-slate-300 font-medium block mb-1.5">Daya Tampung / Kuota Kursi:</label>
                       <input
                         type="number"
                         value={quota}
                         onChange={(e) => setQuota(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-1.5 font-mono text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                        className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-3.5 py-2 font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-slate-400 block mb-1">Jumlah Pendaftar / Peminat:</label>
+                      <label className="text-slate-300 font-medium block mb-1.5">Jumlah Peminat / Pendaftar:</label>
                       <input
                         type="number"
                         value={applicants}
                         onChange={(e) => setApplicants(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-3 py-1.5 font-mono text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors"
+                        className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-3.5 py-2 font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-800 space-y-2 text-xs">
-                  <div className="flex justify-between">
+                <div className="mt-6 pt-4 border-t border-white/[0.06] space-y-2.5 text-xs">
+                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Rasio Keketatan Persaingan:</span>
-                    <span className="font-mono font-bold text-slate-200">1 : {liveCompetitionRatio}</span>
+                    <span className="font-mono font-bold text-white">1 : {liveCompetitionRatio}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Peluang Kelolosan Masuk:</span>
-                    <span className={`font-mono font-bold ${Number(liveAcceptanceRate) < 5 ? "text-red-400" : "text-emerald-400"}`}>
+                    <span className={`font-mono font-bold text-sm ${Number(liveAcceptanceRate) < 5 ? "text-red-400" : "text-emerald-400"}`}>
                       {liveAcceptanceRate}%
                     </span>
                   </div>
-                  <div className="flex justify-between pt-1 border-t border-slate-800">
-                    <span className="text-slate-300">Tingkat Persaingan:</span>
+                  <div className="flex justify-between items-center pt-2 border-t border-white/[0.04]">
+                    <span className="text-slate-400">Kategori Persaingan:</span>
                     <span className="font-mono font-bold text-indigo-400">
                       {Number(liveAcceptanceRate) < 3.0 ? "Sangat Tinggi" : Number(liveAcceptanceRate) < 7.0 ? "Tinggi" : "Moderat"}
                     </span>
@@ -429,92 +439,92 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* Tab 2: Evaluation Metrics Matrix */}
+        {/* Tab 2: Evaluation Matrix */}
         {activeTab === "benchmarks" && (
-          <section className="py-8">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-slate-100">Benchmark & Performance Evaluation Matrix</h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Tabel evaluasi kuantitatif perbandingan model terhadap baseline empiris di seluruh repositori:
+          <section className="py-6">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-white">Matriks Evaluasi & Benchmark Model</h2>
+              <p className="text-sm text-slate-400 mt-1">
+                Perbandingan kinerja model machine learning terhadap baseline konvensional:
               </p>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-800 bg-[#0d1322]">
+            <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02]">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-900/90 text-slate-300 font-mono uppercase text-[11px] border-b border-slate-800">
+                <thead className="bg-white/[0.04] text-slate-300 font-mono uppercase text-[11px] border-b border-white/[0.08]">
                   <tr>
-                    <th className="px-4 py-3.5">Project Domain</th>
-                    <th className="px-4 py-3.5">Best Model Architecture</th>
-                    <th className="px-4 py-3.5">Primary Metric</th>
-                    <th className="px-4 py-3.5">Baseline Comparison</th>
-                    <th className="px-4 py-3.5">Operational Impact</th>
-                    <th className="px-4 py-3.5">Repository</th>
+                    <th className="px-5 py-4">Domain Proyek</th>
+                    <th className="px-5 py-4">Arsitektur Model Terbaik</th>
+                    <th className="px-5 py-4">Metrik Utama</th>
+                    <th className="px-5 py-4">Perbandingan Baseline</th>
+                    <th className="px-5 py-4">Dampak Operasional</th>
+                    <th className="px-5 py-4">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/80 font-mono">
-                  <tr className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-4 py-3.5 font-sans font-medium text-slate-200">Motor Insurance Pricing</td>
-                    <td className="px-4 py-3.5 text-indigo-400 font-medium">Poisson x Gamma GLM</td>
-                    <td className="px-4 py-3.5 text-slate-100 font-bold">Gini = 0.2882</td>
-                    <td className="px-4 py-3.5 text-slate-400">vs Mean Rate (Gini 0.00)</td>
-                    <td className="px-4 py-3.5 font-sans text-slate-300">Eliminasi adverse selection risiko tinggi</td>
-                    <td className="px-4 py-3.5">
-                      <a href="https://github.com/izamrosiawan/insurance-pricing-glm" target="_blank" className="text-indigo-400 hover:underline">Link</a>
+                <tbody className="divide-y divide-white/[0.06] font-mono">
+                  <tr className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 font-sans font-medium text-white">Motor Insurance Pricing</td>
+                    <td className="px-5 py-4 text-indigo-400 font-medium">Poisson x Gamma GLM</td>
+                    <td className="px-5 py-4 text-emerald-400 font-bold">Gini = 0.2882</td>
+                    <td className="px-5 py-4 text-slate-400">vs Mean Rate (0.00)</td>
+                    <td className="px-5 py-4 font-sans text-slate-300">Eliminasi adverse selection risiko tinggi</td>
+                    <td className="px-5 py-4">
+                      <a href="https://github.com/izamrosiawan/insurance-pricing-glm" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Lihat Repo</a>
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-4 py-3.5 font-sans font-medium text-slate-200">Life Underwriting Risk</td>
-                    <td className="px-4 py-3.5 text-indigo-400 font-medium">Ordinal LightGBM (Nelder-Mead)</td>
-                    <td className="px-4 py-3.5 text-slate-100 font-bold">QWK = 0.6495</td>
-                    <td className="px-4 py-3.5 text-slate-400">vs Multiclass Softmax (0.5639)</td>
-                    <td className="px-4 py-3.5 font-sans text-slate-300">74% Straight-Through Processing (STP)</td>
-                    <td className="px-4 py-3.5">
-                      <a href="https://github.com/izamrosiawan/insurance-underwriting-risk" target="_blank" className="text-indigo-400 hover:underline">Link</a>
+                  <tr className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 font-sans font-medium text-white">Life Underwriting Risk</td>
+                    <td className="px-5 py-4 text-indigo-400 font-medium">Ordinal LightGBM (Nelder-Mead)</td>
+                    <td className="px-5 py-4 text-emerald-400 font-bold">QWK = 0.6495</td>
+                    <td className="px-5 py-4 text-slate-400">vs Softmax (0.5639)</td>
+                    <td className="px-5 py-4 font-sans text-slate-300">74% Straight-Through Processing (STP)</td>
+                    <td className="px-5 py-4">
+                      <a href="https://github.com/izamrosiawan/insurance-underwriting-risk" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Lihat Repo</a>
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-4 py-3.5 font-sans font-medium text-slate-200">Big Four Banks Risk</td>
-                    <td className="px-4 py-3.5 text-indigo-400 font-medium">Historical VaR & Expected Shortfall</td>
-                    <td className="px-4 py-3.5 text-slate-100 font-bold">BBCA VaR = 2.28%</td>
-                    <td className="px-4 py-3.5 text-slate-400">vs BBNI (VaR 3.25%, ES 4.72%)</td>
-                    <td className="px-4 py-3.5 font-sans text-slate-300">Portofolio Markowitz meredam MDD ke -48.37%</td>
-                    <td className="px-4 py-3.5">
-                      <a href="https://github.com/izamrosiawan/indonesian-banks-risk-analytics" target="_blank" className="text-indigo-400 hover:underline">Link</a>
+                  <tr className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 font-sans font-medium text-white">Big Four Banks Risk</td>
+                    <td className="px-5 py-4 text-indigo-400 font-medium">Historical VaR & ES 95%</td>
+                    <td className="px-5 py-4 text-emerald-400 font-bold">BBCA VaR = 2.28%</td>
+                    <td className="px-5 py-4 text-slate-400">vs BBNI (VaR 3.25%)</td>
+                    <td className="px-5 py-4 font-sans text-slate-300">Portofolio Markowitz meredam MDD ke -48.37%</td>
+                    <td className="px-5 py-4">
+                      <a href="https://github.com/izamrosiawan/indonesian-banks-risk-analytics" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Lihat Repo</a>
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-4 py-3.5 font-sans font-medium text-slate-200">Claims Fraud Detection</td>
-                    <td className="px-4 py-3.5 text-indigo-400 font-medium">Cost-Sensitive LightGBM</td>
-                    <td className="px-4 py-3.5 text-slate-100 font-bold">PR-AUC = 0.5248</td>
-                    <td className="px-4 py-3.5 text-slate-400">vs Logistic Reg (0.4957)</td>
-                    <td className="px-4 py-3.5 font-sans text-slate-300">Prioritisasi Special Investigation Unit</td>
-                    <td className="px-4 py-3.5">
-                      <a href="https://github.com/izamrosiawan/insurance-claims-fraud-detection" target="_blank" className="text-indigo-400 hover:underline">Link</a>
+                  <tr className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 font-sans font-medium text-white">Claims Fraud Detection</td>
+                    <td className="px-5 py-4 text-indigo-400 font-medium">Cost-Sensitive LightGBM</td>
+                    <td className="px-5 py-4 text-emerald-400 font-bold">PR-AUC = 0.5248</td>
+                    <td className="px-5 py-4 text-slate-400">vs Logistic Reg (0.4957)</td>
+                    <td className="px-5 py-4 font-sans text-slate-300">Prioritisasi Unit Investigasi Khusus (SIU)</td>
+                    <td className="px-5 py-4">
+                      <a href="https://github.com/izamrosiawan/insurance-claims-fraud-detection" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Lihat Repo</a>
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-4 py-3.5 font-sans font-medium text-slate-200">SMART-MUSTAHIK Zakat</td>
-                    <td className="px-4 py-3.5 text-indigo-400 font-medium">Zero-Leakage Random Forest</td>
-                    <td className="px-4 py-3.5 text-slate-100 font-bold">Akurasi = 87.50%</td>
-                    <td className="px-4 py-3.5 text-slate-400">vs Baseline Noise (83.33%)</td>
-                    <td className="px-4 py-3.5 font-sans text-slate-300">Penurunan salah sasaran (IER) sebesar 5.71 pp</td>
-                    <td className="px-4 py-3.5">
-                      <a href="https://github.com/izamrosiawan/smart-mustahik" target="_blank" className="text-indigo-400 hover:underline">Link</a>
+                  <tr className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 font-sans font-medium text-white">SMART-MUSTAHIK Zakat</td>
+                    <td className="px-5 py-4 text-indigo-400 font-medium">Zero-Leakage Random Forest</td>
+                    <td className="px-5 py-4 text-emerald-400 font-bold">Akurasi = 87.50%</td>
+                    <td className="px-5 py-4 text-slate-400">vs Baseline Noise (83.33%)</td>
+                    <td className="px-5 py-4 font-sans text-slate-300">Penurunan salah sasaran (IER) sebesar 5.71 pp</td>
+                    <td className="px-5 py-4">
+                      <a href="https://github.com/izamrosiawan/smart-mustahik" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Lihat Repo</a>
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-4 py-3.5 font-sans font-medium text-slate-200">Breast Cancer Oncology</td>
-                    <td className="px-4 py-3.5 text-indigo-400 font-medium">Neural Network MLP (16-8)</td>
-                    <td className="px-4 py-3.5 text-slate-100 font-bold">Precision = 100.00%</td>
-                    <td className="px-4 py-3.5 text-slate-400">vs Random Forest (97.83%)</td>
-                    <td className="px-4 py-3.5 font-sans text-slate-300">Nol false-positive diagnosis pada data uji</td>
-                    <td className="px-4 py-3.5">
-                      <a href="https://github.com/izamrosiawan/mlp-vs-random-forest-breast-cancer" target="_blank" className="text-indigo-400 hover:underline">Link</a>
+                  <tr className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4 font-sans font-medium text-white">Breast Cancer Oncology</td>
+                    <td className="px-5 py-4 text-indigo-400 font-medium">Neural Network MLP (16-8)</td>
+                    <td className="px-5 py-4 text-emerald-400 font-bold">Presisi = 100.00%</td>
+                    <td className="px-5 py-4 text-slate-400">vs Random Forest (97.83%)</td>
+                    <td className="px-5 py-4 font-sans text-slate-300">Nol false-positive diagnosis pada data uji</td>
+                    <td className="px-5 py-4">
+                      <a href="https://github.com/izamrosiawan/mlp-vs-random-forest-breast-cancer" target="_blank" className="text-indigo-400 hover:text-indigo-300 underline font-medium">Lihat Repo</a>
                     </td>
                   </tr>
                 </tbody>
@@ -523,26 +533,26 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* Tab 0: Repositories & Case Studies (Default) */}
+        {/* Tab 0: Repositories (Default) */}
         {activeTab === "projects" && (
           <section className="py-6">
-            {/* Filter Navigation Bar */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-6 border-b border-slate-800">
-              <div className="flex flex-wrap items-center gap-1.5">
+            {/* Filter & Search Bar */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-8 border-b border-white/[0.06]">
+              <div className="flex flex-wrap items-center gap-2">
                 {categories.map((cat) => {
                   const isActive = selectedCategory === cat.id;
                   return (
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-[0.98] ${
+                      className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all active:scale-[0.98] ${
                         isActive
-                          ? "bg-indigo-600 text-white font-semibold shadow-sm"
-                          : "bg-[#0d1322] text-slate-400 border border-slate-800 hover:bg-slate-800 hover:text-slate-200"
+                          ? "bg-white text-slate-900 font-bold shadow-lg shadow-white/10"
+                          : "bg-white/[0.03] text-slate-400 border border-white/[0.06] hover:bg-white/[0.08] hover:text-white"
                       }`}
                     >
                       <span>{cat.label}</span>
-                      <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${isActive ? "bg-indigo-800 text-white" : "bg-slate-950 text-slate-400"}`}>
+                      <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${isActive ? "bg-slate-200 text-slate-900 font-bold" : "bg-white/[0.06] text-slate-400"}`}>
                         {cat.count}
                       </span>
                     </button>
@@ -552,73 +562,74 @@ export default function HomePage() {
 
               {/* Search Bar */}
               <div className="relative min-w-[280px]">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Cari algoritma, formula, metrik..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#0d1322] border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors font-sans"
+                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-full pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors font-sans"
                 />
               </div>
             </div>
 
-            {/* Project Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
+            {/* Project Cards (Curated Editorial Craft) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
               {filteredProjects.map((project) => (
                 <div
                   key={project.id}
                   onClick={() => setActiveProject(project)}
-                  className="rounded-xl bg-[#0d1322] border border-slate-800/90 hover:border-indigo-500/50 hover:bg-[#111827] transition-all p-5 flex flex-col justify-between cursor-pointer group shadow-sm hover:shadow-indigo-500/5"
+                  className="rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.16] hover:bg-white/[0.04] transition-all p-6 flex flex-col justify-between cursor-pointer group shadow-sm"
                 >
                   <div>
-                    {/* Header Pill */}
-                    <div className="flex items-center justify-between gap-2 text-xs mb-3">
-                      <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 font-mono text-[11px] border border-indigo-500/20">
+                    {/* Domain & Pytest Pill */}
+                    <div className="flex items-center justify-between gap-2 text-xs mb-4">
+                      <span className="px-2.5 py-1 rounded-full bg-white/[0.04] text-slate-300 font-mono text-[11px] border border-white/[0.06]">
                         {project.domain}
                       </span>
-                      <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                         Pytest 100%
                       </span>
                     </div>
 
-                    {/* Title & Tagline */}
-                    <h3 className="text-base font-bold text-slate-100 group-hover:text-indigo-300 transition-colors leading-snug">
+                    {/* Title */}
+                    <h3 className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors leading-snug">
                       {project.title}
                     </h3>
-                    <p className="text-[11px] text-slate-400 font-mono mt-1 line-clamp-1">
+                    
+                    <p className="text-xs text-slate-400 font-mono mt-1 line-clamp-1">
                       {project.tagline}
                     </p>
 
-                    {/* Problem Preview */}
-                    <p className="text-xs text-slate-400 mt-3 line-clamp-2 leading-relaxed">
+                    {/* Problem Statement */}
+                    <p className="text-xs text-slate-300 mt-3 line-clamp-2 leading-relaxed">
                       {project.problem}
                     </p>
 
-                    {/* Metrics Bar */}
-                    <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-slate-800/80">
+                    {/* 3 Metrics Box */}
+                    <div className="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-white/[0.06]">
                       {project.metrics.map((m, idx) => (
-                        <div key={idx} className="p-2 rounded-lg bg-slate-950/70 border border-slate-800/60 text-center">
+                        <div key={idx} className="p-2.5 rounded-xl bg-black/30 border border-white/[0.04] text-center">
                           <div className="text-[10px] text-slate-400 truncate">{m.label}</div>
-                          <div className="text-xs font-bold font-mono text-slate-100 mt-0.5">{m.value}</div>
+                          <div className="text-xs font-bold font-mono text-white mt-0.5">{m.value}</div>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Footer Action */}
-                  <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                  {/* Card Bottom CTA */}
+                  <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs">
                     <div className="flex flex-wrap gap-1">
                       {project.techStack.slice(0, 2).map((t, idx) => (
-                        <span key={idx} className="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[10px]">
+                        <span key={idx} className="px-2 py-0.5 rounded-md bg-white/[0.04] text-slate-400 font-mono text-[10px]">
                           {t}
                         </span>
                       ))}
                     </div>
-                    <span className="inline-flex items-center gap-1 text-indigo-400 group-hover:translate-x-0.5 transition-transform font-medium">
-                      <span>View Case Study</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                    <span className="inline-flex items-center gap-1 text-white font-medium group-hover:text-indigo-300 transition-colors">
+                      <span>Studi Kasus</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
                   </div>
                 </div>
@@ -629,61 +640,61 @@ export default function HomePage() {
 
       </main>
 
-      {/* Case Study Detail Modal (In-Depth Technical View) */}
+      {/* Case Study Detail Modal */}
       {activeProject && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="bg-[#0b101c] border border-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="bg-[#0b0e17] border border-white/[0.1] rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             {/* Modal Header */}
-            <div className="p-6 border-b border-slate-800 flex items-start justify-between gap-4 sticky top-0 bg-[#0b101c]/95 backdrop-blur-md z-10">
+            <div className="p-6 sm:p-8 border-b border-white/[0.08] flex items-start justify-between gap-4 sticky top-0 bg-[#0b0e17]/95 backdrop-blur-xl z-10">
               <div>
-                <div className="flex items-center gap-2 text-xs mb-1.5">
-                  <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 font-mono font-medium border border-indigo-500/20">
+                <div className="flex items-center gap-2 text-xs mb-2">
+                  <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 font-mono font-medium border border-indigo-500/20">
                     {activeProject.domain}
                   </span>
                   <span className="text-slate-400 font-mono text-xs">{activeProject.datasetInfo.name}</span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-bold text-slate-100">{activeProject.title}</h2>
+                <h2 className="text-2xl font-bold text-white">{activeProject.title}</h2>
                 <p className="text-xs text-slate-400 font-mono mt-1">{activeProject.tagline}</p>
               </div>
 
               <button
                 onClick={() => setActiveProject(null)}
-                className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+                className="p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-slate-400 hover:text-white hover:bg-white/[0.08] transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6 space-y-6 text-xs sm:text-sm">
+            {/* Modal Body */}
+            <div className="p-6 sm:p-8 space-y-6 text-xs sm:text-sm">
               
               {/* Problem & Methodology */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="p-4 rounded-xl bg-[#0d1322] border border-slate-800">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
                   <div className="font-bold text-xs text-slate-300 uppercase tracking-wider mb-2 font-mono">
                     1. Masalah Bisnis & Formulasi
                   </div>
-                  <p className="text-slate-400 leading-relaxed">{activeProject.problem}</p>
+                  <p className="text-slate-300 leading-relaxed text-xs">{activeProject.problem}</p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#0d1322] border border-slate-800">
+                <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
                   <div className="font-bold text-xs text-slate-300 uppercase tracking-wider mb-2 font-mono">
                     2. Metodologi Komputasi & Solusi
                   </div>
-                  <p className="text-slate-400 leading-relaxed">{activeProject.methodology}</p>
+                  <p className="text-slate-300 leading-relaxed text-xs">{activeProject.methodology}</p>
                 </div>
               </div>
 
-              {/* Key Quantitative Metrics */}
+              {/* Quantitative Metrics */}
               <div>
                 <div className="font-bold text-xs text-slate-300 uppercase tracking-wider mb-3 font-mono">
                   3. Evaluasi Metrik Kuantitatif
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {activeProject.metrics.map((m, idx) => (
-                    <div key={idx} className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                    <div key={idx} className="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
                       <div className="text-xs text-slate-400">{m.label}</div>
-                      <div className="text-lg font-bold font-mono text-slate-100 mt-0.5">{m.value}</div>
+                      <div className="text-lg font-bold font-mono text-white mt-1">{m.value}</div>
                       <div className="text-[11px] text-slate-400 mt-1">{m.desc}</div>
                     </div>
                   ))}
@@ -691,51 +702,51 @@ export default function HomePage() {
               </div>
 
               {/* Mathematical Equation Box */}
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
-                <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-1 font-mono">
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/[0.06]">
+                <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 font-mono">
                   4. {activeProject.formula.title}
                 </div>
-                <div className="p-3 my-2 rounded-lg bg-[#0d1322] border border-slate-800 font-mono text-indigo-300 text-xs overflow-x-auto">
+                <div className="p-4 my-2 rounded-xl bg-white/[0.03] border border-white/[0.06] font-mono text-indigo-300 text-xs overflow-x-auto">
                   <code>{activeProject.formula.latex}</code>
                 </div>
-                <p className="text-xs text-slate-400">{activeProject.formula.explanation}</p>
+                <p className="text-xs text-slate-400 mt-2">{activeProject.formula.explanation}</p>
               </div>
 
-              {/* Key Findings List */}
+              {/* Key Findings */}
               <div>
-                <div className="font-bold text-xs text-slate-300 uppercase tracking-wider mb-2 font-mono">
+                <div className="font-bold text-xs text-slate-300 uppercase tracking-wider mb-3 font-mono">
                   5. Temuan Analitik Utama
                 </div>
-                <ul className="space-y-2 text-slate-300">
+                <ul className="space-y-2.5 text-slate-300 text-xs">
                   {activeProject.findings.map((f, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                      <span>{f}</span>
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0"></span>
+                      <span className="leading-relaxed">{f}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Production Code Snippet */}
+              {/* Code Snippet */}
               <div className="relative">
                 <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
                   <span>6. Modular Production Inference Code (src/)</span>
                   <button
                     onClick={() => handleCopyCode(activeProject.codeSnippet)}
-                    className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-200 transition-colors"
+                    className="inline-flex items-center gap-1 text-slate-400 hover:text-white transition-colors"
                   >
                     {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedCode ? "Copied" : "Copy Code"}</span>
+                    <span>{copiedCode ? "Tersalin" : "Salin Kode"}</span>
                   </button>
                 </div>
-                <pre className="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
+                <pre className="p-5 rounded-2xl bg-black/60 border border-white/[0.08] font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
                   <code>{activeProject.codeSnippet}</code>
                 </pre>
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="p-6 border-t border-slate-800 bg-[#0b101c] flex items-center justify-between gap-4 sticky bottom-0 rounded-b-2xl">
+            <div className="p-6 sm:p-8 border-t border-white/[0.08] bg-[#0b0e17] flex items-center justify-between gap-4 sticky bottom-0 rounded-b-3xl">
               <div className="text-xs text-slate-400 font-mono">
                 Dataset: {activeProject.datasetInfo.size} ({activeProject.datasetInfo.source})
               </div>
@@ -744,10 +755,10 @@ export default function HomePage() {
                 href={activeProject.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-xs text-white transition-all shadow-sm active:scale-[0.98]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-xs text-white transition-all shadow-md shadow-indigo-600/30 active:scale-[0.98]"
               >
                 <Github className="w-4 h-4" />
-                <span>Open Full GitHub Repository</span>
+                <span>Buka Repositori GitHub</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>

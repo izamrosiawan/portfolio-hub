@@ -319,37 +319,5 @@ print(res.json())`,
     techStack: ["FastAPI", "Uvicorn", "Pydantic v2", "Scikit-Learn", "TestClient", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/fastapi-house-price-predictor",
     datasetInfo: { name: "Residential Housing Features", size: "Fitur Properti Perumahan", source: "Kaggle Real Estate" }
-  },
-  {
-    id: "ai-research-os",
-    title: "AI Research OS: Academic Rigor & ML Pipeline Automation Toolkit",
-    domain: "Research Tooling & Automation",
-    category: "Systems",
-    tagline: "Automated CLI Engine for 1-to-1 BibTeX Citation Audits, AST Leakage Detection, and LaTeX Booktabs",
-    problem: "Penulisan manuskrip ilmiah dan eksperimen machine learning sering mengalami data leakage tak terdeteksi, halusinasi sitasi, dan pemborosan waktu dalam memformat tabel metrik ke standar LaTeX.",
-    methodology: "Engine CLI berbasis Python yang melakukan analisis statis Abstract Syntax Tree (AST) untuk mendeteksi pelanggaran urutan train-test split pada skrip Python dan Jupyter Notebook (.ipynb), validasi kesesuaian sitasi in-text terhadap basis data BibTeX, serta otomatisasi kompilasi tabel LaTeX Booktabs dan Markdown APA 7th.",
-    findings: [
-      "Pemeriksaan AST otomatis memblokir commit kode jika mendeteksi scaler.fit() dipanggil sebelum train_test_split.",
-      "Parser sitasi memverifikasi 100% keselarasan antara teks manuskrip dengan entri BibTeX (.bib) tanpa halusinasi DOI.",
-      "Generator tabel memangkas waktu formatting tabel hasil eksperimen menjadi hitungan detik dengan output LaTeX booktabs siap Scopus/IEEE."
-    ],
-    metrics: [
-      { label: "CLI Subcommands", value: "12 Tools", desc: "Modul Automasi Riset" },
-      { label: "Audit Type", value: "AST Static", desc: "Python & .ipynb Notebook" },
-      { label: "Formatting", value: "Booktabs", desc: "LaTeX & APA 7th" }
-    ],
-    formula: {
-      title: "Kalkulasi Statistical Power Riset",
-      latex: "\\text{Power} = 1 - \\beta = \\Phi\\left(\\frac{d \\sqrt{N}}{2} - Z_{1-\\alpha/2}\\right)",
-      explanation: "Perhitungan ukuran sampel minimum untuk menjamin validitas pembuktian hipotesis statistik."
-    },
-    codeSnippet: `# Jalankan audit data leakage pada Jupyter Notebook
-python research_os.py audit-leakage notebook.ipynb
-
-# Generate tabel publikasi LaTeX Booktabs
-python research_os.py generate-table data/metrics.csv --format both`,
-    techStack: ["Python 3.11", "AST Parser", "BibTeX Tools", "LaTeX Generator", "Pre-Commit Hooks"],
-    githubUrl: "https://github.com/izamrosiawan/ai-research-os",
-    datasetInfo: { name: "Research Automation Metadata", size: "12 Modul CLI Riset", source: "AI Research OS Repository" }
   }
 ];

@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { DETAILED_PROJECTS, ProjectDetail } from "@/data/projects_detail";
 import InteractiveResearchTown from "@/components/InteractiveResearchTown";
+import IsometricQuantTownMap from "@/components/IsometricQuantTownMap";
 import { 
   ArrowUpRight, 
   Github, 
@@ -14,11 +15,13 @@ import {
   Map,
   ListFilter,
   Sparkles,
-  BookOpen
+  BookOpen,
+  Compass,
+  Grid
 } from "lucide-react";
 
 export default function HomePage() {
-  const [viewMode, setViewMode] = useState<"town" | "stream">("town");
+  const [viewMode, setViewMode] = useState<"borraginol" | "districts" | "stream">("borraginol");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeProject, setActiveProject] = useState<ProjectDetail | null>(null);
@@ -104,17 +107,29 @@ export default function HomePage() {
 
         {/* View Mode Switcher Strip (Borraginol Town Style vs Stream) */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-b border-[#e5e5e5] py-4 mb-10">
-          <div className="flex items-center gap-2 p-1 bg-[#e4e4e7]/60 rounded-xl font-mono text-xs font-bold">
+          <div className="flex flex-wrap items-center gap-2 p-1 bg-[#e4e4e7]/60 rounded-xl font-mono text-xs font-bold">
             <button
-              onClick={() => setViewMode("town")}
+              onClick={() => setViewMode("borraginol")}
               className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
-                viewMode === "town"
+                viewMode === "borraginol"
                   ? "bg-[#111213] text-white shadow-xs"
                   : "text-[#525252] hover:text-[#111213]"
               }`}
             >
-              <Map className="w-4 h-4" />
-              <span>Peta Interaktif (Research Town)</span>
+              <Compass className="w-4 h-4 text-[#38bdf8]" />
+              <span>🗺️ Peta Spasial (Borraginol Town)</span>
+            </button>
+
+            <button
+              onClick={() => setViewMode("districts")}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                viewMode === "districts"
+                  ? "bg-[#111213] text-white shadow-xs"
+                  : "text-[#525252] hover:text-[#111213]"
+              }`}
+            >
+              <Grid className="w-4 h-4" />
+              <span>🏛️ Kartu Distrik</span>
             </button>
 
             <button
@@ -126,22 +141,33 @@ export default function HomePage() {
               }`}
             >
               <ListFilter className="w-4 h-4" />
-              <span>Daftar Monograf (Editorial Stream)</span>
+              <span>📄 Monograf (Stream)</span>
             </button>
           </div>
 
           <div className="text-xs font-mono text-[#525252] font-semibold">
-            {viewMode === "town" ? "🗺️ Peta Distrik Interaktif Aktif" : "📄 Tampilan Daftar Monograf Aktif"}
+            {viewMode === "borraginol" && "🗺️ Peta Canvas Zoom & Drag Borraginol Town Aktif"}
+            {viewMode === "districts" && "🏛️ Tampilan Kartu Distrik Domain Aktif"}
+            {viewMode === "stream" && "📄 Tampilan Daftar Monograf Stream Aktif"}
           </div>
         </div>
 
         {/* Dynamic View Rendering */}
-        {viewMode === "town" ? (
+        {viewMode === "borraginol" && (
+          <IsometricQuantTownMap
+            projects={DETAILED_PROJECTS}
+            onSelectProject={setActiveProject}
+          />
+        )}
+
+        {viewMode === "districts" && (
           <InteractiveResearchTown
             projects={DETAILED_PROJECTS}
             onSelectProject={setActiveProject}
           />
-        ) : (
+        )}
+
+        {viewMode === "stream" && (
           <div>
             {/* Curation Filter & Search Strip */}
             <section className="border-b border-[#e5e5e5] pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">

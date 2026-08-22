@@ -461,7 +461,7 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com/in/izam-rosiawan"
+                href="https://www.linkedin.com/in/izam-rosiawan-86089627a/"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-4 bg-white hover:bg-[#dfe5eb] text-[#162d3d] border border-[#dfe5eb] text-sm font-bold uppercase tracking-wider rounded-full transition-all"
@@ -770,12 +770,12 @@ export default function HomePage() {
                     LINKEDIN
                   </div>
                   <a
-                    href="https://linkedin.com/in/izam-rosiawan"
+                    href="https://www.linkedin.com/in/izam-rosiawan-86089627a/"
                     target="_blank"
                     rel="noreferrer"
                     className="text-sm font-bold text-[#116dff] hover:underline"
                   >
-                    linkedin.com/in/izam-rosiawan
+                    linkedin.com/in/izam-rosiawan-86089627a
                   </a>
                 </div>
               </div>
@@ -969,7 +969,7 @@ export default function HomePage() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com/in/izam-rosiawan"
+                href="https://www.linkedin.com/in/izam-rosiawan-86089627a/"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-white transition-colors"

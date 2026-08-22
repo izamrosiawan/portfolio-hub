@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import katex from "katex";
 import { DETAILED_PROJECTS, ProjectDetail } from "@/data/projects_detail";
 import {
   ArrowRight,
@@ -20,6 +21,19 @@ import {
   MapPin,
   FileText,
 } from "lucide-react";
+
+function renderLatex(latex: string) {
+  try {
+    return {
+      __html: katex.renderToString(latex, {
+        displayMode: true,
+        throwOnError: false,
+      }),
+    };
+  } catch {
+    return { __html: latex };
+  }
+}
 
 export default function HomePage() {
   const [currentTestimonial, setCurrentTestimonial] = useState<number>(0);
@@ -914,9 +928,10 @@ export default function HomePage() {
                 <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-2">
                   03 / FORMULA ({activeProject.formula.title})
                 </div>
-                <div className="p-4 font-mono text-xs overflow-x-auto bg-[#f4f4f4] border border-[#e0e0e0] text-[#090909] rounded-[16px]">
-                  {activeProject.formula.latex}
-                </div>
+                <div
+                  className="p-5 overflow-x-auto bg-[#f4f4f4] border border-[#e0e0e0] text-[#090909] rounded-[16px] text-center my-2 text-sm sm:text-base leading-relaxed"
+                  dangerouslySetInnerHTML={renderLatex(activeProject.formula.latex)}
+                />
                 <p className="text-xs mt-2 text-[#777777]">{activeProject.formula.explanation}</p>
               </div>
 

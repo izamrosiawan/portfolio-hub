@@ -2,27 +2,18 @@
 
 import React, { useState, useMemo } from "react";
 import { DETAILED_PROJECTS, ProjectDetail } from "@/data/projects_detail";
-import AbstractDataCanvas from "@/components/AbstractDataCanvas";
 import { 
   ArrowUpRight, 
   Github, 
   Mail, 
   X, 
-  Check, 
   Copy,
   ExternalLink,
   BookOpen,
-  Sparkles,
   Search,
-  Building2,
-  ShieldCheck,
-  Truck,
-  Globe,
-  Activity,
-  Cpu,
+  SlidersHorizontal,
   Layers,
-  Sliders,
-  Grid
+  ArrowRight
 } from "lucide-react";
 
 export default function HomePage() {
@@ -30,16 +21,15 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeProject, setActiveProject] = useState<ProjectDetail | null>(null);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
-  const [viewStyle, setViewStyle] = useState<"abstract_cards" | "publication_list">("abstract_cards");
 
   const categories = [
-    { id: "All", label: "Semua Riset (20)", icon: <Grid className="w-3.5 h-3.5" /> },
-    { id: "Insurance", label: "Aktuaria & Asuransi (5)", icon: <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> },
-    { id: "Banking", label: "Keuangan Kuantitatif (2)", icon: <Building2 className="w-3.5 h-3.5 text-indigo-600" /> },
-    { id: "SupplyChain", label: "Supply Chain & Ops (2)", icon: <Truck className="w-3.5 h-3.5 text-blue-600" /> },
-    { id: "PublicPolicy", label: "Kebijakan Publik (3)", icon: <Globe className="w-3.5 h-3.5 text-teal-600" /> },
-    { id: "Healthcare", label: "Healthcare AI (4)", icon: <Activity className="w-3.5 h-3.5 text-rose-600" /> },
-    { id: "Systems", label: "MLOps & Systems (4)", icon: <Cpu className="w-3.5 h-3.5 text-slate-700" /> },
+    { id: "All", label: "Semua Riset (20)" },
+    { id: "Insurance", label: "Aktuaria & Asuransi (5)" },
+    { id: "Banking", label: "Keuangan Kuantitatif (2)" },
+    { id: "SupplyChain", label: "Supply Chain & Ops (2)" },
+    { id: "PublicPolicy", label: "Kebijakan Publik (3)" },
+    { id: "Healthcare", label: "Healthcare AI (4)" },
+    { id: "Systems", label: "MLOps & Systems (4)" },
   ];
 
   const filteredProjects = useMemo(() => {
@@ -61,127 +51,99 @@ export default function HomePage() {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  // Render Abstract Geometric SVG Pattern Thumbnail per Domain
-  const renderAbstractPattern = (category: string) => {
-    switch (category) {
-      case "Banking":
-        return (
-          <svg className="w-full h-full text-indigo-600/15" viewBox="0 0 200 120" fill="none">
-            <path d="M10 90 Q 60 10, 100 60 T 190 30" stroke="currentColor" strokeWidth="2" fill="none" />
-            <circle cx="100" cy="60" r="4" fill="currentColor" />
-            <circle cx="60" cy="30" r="3" fill="currentColor" />
-            <circle cx="160" cy="45" r="3" fill="currentColor" />
-            <line x1="100" y1="60" x2="100" y2="110" stroke="currentColor" strokeDasharray="3 3" />
-          </svg>
-        );
-      case "Insurance":
-        return (
-          <svg className="w-full h-full text-emerald-600/15" viewBox="0 0 200 120" fill="none">
-            <polygon points="100,15 170,95 30,95" stroke="currentColor" strokeWidth="1.5" fill="none" />
-            <circle cx="100" cy="60" r="28" stroke="currentColor" strokeWidth="1.5" fill="none" />
-            <line x1="30" y1="95" x2="170" y2="95" stroke="currentColor" strokeWidth="2" />
-          </svg>
-        );
-      case "SupplyChain":
-        return (
-          <svg className="w-full h-full text-blue-600/15" viewBox="0 0 200 120" fill="none">
-            <rect x="30" y="30" width="40" height="40" stroke="currentColor" strokeWidth="1.5" />
-            <rect x="130" y="30" width="40" height="40" stroke="currentColor" strokeWidth="1.5" />
-            <rect x="80" y="70" width="40" height="40" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="70" y1="50" x2="130" y2="50" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="50" y1="70" x2="80" y2="90" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        );
-      case "PublicPolicy":
-        return (
-          <svg className="w-full h-full text-teal-600/15" viewBox="0 0 200 120" fill="none">
-            <circle cx="100" cy="60" r="45" stroke="currentColor" strokeWidth="1.5" fill="none" />
-            <ellipse cx="100" cy="60" rx="45" ry="18" stroke="currentColor" strokeWidth="1" fill="none" />
-            <line x1="100" y1="15" x2="100" y2="105" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        );
-      case "Healthcare":
-        return (
-          <svg className="w-full h-full text-rose-600/15" viewBox="0 0 200 120" fill="none">
-            <path d="M20 60 Q 50 20, 80 60 T 140 60 T 180 60" stroke="currentColor" strokeWidth="2" fill="none" />
-            <circle cx="80" cy="60" r="4" fill="currentColor" />
-            <circle cx="140" cy="60" r="4" fill="currentColor" />
-          </svg>
-        );
-      default:
-        return (
-          <svg className="w-full h-full text-slate-700/15" viewBox="0 0 200 120" fill="none">
-            <rect x="40" y="25" width="120" height="70" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="40" y1="50" x2="160" y2="50" stroke="currentColor" strokeWidth="1" />
-            <line x1="80" y1="25" x2="80" y2="95" stroke="currentColor" strokeWidth="1" />
-          </svg>
-        );
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#fafaf9] text-[#111213] antialiased font-sans">
       
-      {/* 1. Header Bar */}
+      {/* 1. Max Arden Style Open Header Bar */}
       <header className="border-b border-[#e5e5e5] bg-[#fafaf9]/90 backdrop-blur-md sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="font-serif text-xl tracking-tight text-[#111213] font-semibold">Izam Rosiawan</span>
-            <span className="text-xs font-mono text-[#525252] font-medium tracking-wider uppercase">
+            <span className="font-serif text-xl sm:text-2xl tracking-tight text-[#111213] font-semibold">
+              Izam Rosiawan
+            </span>
+            <span className="text-xs font-mono text-[#525252] font-medium tracking-widest uppercase mt-0.5">
               Quantitative Data Science & Actuarial Research
             </span>
           </div>
 
-          <div className="flex items-center gap-6 text-xs font-mono font-medium">
+          <div className="flex items-center gap-6 text-xs font-mono font-bold">
             <a
               href="https://github.com/izamrosiawan"
               target="_blank"
               rel="noreferrer"
-              className="text-[#111213] hover:text-black transition-colors"
+              className="text-[#111213] hover:text-[#2563eb] transition-colors"
             >
-              GitHub ↗
+              [ GitHub ↗ ]
             </a>
             <a
               href="mailto:izamrosiawan13@gmail.com"
-              className="text-[#111213] hover:text-black transition-colors"
+              className="text-[#111213] hover:text-[#2563eb] transition-colors"
             >
-              Email ↗
+              [ Email ↗ ]
             </a>
           </div>
         </div>
       </header>
 
       {/* 2. Main Content */}
-      <main className="max-w-6xl mx-auto px-6 sm:px-10 py-12 sm:py-16">
+      <main className="max-w-6xl mx-auto px-6 sm:px-10 py-16 sm:py-20">
         
-        {/* Generative Abstract Mathematical Canvas Header */}
-        <AbstractDataCanvas />
+        {/* Max Arden Editorial Hero Section */}
+        <section className="mb-16 max-w-4xl">
+          <div className="text-xs font-mono text-[#525252] font-bold uppercase tracking-widest mb-4">
+            01 / MONOGRAPH ARCHIVE (2024 — 2026)
+          </div>
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-[3.5rem] text-[#111213] leading-[1.12] font-medium tracking-tight">
+            Koleksi sains data industri, formulasi aktuaria, dan arsitektur risiko kuantitatif.
+          </h1>
+          <p className="mt-6 text-sm sm:text-base text-[#404040] leading-relaxed font-normal max-w-2xl">
+            Setiap repositori dibangun dengan formulasi matematika teruji, pipeline isolasi zero data leakage, dan pengujian otomatis Pytest 100%.
+          </p>
 
-        {/* Filter Strip & Layout Switcher */}
-        <section className="border-t border-b border-[#e5e5e5] py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
-          
-          {/* Category Links */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono font-medium">
+          {/* Quick Metrics Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 mt-8 border-t border-[#e5e5e5] font-mono">
+            <div>
+              <div className="text-2xl font-bold text-[#111213]">20</div>
+              <div className="text-xs text-[#525252] mt-0.5">Model Riset</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-[#111213]">678k+</div>
+              <div className="text-xs text-[#525252] mt-0.5">Observasi Data</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-[#111213]">100%</div>
+              <div className="text-xs text-[#525252] mt-0.5">Tes Pytest</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-[#111213]">Zero</div>
+              <div className="text-xs text-[#525252] mt-0.5">Data Leakage</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Max Arden Filter & Search Strip */}
+        <section className="border-t border-b border-[#e5e5e5] py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
+          {/* Category Tabs */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono font-medium">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.id;
               return (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`inline-flex items-center gap-1.5 transition-colors text-left py-1 ${
+                  className={`transition-colors text-left py-1 ${
                     isActive
                       ? "text-[#111213] font-bold underline underline-offset-8 decoration-2 decoration-[#111213]"
                       : "text-[#525252] hover:text-[#111213]"
                   }`}
                 >
-                  {cat.icon}
-                  <span>{cat.label}</span>
+                  {cat.label}
                 </button>
               );
             })}
           </div>
 
-          {/* Search Input */}
+          {/* Minimal Search Line */}
           <div className="relative min-w-[240px]">
             <Search className="w-3.5 h-3.5 text-[#71717a] absolute left-0 top-1/2 -translate-y-1/2" />
             <input
@@ -194,8 +156,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Projects Presentation Grid (Abstract Cards View) */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Max Arden Style Card Stream Deck */}
+        <section className="space-y-8">
           {filteredProjects.map((project, idx) => {
             const hasWebDemo = !!project.demoUrl;
 
@@ -203,89 +165,98 @@ export default function HomePage() {
               <article
                 key={project.id}
                 onClick={() => setActiveProject(project)}
-                className="group bg-[#ffffff] border border-[#e5e5e5] hover:border-[#111213] rounded-3xl p-6 shadow-xs hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-6 cursor-pointer relative overflow-hidden"
+                className="group bg-[#ffffff] border border-[#e5e5e5] hover:border-[#111213] rounded-3xl p-8 shadow-xs hover:shadow-xl transition-all duration-200 cursor-pointer"
               >
-                {/* Background Abstract Geometric SVG Art */}
-                <div className="absolute right-0 top-0 w-48 h-32 opacity-80 pointer-events-none group-hover:scale-110 transition-transform duration-300">
-                  {renderAbstractPattern(project.category)}
-                </div>
-
-                {/* Card Top: Index, Domain & Web App Tag */}
-                <div className="space-y-4 relative z-10">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-mono text-[#525252] font-semibold">
-                      {String(idx + 1).padStart(2, "0")} / {project.domain}
-                    </span>
-
-                    {hasWebDemo && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2.5 py-0.5 bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] rounded-full">
-                        <Sparkles className="w-2.5 h-2.5" />
-                        <span>LIVE DEMO</span>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  
+                  {/* Left Column: Index, Category & Main KPI */}
+                  <div className="lg:col-span-3 space-y-4">
+                    <div>
+                      <span className="text-xs font-mono text-[#525252] font-semibold block mb-1">
+                        {String(idx + 1).padStart(2, "0")} / {project.domain}
                       </span>
-                    )}
+                      <div className="text-xs font-mono text-[#262626] font-medium">
+                        {project.datasetInfo.name}
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-[#fafaf9] border border-[#e5e5e5] rounded-2xl font-mono">
+                      <div className="text-[11px] text-[#525252] font-semibold uppercase">
+                        {project.metrics[0].label}
+                      </div>
+                      <div className="text-xl font-bold text-[#111213] mt-0.5">
+                        {project.metrics[0].value}
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <h3 className="font-serif text-lg font-bold text-[#111213] group-hover:text-[#2563eb] transition-colors leading-snug">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-[#525252] line-clamp-3 mt-2 leading-relaxed">
-                      {project.problem}
-                    </p>
-                  </div>
-                </div>
+                  {/* Center Column: Title, Problem & Mathematical Formula */}
+                  <div className="lg:col-span-6 space-y-4">
+                    <div>
+                      <h2 className="font-serif text-2xl sm:text-3xl text-[#111213] group-hover:text-[#2563eb] transition-colors leading-snug font-medium">
+                        {project.title}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#404040] mt-3 leading-relaxed">
+                        {project.problem}
+                      </p>
+                    </div>
 
-                {/* Card Middle: Formula Chip & Metric */}
-                <div className="space-y-3 relative z-10">
-                  <div className="p-3 bg-[#fafaf9] border border-[#e5e5e5] rounded-2xl font-mono text-xs overflow-x-auto text-[#111213]">
-                    <code>{project.formula.latex}</code>
+                    {/* Mathematical Formula LaTeX Chip */}
+                    <div className="p-3 bg-[#fafaf9] border border-[#e5e5e5] rounded-2xl font-mono text-xs text-[#111213] overflow-x-auto">
+                      <code>{project.formula.latex}</code>
+                    </div>
+
+                    {/* Tech Stack Hash Badges */}
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {project.techStack.map((t, i) => (
+                        <span key={i} className="text-[11px] font-mono text-[#525252]">
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between font-mono text-xs p-2">
-                    <span className="text-[#525252] font-semibold uppercase">{project.metrics[0].label}</span>
-                    <span className="font-bold text-[#111213] text-sm">{project.metrics[0].value}</span>
-                  </div>
-                </div>
+                  {/* Right Column: CTA Buttons */}
+                  <div className="lg:col-span-3 lg:text-right flex flex-col items-start lg:items-end justify-between h-full space-y-4">
+                    <div className="flex flex-col gap-2.5 w-full sm:w-auto">
+                      {hasWebDemo && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#2563eb] text-white hover:bg-[#1d4ed8] rounded-2xl text-xs font-mono font-bold transition-all shadow-xs"
+                        >
+                          <span>Buka Demo Web</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
 
-                {/* Card Bottom: Actions */}
-                <div className="pt-4 border-t border-[#e5e5e5] flex items-center justify-between gap-2 relative z-10">
-                  <div className="flex items-center gap-2">
-                    {hasWebDemo && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center justify-center gap-1 px-3 py-1.5 bg-[#2563eb] text-white hover:bg-[#1d4ed8] rounded-xl text-xs font-mono font-bold transition-all shadow-xs"
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveProject(project);
+                        }}
+                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#111213] text-white hover:bg-black rounded-2xl text-xs font-mono font-bold transition-all shadow-xs"
                       >
-                        <span>Demo Web</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
+                        <span>Rincian Monograf</span>
+                        <BookOpen className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
 
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveProject(project);
-                      }}
-                      className="inline-flex items-center justify-center gap-1 px-3 py-1.5 bg-[#111213] text-white hover:bg-black rounded-xl text-xs font-mono font-bold transition-all"
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1 text-xs font-mono font-bold text-[#525252] hover:text-[#111213] transition-colors pt-2"
                     >
-                      <span>Monograf</span>
-                      <BookOpen className="w-3 h-3" />
-                    </button>
+                      <span>GitHub Repositori</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
                   </div>
 
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-2 text-[#525252] hover:text-[#111213] transition-colors"
-                    title="Buka Repositori GitHub"
-                  >
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
                 </div>
               </article>
             );

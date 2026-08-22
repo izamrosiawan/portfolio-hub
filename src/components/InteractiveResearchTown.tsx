@@ -6,17 +6,15 @@ import {
   Building2, 
   ShieldCheck, 
   Truck, 
-  Globe2, 
+  Globe, 
   Activity, 
   Cpu, 
   ExternalLink, 
-  Github, 
   BookOpen, 
   Sparkles,
   Search,
-  CheckCircle2,
-  SlidersHorizontal,
-  Compass
+  Compass,
+  Grid
 } from "lucide-react";
 
 interface InteractiveResearchTownProps {
@@ -75,7 +73,7 @@ const DISTRICTS: DistrictConfig[] = [
     category: "PublicPolicy",
     title: "Pusat Kebijakan Publik & Ekonomi Makro",
     subtitle: "Pemulihan Ekonomi ASEAN, Sistem Zakat Zero-Leakage, & Analisis Pendidikan",
-    icon: <Globe2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
+    icon: <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
     gradient: "from-teal-50/80 via-white to-slate-50/50",
     borderColor: "border-teal-200/80",
     badgeBg: "bg-teal-50",
@@ -124,18 +122,18 @@ export default function InteractiveResearchTown({
   return (
     <div className="space-y-12">
       
-      {/* Interactive Map Toolbar */}
+      {/* Interactive Toolbar */}
       <div className="bg-[#ffffff] border border-[#e5e5e5] rounded-2xl p-6 shadow-sm space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#f0f0f0] pb-5">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-[#111213] text-white rounded-xl shadow-xs">
-              <Compass className="w-5 h-5 animate-pulse" />
+              <Compass className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-serif text-xl font-bold text-[#111213]">Peta Interaktif Distrik Riset (Research Town)</h2>
+                <h2 className="font-serif text-xl font-bold text-[#111213]">Peta Distrik Riset</h2>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-[#ecfdf5] text-[#059669] border border-[#a7f3d0] rounded-full">
-                  LIVE INTERACTIVE MAP
+                  RESEARCH DISTRICTS
                 </span>
               </div>
               <p className="text-xs text-[#525252] font-mono mt-0.5">
@@ -153,13 +151,14 @@ export default function InteractiveResearchTown({
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setActiveDistrict("All")}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition-all ${
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono font-semibold transition-all ${
               activeDistrict === "All"
                 ? "bg-[#111213] text-white shadow-xs"
                 : "bg-[#f4f4f5] text-[#525252] hover:bg-[#e4e4e7] hover:text-[#111213]"
             }`}
           >
-            🏛️ Semua Distrik (20)
+            <Grid className="w-3.5 h-3.5" />
+            <span>Semua Distrik (20)</span>
           </button>
           {DISTRICTS.map((d) => {
             const count = projects.filter(p => p.category === d.category).length;
@@ -237,7 +236,7 @@ export default function InteractiveResearchTown({
                       className="group bg-[#ffffff] border border-[#e4e4e7] hover:border-[#111213] rounded-2xl p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4 cursor-pointer"
                       onClick={() => onSelectProject(project)}
                     >
-                      {/* Card Top: Category & Main KPI */}
+                      {/* Card Top */}
                       <div className="space-y-3">
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-[10px] font-mono font-bold px-2.5 py-1 bg-[#f4f4f5] text-[#525252] rounded-full uppercase tracking-wider">
@@ -245,7 +244,7 @@ export default function InteractiveResearchTown({
                           </span>
 
                           {hasWebDemo && (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2 py-0.5 bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] rounded-full animate-pulse">
+                            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2 py-0.5 bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] rounded-full">
                               <Sparkles className="w-2.5 h-2.5" />
                               <span>LIVE WEB APP</span>
                             </span>
@@ -263,7 +262,7 @@ export default function InteractiveResearchTown({
                         </div>
                       </div>
 
-                      {/* Card Middle: Primary KPI Chip */}
+                      {/* Card Middle */}
                       <div className="p-3 bg-[#fafaf9] border border-[#f0f0f0] rounded-xl flex items-center justify-between font-mono">
                         <span className="text-[11px] text-[#71717a] font-medium uppercase">
                           {project.metrics[0].label}
@@ -273,7 +272,7 @@ export default function InteractiveResearchTown({
                         </span>
                       </div>
 
-                      {/* Card Bottom: Tech stack & CTAs */}
+                      {/* Card Bottom */}
                       <div className="space-y-3 pt-2 border-t border-[#f4f4f5]">
                         <div className="flex flex-wrap gap-1.5">
                           {project.techStack.slice(0, 3).map((t, idx) => (

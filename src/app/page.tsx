@@ -17,7 +17,8 @@ import {
   Sparkles,
   BookOpen,
   Compass,
-  Grid
+  Grid,
+  Box
 } from "lucide-react";
 
 export default function HomePage() {
@@ -105,7 +106,7 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* View Mode Switcher Strip (Borraginol Town Style vs Stream) */}
+        {/* View Mode Switcher Strip */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-b border-[#e5e5e5] py-4 mb-10">
           <div className="flex flex-wrap items-center gap-2 p-1 bg-[#e4e4e7]/60 rounded-xl font-mono text-xs font-bold">
             <button
@@ -116,8 +117,8 @@ export default function HomePage() {
                   : "text-[#525252] hover:text-[#111213]"
               }`}
             >
-              <Compass className="w-4 h-4 text-[#38bdf8]" />
-              <span>🗺️ Peta Spasial (Borraginol Town)</span>
+              <Box className="w-4 h-4 text-indigo-400" />
+              <span>Peta 3D (Research Town)</span>
             </button>
 
             <button
@@ -129,7 +130,7 @@ export default function HomePage() {
               }`}
             >
               <Grid className="w-4 h-4" />
-              <span>🏛️ Kartu Distrik</span>
+              <span>Kartu Distrik</span>
             </button>
 
             <button
@@ -141,14 +142,14 @@ export default function HomePage() {
               }`}
             >
               <ListFilter className="w-4 h-4" />
-              <span>📄 Monograf (Stream)</span>
+              <span>Monograf (Stream)</span>
             </button>
           </div>
 
           <div className="text-xs font-mono text-[#525252] font-semibold">
-            {viewMode === "borraginol" && "🗺️ Peta Canvas Zoom & Drag Borraginol Town Aktif"}
-            {viewMode === "districts" && "🏛️ Tampilan Kartu Distrik Domain Aktif"}
-            {viewMode === "stream" && "📄 Tampilan Daftar Monograf Stream Aktif"}
+            {viewMode === "borraginol" && "Peta Canvas 3D Perspective Aktif"}
+            {viewMode === "districts" && "Tampilan Kartu Distrik Domain Aktif"}
+            {viewMode === "stream" && "Tampilan Daftar Monograf Stream Aktif"}
           </div>
         </div>
 

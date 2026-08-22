@@ -14,7 +14,6 @@ import {
   Mail,
   MapPin,
   Github,
-  Linkedin,
   Send,
   Layers,
   TrendingUp,
@@ -158,22 +157,22 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f6f4] text-[#162d3d] antialiased selection:bg-[#116dff] selection:text-white font-space">
+    <div className="min-h-screen bg-[#f7f6f4] text-[#162d3d] antialiased selection:bg-[#116dff] selection:text-white font-sans">
 
       {/* NAVBAR */}
-      <header className="w-full bg-[#f7f6f4]/90 backdrop-blur-md px-6 sm:px-12 lg:px-20 h-20 flex items-center justify-between sticky top-0 z-50 border-b border-[#dfe5eb]">
+      <header className="w-full bg-[#f7f6f4]/95 backdrop-blur-md px-6 sm:px-12 lg:px-20 h-20 flex items-center justify-between sticky top-0 z-50 border-b border-[#dfe5eb]">
         <div className="flex items-center gap-3">
           <a href="#" className="flex flex-col">
-            <span className="font-syne text-lg font-black tracking-tight text-[#162d3d]">
+            <span className="font-display text-xl font-extrabold tracking-tight text-[#162d3d]">
               IZAM ROSIAWAN
             </span>
-            <span className="text-[10px] font-bold tracking-widest text-[#116dff] uppercase">
+            <span className="text-[11px] font-semibold tracking-wider text-[#116dff] uppercase">
               Data Science & Actuarial
             </span>
           </a>
         </div>
 
-        <nav className="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-[#52606d]">
+        <nav className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-[#52606d]">
           <a href="#about" className="hover:text-[#116dff] transition-colors">
             ABOUT
           </a>
@@ -210,21 +209,21 @@ export default function HomePage() {
 
           {/* Left Column: Typography & Action */}
           <div className="lg:col-span-7 space-y-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ecf3ff] border border-[#d8e2ec] text-[#116dff] text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ecf3ff] border border-[#d8e2ec] text-[#116dff] text-xs font-semibold uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#116dff] animate-pulse" />
               Evidence-Based Quantitative Intelligence
             </div>
 
-            <div className="space-y-2">
-              <h1 className="font-syne font-black text-4xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-[#162d3d]">
+            <div className="space-y-3">
+              <h1 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl leading-[1.02] tracking-tight text-[#162d3d]">
                 Izam Rosiawan
               </h1>
-              <h2 className="font-syne font-extrabold text-2xl sm:text-4xl text-[#116dff]">
+              <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#116dff] tracking-normal">
                 Quantitative Data Science
               </h2>
             </div>
 
-            <p className="text-base sm:text-lg text-[#52606d] leading-relaxed max-w-xl">
+            <p className="text-base sm:text-lg text-[#52606d] leading-relaxed max-w-xl font-normal">
               Amplify analytical depth with zero-leakage predictive intelligence,
               actuarial Tweedie models, and reproducible econometric frameworks
               tailored for mission-critical decisions.
@@ -260,12 +259,12 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#162d3d]/50 via-transparent to-transparent" />
 
               {/* Floating Stat Badge */}
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-white/60 shadow-lg flex items-center justify-between">
+              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-lg flex items-center justify-between">
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-[#718096]">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-[#718096]">
                     RESEARCH SCOPE
                   </div>
-                  <div className="font-syne font-extrabold text-base text-[#162d3d]">
+                  <div className="font-display font-bold text-lg text-[#162d3d]">
                     20 Monograph Papers
                   </div>
                 </div>
@@ -294,11 +293,11 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto space-y-16">
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#dfe5eb] pb-8">
-            <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#116dff]">
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
                 CORE DOMAINS & EXPERTISE
               </span>
-              <h2 className="font-syne font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
+              <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
                 Our Services
               </h2>
             </div>
@@ -319,14 +318,14 @@ export default function HomePage() {
                 >
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <span className="font-syne font-black text-3xl text-[#116dff]/30 group-hover:text-[#116dff] transition-colors">
+                      <span className="font-display font-black text-3xl text-[#116dff]/30 group-hover:text-[#116dff] transition-colors">
                         {srv.num}
                       </span>
                       <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#162d3d] group-hover:text-[#116dff] group-hover:scale-110 transition-all">
                         <Icon className="w-5 h-5" />
                       </div>
                     </div>
-                    <h3 className="font-syne font-bold text-lg text-[#162d3d] leading-snug">
+                    <h3 className="font-display font-bold text-lg text-[#162d3d] leading-snug">
                       {srv.title}
                     </h3>
                     <p className="text-xs text-[#52606d] leading-relaxed">
@@ -361,7 +360,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-[#162d3d]/20" />
               <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/95 backdrop-blur-md shadow-lg space-y-2">
-                <div className="font-syne font-extrabold text-lg text-[#162d3d]">
+                <div className="font-display font-bold text-lg text-[#162d3d]">
                   Zero-Leakage Assurance
                 </div>
                 <p className="text-xs text-[#52606d]">
@@ -373,16 +372,16 @@ export default function HomePage() {
 
           {/* Right: Narrative */}
           <div className="lg:col-span-7 space-y-8 lg:pl-6">
-            <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#116dff]">
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
                 QUANTITATIVE STRATEGIST & RESEARCHER
               </span>
-              <h2 className="font-syne font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight leading-tight">
+              <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight leading-tight">
                 ROI-Focused Strategist & Data Scientist
               </h2>
             </div>
 
-            <div className="space-y-4 text-sm sm:text-base text-[#52606d] leading-relaxed">
+            <div className="space-y-4 text-sm sm:text-base text-[#52606d] leading-relaxed font-normal">
               <p>
                 <strong>Izam Rosiawan</strong> is an Indonesian data scientist and
                 quantitative researcher with an extensive body of work spanning
@@ -399,20 +398,20 @@ export default function HomePage() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-2">
               <div className="p-4 rounded-xl bg-white border border-[#dfe5eb]">
-                <div className="font-syne font-extrabold text-2xl text-[#116dff]">20</div>
-                <div className="text-xs font-bold text-[#718096] uppercase tracking-wider mt-1">
+                <div className="font-display font-black text-3xl text-[#116dff]">20</div>
+                <div className="text-xs font-semibold text-[#718096] uppercase tracking-wider mt-1">
                   Monographs
                 </div>
               </div>
               <div className="p-4 rounded-xl bg-white border border-[#dfe5eb]">
-                <div className="font-syne font-extrabold text-2xl text-[#162d3d]">6</div>
-                <div className="text-xs font-bold text-[#718096] uppercase tracking-wider mt-1">
+                <div className="font-display font-black text-3xl text-[#162d3d]">6</div>
+                <div className="text-xs font-semibold text-[#718096] uppercase tracking-wider mt-1">
                   Domains
                 </div>
               </div>
               <div className="p-4 rounded-xl bg-white border border-[#dfe5eb]">
-                <div className="font-syne font-extrabold text-2xl text-[#116dff]">100%</div>
-                <div className="text-xs font-bold text-[#718096] uppercase tracking-wider mt-1">
+                <div className="font-display font-black text-3xl text-[#116dff]">100%</div>
+                <div className="text-xs font-semibold text-[#718096] uppercase tracking-wider mt-1">
                   Reproducible
                 </div>
               </div>
@@ -436,11 +435,11 @@ export default function HomePage() {
       <section id="results" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto space-y-16">
 
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#116dff]">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
               EMPIRICAL VALIDATION
             </span>
-            <h2 className="font-syne font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
+            <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
               Proven Results
             </h2>
             <p className="text-sm text-[#718096]">
@@ -455,10 +454,10 @@ export default function HomePage() {
                 key={i}
                 className="p-8 rounded-2xl bg-[#f7f6f4] border border-[#dfe5eb] hover:border-[#116dff] hover:shadow-lg transition-all duration-300 text-center space-y-3"
               >
-                <div className="font-syne font-black text-4xl sm:text-5xl text-[#116dff]">
+                <div className="font-display font-black text-4xl sm:text-5xl text-[#116dff] tracking-tight">
                   {res.value}
                 </div>
-                <div className="font-syne font-bold text-base text-[#162d3d]">
+                <div className="font-display font-bold text-base text-[#162d3d]">
                   {res.label}
                 </div>
                 <p className="text-xs text-[#718096] leading-relaxed">
@@ -476,11 +475,11 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto space-y-12">
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#dfe5eb] pb-8">
-            <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#116dff]">
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
                 PORTFOLIO & MONOGRAPH ARCHIVE (2024 - 2026)
               </span>
-              <h2 className="font-syne font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
+              <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
                 Featured Monographs
               </h2>
             </div>
@@ -534,7 +533,7 @@ export default function HomePage() {
                 >
                   <div className="p-7 space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#116dff] bg-[#ecf3ff] px-2.5 py-1 rounded-full">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#116dff] bg-[#ecf3ff] px-2.5 py-1 rounded-full">
                         {project.domain}
                       </span>
                       <span className="text-xs font-bold text-[#a0aec0]">
@@ -542,7 +541,7 @@ export default function HomePage() {
                       </span>
                     </div>
 
-                    <h3 className="font-syne font-bold text-lg text-[#162d3d] group-hover:text-[#116dff] transition-colors leading-snug">
+                    <h3 className="font-display font-bold text-lg text-[#162d3d] group-hover:text-[#116dff] transition-colors leading-snug">
                       {project.title}
                     </h3>
 
@@ -556,11 +555,11 @@ export default function HomePage() {
                         <div className="text-[10px] uppercase font-bold text-[#718096] tracking-wider">
                           {project.metrics[0].label}
                         </div>
-                        <div className="font-syne font-extrabold text-lg text-[#162d3d]">
+                        <div className="font-display font-black text-xl text-[#162d3d]">
                           {project.metrics[0].value}
                         </div>
                       </div>
-                      <span className="text-[10px] text-[#718096] max-w-[120px] text-right truncate">
+                      <span className="text-[10px] text-[#718096] max-w-[120px] text-right truncate font-medium">
                         {project.datasetInfo.name}
                       </span>
                     </div>
@@ -597,7 +596,7 @@ export default function HomePage() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-[11px] font-bold text-[#116dff] hover:underline uppercase"
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-[#116dff] hover:underline uppercase tracking-wider"
                       >
                         <span>DEMO</span>
                         <ExternalLink className="w-3 h-3" />
@@ -616,11 +615,11 @@ export default function HomePage() {
       <section className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto space-y-16">
 
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#116dff]">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
               PEER & INDUSTRY RECOGNITION
             </span>
-            <h2 className="font-syne font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
+            <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
               Testimonials
             </h2>
             <p className="text-sm text-[#718096]">
@@ -636,10 +635,10 @@ export default function HomePage() {
                 className="p-8 rounded-2xl bg-[#f7f6f4] border border-[#dfe5eb] flex flex-col justify-between space-y-6"
               >
                 <div className="space-y-4">
-                  <span className="font-syne font-black text-2xl text-[#116dff]/40">
+                  <span className="font-display font-black text-2xl text-[#116dff]/40">
                     {test.num}
                   </span>
-                  <p className="text-sm text-[#334155] italic leading-relaxed">
+                  <p className="text-sm text-[#334155] italic leading-relaxed font-normal">
                     &ldquo;{test.quote}&rdquo;
                   </p>
                 </div>
@@ -654,7 +653,7 @@ export default function HomePage() {
                     />
                   </div>
                   <div>
-                    <div className="font-syne font-bold text-sm text-[#162d3d]">
+                    <div className="font-display font-bold text-sm text-[#162d3d]">
                       {test.name}
                     </div>
                     <div className="text-xs text-[#718096]">{test.role}</div>
@@ -673,11 +672,11 @@ export default function HomePage() {
 
           {/* Left: Contact Info */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#116dff]">
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
                 INITIATE COLLABORATION
               </span>
-              <h2 className="font-syne font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight leading-tight">
+              <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight leading-tight">
                 Let&apos;s ignite your data success
               </h2>
               <p className="text-sm text-[#52606d] leading-relaxed">
@@ -741,7 +740,7 @@ export default function HomePage() {
 
           {/* Right: Submission Form */}
           <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#dfe5eb] shadow-xl">
-            <h3 className="font-syne font-bold text-2xl text-[#162d3d] mb-2">
+            <h3 className="font-display font-bold text-2xl text-[#162d3d] mb-2">
               Book Your Strategy Session Now
             </h3>
             <p className="text-xs text-[#718096] mb-8">
@@ -751,7 +750,7 @@ export default function HomePage() {
             {formSubmitted ? (
               <div className="p-6 rounded-2xl bg-[#ecf3ff] border border-[#116dff]/30 text-center space-y-3">
                 <CheckCircle2 className="w-10 h-10 text-[#116dff] mx-auto" />
-                <h4 className="font-syne font-bold text-lg text-[#162d3d]">
+                <h4 className="font-display font-bold text-lg text-[#162d3d]">
                   Inquiry Received!
                 </h4>
                 <p className="text-xs text-[#52606d]">
@@ -866,7 +865,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 border-b border-white/10 pb-12">
             <div className="space-y-2">
-              <span className="font-syne text-xl font-black text-white">
+              <span className="font-display text-2xl font-extrabold text-white">
                 IZAM ROSIAWAN
               </span>
               <p className="text-xs text-white/60">
@@ -874,7 +873,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-8 text-xs font-bold uppercase tracking-widest text-white/70">
+            <div className="flex flex-wrap gap-8 text-xs font-bold uppercase tracking-wider text-white/70">
               <a href="#about" className="hover:text-white transition-colors">
                 ABOUT
               </a>
@@ -923,10 +922,10 @@ export default function HomePage() {
           <div className="bg-white max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl border border-[#dfe5eb]">
             <div className="p-8 flex items-start justify-between gap-6 sticky top-0 bg-white z-10 border-b border-[#dfe5eb]">
               <div>
-                <div className="font-syne font-extrabold uppercase mb-1 text-[11px] text-[#116dff] tracking-widest">
+                <div className="font-display font-bold uppercase mb-1 text-[11px] text-[#116dff] tracking-wider">
                   {activeProject.domain} - {activeProject.datasetInfo.name}
                 </div>
-                <h2 className="font-syne font-extrabold text-2xl text-[#162d3d] leading-tight">
+                <h2 className="font-display font-extrabold text-2xl text-[#162d3d] leading-tight">
                   {activeProject.title}
                 </h2>
               </div>
@@ -941,7 +940,7 @@ export default function HomePage() {
 
             <div className="p-8 space-y-8 text-sm">
               <div>
-                <div className="font-syne font-bold uppercase mb-2 text-xs text-[#718096] tracking-wider">
+                <div className="font-display font-bold uppercase mb-2 text-xs text-[#718096] tracking-wider">
                   01 / PROBLEM STATEMENT
                 </div>
                 <p className="leading-relaxed text-[#162d3d]">
@@ -950,7 +949,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <div className="font-syne font-bold uppercase mb-2 text-xs text-[#718096] tracking-wider">
+                <div className="font-display font-bold uppercase mb-2 text-xs text-[#718096] tracking-wider">
                   02 / METHODOLOGY
                 </div>
                 <p className="leading-relaxed text-[#162d3d]">
@@ -959,7 +958,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <div className="font-syne font-bold uppercase mb-2 text-xs text-[#718096] tracking-wider">
+                <div className="font-display font-bold uppercase mb-2 text-xs text-[#718096] tracking-wider">
                   03 / FORMULA ({activeProject.formula.title})
                 </div>
                 <div className="p-4 font-mono text-xs overflow-x-auto bg-[#f7f6f4] border border-[#dfe5eb] text-[#162d3d] rounded-xl">
@@ -971,7 +970,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <div className="font-syne font-bold uppercase mb-3 text-xs text-[#718096] tracking-wider">
+                <div className="font-display font-bold uppercase mb-3 text-xs text-[#718096] tracking-wider">
                   04 / EVALUATION METRICS
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -980,10 +979,10 @@ export default function HomePage() {
                       key={i}
                       className="p-4 bg-[#f7f6f4] border border-[#dfe5eb] rounded-xl"
                     >
-                      <div className="font-syne font-bold uppercase text-[10px] text-[#718096] tracking-wider">
+                      <div className="font-display font-bold uppercase text-[10px] text-[#718096] tracking-wider">
                         {m.label}
                       </div>
-                      <div className="font-syne font-extrabold text-2xl text-[#116dff] mt-1">
+                      <div className="font-display font-black text-2xl text-[#116dff] mt-1">
                         {m.value}
                       </div>
                       <div className="text-xs mt-1 text-[#718096]">{m.desc}</div>
@@ -993,7 +992,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <div className="font-syne font-bold uppercase mb-3 text-xs text-[#718096] tracking-wider">
+                <div className="font-display font-bold uppercase mb-3 text-xs text-[#718096] tracking-wider">
                   05 / KEY FINDINGS
                 </div>
                 <ul className="space-y-2">
@@ -1008,12 +1007,12 @@ export default function HomePage() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="font-syne font-bold uppercase text-xs text-[#718096] tracking-wider">
+                  <div className="font-display font-bold uppercase text-xs text-[#718096] tracking-wider">
                     06 / CODE SNIPPET
                   </div>
                   <button
                     onClick={() => handleCopyCode(activeProject.codeSnippet)}
-                    className="font-syne font-bold uppercase text-[10px] text-[#116dff] hover:underline tracking-wider"
+                    className="font-display font-bold uppercase text-[10px] text-[#116dff] hover:underline tracking-wider"
                   >
                     {copiedCode ? "[COPIED]" : "[COPY CODE]"}
                   </button>

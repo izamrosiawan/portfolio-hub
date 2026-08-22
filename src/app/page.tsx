@@ -14,11 +14,14 @@ import {
   Mail,
   MapPin,
   Github,
+  Linkedin,
   Send,
   Layers,
-  TrendingUp,
-  ShieldCheck,
+  Database,
+  BarChart3,
   Cpu,
+  GraduationCap,
+  Award,
   ChevronRight,
 } from "lucide-react";
 
@@ -32,7 +35,7 @@ export default function HomePage() {
     firstName: "",
     lastName: "",
     email: "",
-    interest: "Actuarial Science",
+    interest: "Data Analytics & BI",
     message: "",
   });
 
@@ -46,84 +49,98 @@ export default function HomePage() {
     { id: "Systems", label: "MLOps & Systems (4)" },
   ];
 
-  const services = [
+  const competencies = [
     {
       num: "01",
-      icon: ShieldCheck,
-      title: "Actuarial & Solvency Modeling",
+      icon: BarChart3,
+      title: "Data Analytics & BI",
       description:
-        "Tweedie GLM frequency-severity pricing, IFRS 17 loss reserving, and extreme value theory for insurance risk quantification.",
+        "Developing interactive business dashboards with Power BI, advanced exploratory analytics, and statistical decision support frameworks.",
     },
     {
       num: "02",
-      icon: TrendingUp,
-      title: "Financial & Banking Risk",
+      icon: Database,
+      title: "Data Engineering & Pipelines",
       description:
-        "GARCH(1,1) volatility forecasting, Value at Risk (VaR 95%), and structural credit scoring meeting OJK regulatory guidelines.",
+        "Building automated ETL pipelines using Python and SQL, structured relational database architecture, and data standardization workflows.",
     },
     {
       num: "03",
-      icon: Layers,
-      title: "Supply Chain & Operations Analytics",
+      icon: Cpu,
+      title: "Machine Learning & Quantitative Modeling",
       description:
-        "End-to-end logistics SLA analytics, geographic route optimization, and customer lifetime value (CLV) cohort tracking.",
+        "Tweedie GLM pricing, GARCH volatility modeling, and zero-leakage predictive pipelines with automated Pytest verification.",
     },
     {
       num: "04",
-      icon: Cpu,
-      title: "Healthcare AI & MLOps Systems",
+      icon: Layers,
+      title: "Gait & Sensor Motion Analysis",
       description:
-        "Quadratic Weighted Kappa (QWK) Nelder-Mead optimization, zero-leakage data pipelines, and reproducible production workflows.",
+        "Multi-camera calibration, reflective marker tracking, and kinematic motion capture sensor pre-processing at MOSHEE Lab.",
     },
+  ];
+
+  const experiences = [
+    {
+      role: "Member of Data Engineer",
+      org: "UKM CODER IT Telkom Surabaya",
+      period: "Okt 2024 - Sekarang",
+      points: [
+        "Developing automated Python and SQL extraction, transformation, and cleaning scripts for internal databases.",
+        "Engineering structured data processing pipelines to boost relational database governance efficiency.",
+        "Active member of the LUMINA (Luminous Insights & Narratives Arena) technical committee.",
+      ],
+    },
+    {
+      role: "Motion Laboratory Assistant",
+      org: "MOSHEE Lab (Gait & Motion)",
+      period: "Juli 2025 - Sekarang",
+      points: [
+        "Technical support for human gait motion analysis research, multi-camera calibration, and reflective marker placement.",
+        "Managing laboratory hardware readiness and experimental testing facilities for faculty and student research.",
+        "Pre-processing kinematic motion capture sensor data streams for academic publications.",
+      ],
+    },
+    {
+      role: "Web Developer & Project Team Member",
+      org: "Pengabdian Masyarakat Telkom University",
+      period: "Feb 2025 - Jun 2025",
+      points: [
+        "Developed and deployed official school web portal for SDN Wonokromo III Surabaya using WordPress CMS.",
+        "Configured school domain (sch.id), server hosting, and functional verification via Black Box Testing.",
+        "Conducted hands-on training workshops and authoring comprehensive website administration guidebooks.",
+      ],
+    },
+  ];
+
+  const certifications = [
+    "Pandas Bootcamp: Data Analysis with Pandas Python3 (2025)",
+    "Master the Basics of Azure: Data Fundamentals (Microsoft Azure)",
+    "Microsoft Power BI for Beginners & Excel Users",
+    "Big Data 101 (Cognitive Class / IBM)",
+    "Belajar Machine Learning untuk Pemula (Dicoding Indonesia)",
   ];
 
   const results = [
     {
       value: "20+",
       label: "Research Monographs",
-      desc: "Comprehensive quantitative papers published across 6 domains",
+      desc: "Quantitative papers spanning Actuarial, Risk, and Machine Learning",
     },
     {
       value: "99.9%",
-      label: "Zero-Leakage Assurance",
-      desc: "Strict train-test split isolation before any preprocessing step",
+      label: "Zero-Leakage Guarantee",
+      desc: "Strict train-test split isolation before any scaling or preprocessing",
     },
     {
       value: "5+",
       label: "Live Web Prototypes",
-      desc: "Production interactive analytical applications deployed live",
+      desc: "Interactive analytical web applications deployed live on GitHub",
     },
     {
       value: "100%",
-      label: "Automated Pytest Coverage",
-      desc: "Deterministic random seed specification and reproducible codebases",
-    },
-  ];
-
-  const testimonials = [
-    {
-      num: "01",
-      name: "Dr. Sarah Chen",
-      role: "Lead Actuary & Quantitative Strategist",
-      quote:
-        "Izam's rigorous Tweedie GLM formulation and zero-leakage train-test methodology establish an exceptional standard for academic and industrial actuarial modeling.",
-      avatar: "/images/jr_client_1.jpg",
-    },
-    {
-      num: "02",
-      name: "Marcus Vance",
-      role: "Head of Supply Chain & Operations Analytics",
-      quote:
-        "The Olist logistics pipeline and spatial analytics delivered immediate mathematical clarity to complex multi-state fulfillment bottlenecks.",
-      avatar: "/images/jr_client_2.jpg",
-    },
-    {
-      num: "03",
-      name: "Elena Rostova",
-      role: "Director of Machine Learning Systems",
-      quote:
-        "Flawless statistical rigor, clean architecture, and reproducible Pytest test suites throughout the entire clinical AI and banking risk research portfolio.",
-      avatar: "/images/jr_client_3.jpg",
+      label: "Automated Testing",
+      desc: "Deterministic random seeds and automated Pytest test suites",
     },
   ];
 
@@ -167,7 +184,7 @@ export default function HomePage() {
               IZAM ROSIAWAN
             </span>
             <span className="text-[11px] font-semibold tracking-wider text-[#116dff] uppercase">
-              Data Science & Actuarial
+              Data Science & Analytics
             </span>
           </a>
         </div>
@@ -176,14 +193,14 @@ export default function HomePage() {
           <a href="#about" className="hover:text-[#116dff] transition-colors">
             ABOUT
           </a>
-          <a href="#services" className="hover:text-[#116dff] transition-colors">
-            DOMAINS
+          <a href="#competencies" className="hover:text-[#116dff] transition-colors">
+            COMPETENCIES
+          </a>
+          <a href="#experience" className="hover:text-[#116dff] transition-colors">
+            EXPERIENCE
           </a>
           <a href="#portfolio" className="hover:text-[#116dff] transition-colors">
             MONOGRAPHS
-          </a>
-          <a href="#results" className="hover:text-[#116dff] transition-colors">
-            RESULTS
           </a>
           <a href="#contact" className="hover:text-[#116dff] transition-colors">
             CONTACT
@@ -211,7 +228,7 @@ export default function HomePage() {
           <div className="lg:col-span-7 space-y-8">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ecf3ff] border border-[#d8e2ec] text-[#116dff] text-xs font-semibold uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#116dff] animate-pulse" />
-              Evidence-Based Quantitative Intelligence
+              Telkom University Surabaya - Data Science
             </div>
 
             <div className="space-y-3">
@@ -219,14 +236,14 @@ export default function HomePage() {
                 Izam Rosiawan
               </h1>
               <h2 className="font-display font-bold text-2xl sm:text-4xl text-[#116dff] tracking-normal">
-                Quantitative Data Science
+                Data Analytics & Business Intelligence
               </h2>
             </div>
 
             <p className="text-base sm:text-lg text-[#52606d] leading-relaxed max-w-xl font-normal">
-              Amplify analytical depth with zero-leakage predictive intelligence,
-              actuarial Tweedie models, and reproducible econometric frameworks
-              tailored for mission-critical decisions.
+              Undergraduate Data Science student focused on automated Python/SQL
+              data pipelines, interactive Power BI business analytics, and
+              zero-leakage quantitative machine learning modeling.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -238,20 +255,20 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
-                href="#about"
+                href="#experience"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-[#f0f1f5] text-[#162d3d] border border-[#dfe5eb] text-sm font-bold uppercase tracking-wider rounded-full transition-all"
               >
-                <span>SEE MY WORK</span>
+                <span>VIEW EXPERIENCE</span>
               </a>
             </div>
           </div>
 
-          {/* Right Column: Consultant Portrait & Data Lines Art */}
+          {/* Right Column: Real Photo with Studio Grey BG */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-[#ecf3ff]">
+            <div className="relative w-full max-w-md aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-[#ecf3ff]">
               <Image
-                src="/images/jr_consultant.jpg"
-                alt="Izam Rosiawan"
+                src="/images/izam_photo_grey_color.jpg"
+                alt="Izam Rosiawan - Data Science Student"
                 fill
                 className="object-cover object-top"
                 priority
@@ -262,14 +279,14 @@ export default function HomePage() {
               <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-lg flex items-center justify-between">
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-wider text-[#718096]">
-                    RESEARCH SCOPE
+                    SURABAYA, JAWA TIMUR
                   </div>
-                  <div className="font-display font-bold text-lg text-[#162d3d]">
-                    20 Monograph Papers
+                  <div className="font-display font-bold text-base text-[#162d3d]">
+                    Telkom University
                   </div>
                 </div>
                 <span className="px-3 py-1 bg-[#116dff] text-white text-[11px] font-bold rounded-full">
-                  100% REPRODUCIBLE
+                  DATA SCIENCE
                 </span>
               </div>
             </div>
@@ -288,28 +305,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CORE DOMAINS / OUR SERVICES SECTION */}
-      <section id="services" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
+      {/* CORE COMPETENCIES SECTION */}
+      <section id="competencies" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto space-y-16">
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#dfe5eb] pb-8">
             <div className="space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
-                CORE DOMAINS & EXPERTISE
+                SKILLS & TECHNICAL COMPETENCIES
               </span>
               <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
-                Our Services
+                Core Domains
               </h2>
             </div>
             <p className="text-sm text-[#718096] max-w-md">
-              Specialized quantitative modeling disciplines adhering strictly to
-              dual-language academic precision and zero-leakage standards.
+              Systematic technical skills spanning exploratory data analysis,
+              pipeline automation, and laboratory motion capture research.
             </p>
           </div>
 
-          {/* 4 Service Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((srv) => {
+            {competencies.map((srv) => {
               const Icon = srv.icon;
               return (
                 <div
@@ -334,7 +350,7 @@ export default function HomePage() {
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-[#dfe5eb]/60 flex items-center gap-1.5 text-xs font-bold text-[#116dff] group-hover:translate-x-1 transition-transform">
-                    <span>EXPLORE TOPICS</span>
+                    <span>EXPLORE SKILLSET</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -345,13 +361,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ABOUT / STRATEGIST SECTION */}
+      {/* ABOUT & EDUCATION SECTION */}
       <section id="about" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-[#f7f6f4] border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-          {/* Left: Graphic Art & Visual */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-white shadow-xl border-4 border-white">
+          {/* Left: Graphic Art & Education Box */}
+          <div className="lg:col-span-5 relative space-y-6">
+            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-xl border-4 border-white">
               <Image
                 src="/images/jr_dots_lines.jpg"
                 alt="Graph visual"
@@ -359,71 +375,99 @@ export default function HomePage() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-[#162d3d]/20" />
-              <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/95 backdrop-blur-md shadow-lg space-y-2">
-                <div className="font-display font-bold text-lg text-[#162d3d]">
-                  Zero-Leakage Assurance
+              <div className="absolute bottom-4 left-4 right-4 p-5 rounded-2xl bg-white/95 backdrop-blur-md shadow-lg space-y-1.5">
+                <div className="flex items-center gap-2 text-[#116dff] font-bold text-xs">
+                  <GraduationCap className="w-4 h-4" />
+                  <span>ACADEMIC BACKGROUND</span>
                 </div>
-                <p className="text-xs text-[#52606d]">
-                  Train-test split executed first before scaling, imputation, or feature transformation.
+                <div className="font-display font-bold text-sm text-[#162d3d]">
+                  S1 Sains Data - Telkom University Surabaya
+                </div>
+                <p className="text-[11px] text-[#718096]">
+                  Agustus 2024 - Sekarang | Fokus Data Analytics & Engineering
                 </p>
               </div>
             </div>
+
+            {/* Certifications Box */}
+            <div className="p-6 rounded-2xl bg-white border border-[#dfe5eb] shadow-sm space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#116dff]">
+                <Award className="w-4 h-4" />
+                <span>CERTIFICATIONS & TRAINING</span>
+              </div>
+              <ul className="space-y-2 text-xs text-[#52606d]">
+                {certifications.map((c, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#116dff] mt-0.5 flex-shrink-0" />
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Right: Narrative */}
+          {/* Right: Professional Summary */}
           <div className="lg:col-span-7 space-y-8 lg:pl-6">
             <div className="space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
-                QUANTITATIVE STRATEGIST & RESEARCHER
+                PROFESSIONAL SUMMARY
               </span>
               <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight leading-tight">
-                ROI-Focused Strategist & Data Scientist
+                Systematic & Analytical Data Practitioner
               </h2>
             </div>
 
             <div className="space-y-4 text-sm sm:text-base text-[#52606d] leading-relaxed font-normal">
               <p>
-                <strong>Izam Rosiawan</strong> is an Indonesian data scientist and
-                quantitative researcher with an extensive body of work spanning
-                actuarial solvency, financial volatility forecasting, and supply
-                chain optimization.
+                Undergraduate Data Science student at <strong>Universitas Telkom Surabaya</strong> with
+                a primary focus on <strong>Data Analytics</strong>, <strong>Data Engineering</strong>,
+                and <strong>Business Intelligence</strong>.
               </p>
               <p>
-                Every research monograph is built from pure first principles:
-                enforcing strict mathematical formulation, prohibiting direct
-                target reconstruction leakage, and validating results against
-                rigorous industry benchmarks.
+                Experienced in designing automated data processing scripts with Python and SQL,
+                managing structured relational databases, constructing interactive Power BI analytical
+                dashboards, and conducting web system testing. Accustomed to systematic, analytical thinking
+                to deliver accurate data insights that drive operational decisions.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
               <div className="p-4 rounded-xl bg-white border border-[#dfe5eb]">
-                <div className="font-display font-black text-3xl text-[#116dff]">20</div>
+                <div className="font-display font-black text-2xl text-[#116dff]">Python & SQL</div>
                 <div className="text-xs font-semibold text-[#718096] uppercase tracking-wider mt-1">
-                  Monographs
+                  Core Stack
                 </div>
               </div>
               <div className="p-4 rounded-xl bg-white border border-[#dfe5eb]">
-                <div className="font-display font-black text-3xl text-[#162d3d]">6</div>
+                <div className="font-display font-black text-2xl text-[#162d3d]">Power BI</div>
                 <div className="text-xs font-semibold text-[#718096] uppercase tracking-wider mt-1">
-                  Domains
+                  BI & Analytics
                 </div>
               </div>
               <div className="p-4 rounded-xl bg-white border border-[#dfe5eb]">
-                <div className="font-display font-black text-3xl text-[#116dff]">100%</div>
+                <div className="font-display font-black text-2xl text-[#116dff]">Azure</div>
                 <div className="text-xs font-semibold text-[#718096] uppercase tracking-wider mt-1">
-                  Reproducible
+                  Data Fundamentals
                 </div>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap gap-4">
               <a
                 href="#portfolio"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-[#162d3d] hover:bg-[#116dff] text-white text-sm font-bold uppercase tracking-wider rounded-full transition-all shadow-md"
               >
-                <span>SEE MY MONOGRAPHS</span>
+                <span>EXPLORE MONOGRAPHS</span>
                 <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="https://linkedin.com/in/izam-rosiawan"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-4 bg-white hover:bg-[#dfe5eb] text-[#162d3d] border border-[#dfe5eb] text-sm font-bold uppercase tracking-wider rounded-full transition-all"
+              >
+                <Linkedin className="w-4 h-4 text-[#0077b5]" />
+                <span>LINKEDIN PROFILE</span>
               </a>
             </div>
           </div>
@@ -431,8 +475,65 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PROVEN RESULTS / STATS SECTION */}
-      <section id="results" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
+      {/* EXPERIENCE & ORGANIZATIONAL BACKGROUND */}
+      <section id="experience" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
+        <div className="max-w-7xl mx-auto space-y-16">
+
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#dfe5eb] pb-8">
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
+                WORK & ORGANIZATIONAL EXPERIENCE
+              </span>
+              <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
+                Track Record
+              </h2>
+            </div>
+            <p className="text-sm text-[#718096] max-w-md">
+              Hands-on contributions in data engineering, laboratory motion capture research, and web system deployment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {experiences.map((exp, idx) => (
+              <div
+                key={idx}
+                className="p-8 rounded-2xl bg-[#f7f6f4] border border-[#dfe5eb] hover:border-[#116dff] hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-6"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-[#116dff] uppercase tracking-wider bg-[#ecf3ff] px-3 py-1 rounded-full">
+                      {exp.period}
+                    </span>
+                    <span className="font-display font-black text-xl text-[#a0aec0]">
+                      #{idx + 1}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-lg text-[#162d3d] leading-snug">
+                      {exp.role}
+                    </h3>
+                    <div className="text-xs font-semibold text-[#718096] mt-0.5">
+                      {exp.org}
+                    </div>
+                  </div>
+                  <ul className="space-y-2.5 pt-2 text-xs text-[#52606d] leading-relaxed">
+                    {exp.points.map((pt, pIdx) => (
+                      <li key={pIdx} className="flex items-start gap-2">
+                        <span className="text-[#116dff] font-bold mt-0.5">•</span>
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* PROVEN RESULTS / METRICS SECTION */}
+      <section id="results" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-[#f7f6f4] border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto space-y-16">
 
           <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -443,8 +544,7 @@ export default function HomePage() {
               Proven Results
             </h2>
             <p className="text-sm text-[#718096]">
-              Quantifiable performance milestones and validation metrics across
-              the research portfolio.
+              Quantifiable performance milestones and validation metrics across the research portfolio.
             </p>
           </div>
 
@@ -452,7 +552,7 @@ export default function HomePage() {
             {results.map((res, i) => (
               <div
                 key={i}
-                className="p-8 rounded-2xl bg-[#f7f6f4] border border-[#dfe5eb] hover:border-[#116dff] hover:shadow-lg transition-all duration-300 text-center space-y-3"
+                className="p-8 rounded-2xl bg-white border border-[#dfe5eb] hover:border-[#116dff] hover:shadow-lg transition-all duration-300 text-center space-y-3"
               >
                 <div className="font-display font-black text-4xl sm:text-5xl text-[#116dff] tracking-tight">
                   {res.value}
@@ -471,13 +571,13 @@ export default function HomePage() {
       </section>
 
       {/* PORTFOLIO / RESEARCH ARCHIVE SECTION */}
-      <section id="portfolio" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-[#f7f6f4] border-b border-[#dfe5eb]">
+      <section id="portfolio" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto space-y-12">
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#dfe5eb] pb-8">
             <div className="space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
-                PORTFOLIO & MONOGRAPH ARCHIVE (2024 - 2026)
+                RESEARCH ARCHIVE & MONOGRAPHS (2024 - 2026)
               </span>
               <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
                 Featured Monographs
@@ -500,7 +600,7 @@ export default function HomePage() {
                     className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
                       isActive
                         ? "bg-[#116dff] text-white shadow-sm"
-                        : "bg-white text-[#52606d] hover:bg-[#dfe5eb] border border-[#dfe5eb]"
+                        : "bg-[#f7f6f4] text-[#52606d] hover:bg-[#dfe5eb] border border-[#dfe5eb]"
                     }`}
                   >
                     {cat.label}
@@ -516,7 +616,7 @@ export default function HomePage() {
                 placeholder="Search topic, formula, algorithm..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white pl-10 pr-4 py-2.5 rounded-full border border-[#dfe5eb] text-xs font-medium focus:outline-none focus:border-[#116dff] focus:ring-2 focus:ring-[#116dff]/20 text-[#162d3d]"
+                className="w-full bg-[#f7f6f4] pl-10 pr-4 py-2.5 rounded-full border border-[#dfe5eb] text-xs font-medium focus:outline-none focus:border-[#116dff] focus:ring-2 focus:ring-[#116dff]/20 text-[#162d3d]"
               />
             </div>
           </div>
@@ -529,7 +629,7 @@ export default function HomePage() {
                 <div
                   key={project.id}
                   onClick={() => setActiveProject(project)}
-                  className="group cursor-pointer rounded-2xl bg-white border border-[#dfe5eb] hover:border-[#116dff] hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                  className="group cursor-pointer rounded-2xl bg-[#f7f6f4] border border-[#dfe5eb] hover:border-[#116dff] hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
                 >
                   <div className="p-7 space-y-4">
                     <div className="flex items-center justify-between">
@@ -550,7 +650,7 @@ export default function HomePage() {
                     </p>
 
                     {/* Metric Highlight Box */}
-                    <div className="p-3.5 rounded-xl bg-[#f7f6f4] border border-[#dfe5eb]/70 flex items-center justify-between">
+                    <div className="p-3.5 rounded-xl bg-white border border-[#dfe5eb]/70 flex items-center justify-between">
                       <div>
                         <div className="text-[10px] uppercase font-bold text-[#718096] tracking-wider">
                           {project.metrics[0].label}
@@ -569,20 +669,20 @@ export default function HomePage() {
                       {project.techStack.slice(0, 3).map((t, i) => (
                         <span
                           key={i}
-                          className="px-2 py-0.5 rounded-md bg-[#f0f1f5] text-[10px] font-bold text-[#52606d]"
+                          className="px-2 py-0.5 rounded-md bg-white border border-[#dfe5eb] text-[10px] font-bold text-[#52606d]"
                         >
                           {t}
                         </span>
                       ))}
                       {project.techStack.length > 3 && (
-                        <span className="px-2 py-0.5 rounded-md bg-[#f0f1f5] text-[10px] font-bold text-[#718096]">
+                        <span className="px-2 py-0.5 rounded-md bg-white border border-[#dfe5eb] text-[10px] font-bold text-[#718096]">
                           +{project.techStack.length - 3}
                         </span>
                       )}
                     </div>
                   </div>
 
-                  <div className="px-7 py-4 bg-[#f7f6f4] border-t border-[#dfe5eb] flex items-center justify-between">
+                  <div className="px-7 py-4 bg-white border-t border-[#dfe5eb] flex items-center justify-between">
                     <button
                       type="button"
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-[#162d3d] group-hover:text-[#116dff] transition-colors uppercase tracking-wider"
@@ -611,62 +711,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
-      <section className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-white border-b border-[#dfe5eb]">
-        <div className="max-w-7xl mx-auto space-y-16">
-
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
-              PEER & INDUSTRY RECOGNITION
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight">
-              Testimonials
-            </h2>
-            <p className="text-sm text-[#718096]">
-              Feedback on methodological integrity, mathematical clarity, and
-              reproducible execution.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((test) => (
-              <div
-                key={test.num}
-                className="p-8 rounded-2xl bg-[#f7f6f4] border border-[#dfe5eb] flex flex-col justify-between space-y-6"
-              >
-                <div className="space-y-4">
-                  <span className="font-display font-black text-2xl text-[#116dff]/40">
-                    {test.num}
-                  </span>
-                  <p className="text-sm text-[#334155] italic leading-relaxed font-normal">
-                    &ldquo;{test.quote}&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4 pt-4 border-t border-[#dfe5eb]">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
-                    <Image
-                      src={test.avatar}
-                      alt={test.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-sm text-[#162d3d]">
-                      {test.name}
-                    </div>
-                    <div className="text-xs text-[#718096]">{test.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* CONTACT / CONSULTATION FORM SECTION */}
+      {/* CONTACT & CONSULTATION FORM SECTION */}
       <section id="contact" className="w-full px-6 sm:px-12 lg:px-20 py-20 lg:py-28 bg-[#f7f6f4] border-b border-[#dfe5eb]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
@@ -674,14 +719,13 @@ export default function HomePage() {
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#116dff]">
-                INITIATE COLLABORATION
+                GET IN TOUCH
               </span>
               <h2 className="font-display font-black text-3xl sm:text-5xl text-[#162d3d] tracking-tight leading-tight">
-                Let&apos;s ignite your data success
+                Let&apos;s discuss data collaboration
               </h2>
               <p className="text-sm text-[#52606d] leading-relaxed">
-                Connect for research collaborations, quantitative actuarial
-                consulting, or machine learning engineering partnerships.
+                Connect for data analytics projects, automated data engineering pipelines, or academic research collaborations.
               </p>
             </div>
 
@@ -695,7 +739,7 @@ export default function HomePage() {
                     LOCATION
                   </div>
                   <div className="text-sm font-bold text-[#162d3d]">
-                    Jakarta, Indonesia
+                    Surabaya, Jawa Timur, Indonesia
                   </div>
                 </div>
               </div>
@@ -709,10 +753,29 @@ export default function HomePage() {
                     EMAIL
                   </div>
                   <a
-                    href="mailto:izamrosiawan@gmail.com"
+                    href="mailto:izamrosiawan13@gmail.com"
                     className="text-sm font-bold text-[#116dff] hover:underline"
                   >
-                    izamrosiawan@gmail.com
+                    izamrosiawan13@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-white border border-[#dfe5eb]">
+                <div className="w-10 h-10 rounded-full bg-[#ecf3ff] flex items-center justify-center text-[#116dff]">
+                  <Linkedin className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#718096] uppercase tracking-wider">
+                    LINKEDIN
+                  </div>
+                  <a
+                    href="https://linkedin.com/in/izam-rosiawan"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-bold text-[#116dff] hover:underline"
+                  >
+                    linkedin.com/in/izam-rosiawan
                   </a>
                 </div>
               </div>
@@ -741,20 +804,20 @@ export default function HomePage() {
           {/* Right: Submission Form */}
           <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#dfe5eb] shadow-xl">
             <h3 className="font-display font-bold text-2xl text-[#162d3d] mb-2">
-              Book Your Strategy Session Now
+              Send a Message or Project Inquiry
             </h3>
             <p className="text-xs text-[#718096] mb-8">
-              Fill in your research or project objectives below for a tailored consultation.
+              Fill in your contact details and message below to initiate a discussion.
             </p>
 
             {formSubmitted ? (
               <div className="p-6 rounded-2xl bg-[#ecf3ff] border border-[#116dff]/30 text-center space-y-3">
                 <CheckCircle2 className="w-10 h-10 text-[#116dff] mx-auto" />
                 <h4 className="font-display font-bold text-lg text-[#162d3d]">
-                  Inquiry Received!
+                  Message Sent Successfully!
                 </h4>
                 <p className="text-xs text-[#52606d]">
-                  Thank you for reaching out. We will review your research objectives and get back to you shortly.
+                  Thank you for reaching out. I will respond to your inquiry via email shortly.
                 </p>
               </div>
             ) : (
@@ -800,7 +863,7 @@ export default function HomePage() {
                   <input
                     type="email"
                     required
-                    placeholder="john.doe@organization.com"
+                    placeholder="john.doe@example.com"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
@@ -811,7 +874,7 @@ export default function HomePage() {
 
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-[#52606d]">
-                    I&apos;m interested in *
+                    Area of Interest *
                   </label>
                   <select
                     value={formData.interest}
@@ -820,12 +883,12 @@ export default function HomePage() {
                     }
                     className="w-full px-4 py-3 rounded-xl border border-[#dfe5eb] text-xs font-medium focus:outline-none focus:border-[#116dff] focus:ring-2 focus:ring-[#116dff]/20 bg-[#f7f6f4]"
                   >
-                    <option>Actuarial Science & Solvency</option>
-                    <option>Financial & Banking Risk Modeling</option>
-                    <option>Supply Chain & Operations Analytics</option>
-                    <option>Clinical AI & Healthcare ML</option>
-                    <option>Public Policy & Econometrics</option>
-                    <option>Production MLOps Engineering</option>
+                    <option>Data Analytics & Business Intelligence</option>
+                    <option>Data Engineering & ETL Pipelines</option>
+                    <option>Machine Learning & Quantitative Modeling</option>
+                    <option>Motion Capture & Sensor Analysis</option>
+                    <option>Web Development & Digitalization</option>
+                    <option>Academic Research Collaboration</option>
                   </select>
                 </div>
 
@@ -836,7 +899,7 @@ export default function HomePage() {
                   <textarea
                     rows={4}
                     required
-                    placeholder="Describe your research questions, datasets, or modeling requirements..."
+                    placeholder="Describe your analytics requirements or collaboration objectives..."
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
@@ -850,7 +913,7 @@ export default function HomePage() {
                   className="w-full py-4 rounded-xl bg-[#116dff] hover:bg-[#0052cc] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
-                  <span>SUBMIT INQUIRY</span>
+                  <span>SEND INQUIRY</span>
                 </button>
               </form>
             )}
@@ -869,7 +932,7 @@ export default function HomePage() {
                 IZAM ROSIAWAN
               </span>
               <p className="text-xs text-white/60">
-                Evidence-based quantitative research and zero-leakage machine learning pipelines.
+                Data Science Student - Telkom University Surabaya | Data Analytics & Business Intelligence.
               </p>
             </div>
 
@@ -877,11 +940,14 @@ export default function HomePage() {
               <a href="#about" className="hover:text-white transition-colors">
                 ABOUT
               </a>
-              <a href="#services" className="hover:text-white transition-colors">
-                SERVICES
+              <a href="#competencies" className="hover:text-white transition-colors">
+                COMPETENCIES
+              </a>
+              <a href="#experience" className="hover:text-white transition-colors">
+                EXPERIENCE
               </a>
               <a href="#portfolio" className="hover:text-white transition-colors">
-                PORTFOLIO
+                MONOGRAPHS
               </a>
               <a href="#contact" className="hover:text-white transition-colors">
                 CONTACT
@@ -891,7 +957,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-white/50">
             <div>
-              © 2026 Izam Rosiawan. Quantitative Research OS.
+              © 2026 Izam Rosiawan. Surabaya, Jawa Timur. Built with Next.js & Tailwind CSS.
             </div>
             <div className="flex items-center gap-6">
               <a
@@ -903,12 +969,18 @@ export default function HomePage() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/izam-rosiawan"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-white transition-colors"
               >
                 LinkedIn
+              </a>
+              <a
+                href="mailto:izamrosiawan13@gmail.com"
+                className="hover:text-white transition-colors"
+              >
+                Email
               </a>
             </div>
           </div>

@@ -1,21 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: #c2c5cc;
-  --fg: #111213;
-  --muted: #525252;
-  --border: #a1a6b0;
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --border: #e0e0e0;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   letter-spacing: -0.01em;
 }
 
@@ -27,7 +26,6 @@ body {
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Keyframes for marquee ticker */
 @keyframes marquee {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
@@ -41,7 +39,6 @@ body {
   animation-play-state: paused;
 }
 
-/* Editorial underline on hover */
 .editorial-link {
   position: relative;
   text-decoration: none;
@@ -54,7 +51,7 @@ body {
   height: 1px;
   bottom: -2px;
   left: 0;
-  background-color: #111213;
+  background-color: #111111;
   transform-origin: bottom right;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -68,11 +65,11 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #c2c5cc;
+  background: #f0f0f0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #8b909a;
+  background: #bbb;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #525252;
+  background: #888;
 }

@@ -97,15 +97,15 @@ export default function HomePage() {
   ];
 
   const thumbnails = [
-    "/images/mockup_bank_risk.jpg",
-    "/images/hero_hand_phone.jpg",
-    "/images/mockup_olist_ecommerce.jpg",
-    "/images/mockup_asean_recovery.jpg",
-    "/images/mockup_bank_risk.jpg",
-    "/images/hero_hand_phone.jpg",
-    "/images/mockup_olist_ecommerce.jpg",
-    "/images/mockup_asean_recovery.jpg",
-    "/images/mockup_bank_risk.jpg",
+    "/images/max_strip_01.jpg",
+    "/images/max_strip_02.jpg",
+    "/images/max_strip_03.jpg",
+    "/images/max_strip_04.jpg",
+    "/images/max_strip_05.jpg",
+    "/images/max_strip_06.jpg",
+    "/images/max_strip_07.jpg",
+    "/images/max_strip_08.jpg",
+    "/images/max_receipt_tag.jpg",
   ];
 
   const footerLinks = [
@@ -121,13 +121,13 @@ export default function HomePage() {
 
       {/* HEADER */}
       <header
-        className="w-full bg-white/90 backdrop-blur-md px-8 sm:px-14 h-[72px] flex items-center justify-between sticky top-0 z-50"
-        style={{ borderBottom: "1px solid #e0e0e0" }}
+        className="w-full bg-white/95 backdrop-blur-md px-8 sm:px-14 h-[72px] flex items-center justify-between sticky top-0 z-50"
+        style={{ borderBottom: "1px solid #e5e5e5" }}
       >
         <div className="font-syne text-sm font-extrabold uppercase" style={{ letterSpacing: "0.15em" }}>
           IZAM ROSIAWAN
         </div>
-        <button aria-label="Open menu" className="flex flex-col gap-[5px] items-center justify-center">
+        <button aria-label="Open menu" className="flex flex-col gap-[5px] items-center justify-center p-2">
           <span className="block w-6 h-[2px] bg-[#111]" />
           <span className="block w-6 h-[2px] bg-[#111]" />
           <span className="block w-6 h-[2px] bg-[#111]" />
@@ -137,13 +137,13 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* HERO */}
+      {/* HERO SECTION - Exact Max Arden Studio Grey Photo */}
       <section
         className="relative w-full overflow-hidden"
-        style={{ height: "88vh", minHeight: 560, background: "#cac8c4" }}
+        style={{ height: "88vh", minHeight: 580, background: "#d2d0cc" }}
       >
         <Image
-          src="/images/hero_hand_phone.jpg"
+          src="/images/max_hero_main.jpg"
           alt="Izam Rosiawan portfolio editorial"
           fill
           className="object-cover object-center"
@@ -151,11 +151,17 @@ export default function HomePage() {
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, transparent 40%, rgba(0,0,0,0.18) 100%)" }}
+          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, transparent 40%, rgba(0,0,0,0.15) 100%)" }}
         />
+
+        {/* Hero Card: warm grey glassmorphism */}
         <div
           className="absolute bottom-10 right-10 max-w-[420px] p-8 space-y-5"
-          style={{ background: "rgba(205,202,196,0.84)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.3)" }}
+          style={{
+            background: "rgba(215, 213, 208, 0.86)",
+            backdropFilter: "blur(18px)",
+            border: "1px solid rgba(255, 255, 255, 0.4)",
+          }}
         >
           <h1
             className="font-syne font-extrabold uppercase leading-tight"
@@ -181,7 +187,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* MARQUEE 1 */}
+      {/* MARQUEE 1 - Hairline Top/Bottom */}
       <div
         className="w-full overflow-hidden"
         style={{ background: "#fff", borderTop: "1.5px solid #111", borderBottom: "1.5px solid #111", padding: "14px 0" }}
@@ -195,7 +201,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* FEATURED SECTION */}
+      {/* FEATURED BESTSELLERS SECTION - Pure White Background */}
       <section id="featured" className="w-full bg-white px-8 sm:px-14 pt-20 pb-16">
         <div className="mb-14">
           <h2
@@ -215,41 +221,41 @@ export default function HomePage() {
           <span className="font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#111", letterSpacing: "0.2em" }}>
             / FEATURED PROJECTS
           </span>
-          <a href="#monographs" className="font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#111", letterSpacing: "0.2em" }}>
+          <a href="#monographs" className="font-syne font-extrabold uppercase hover:underline" style={{ fontSize: 11, color: "#111", letterSpacing: "0.2em" }}>
             BROWSE ALL
           </a>
         </div>
 
-        {/* 3-Column portrait grid */}
+        {/* 3-Column portrait grid with real Max Arden visuals */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {[
             {
-              src: "/images/mockup_bank_risk.jpg",
+              src: "/images/max_grid_photographer.jpg",
               label: "01 / BANKING",
               title: "Indonesian Banks Financial Risk Analytics",
               href: "https://izamrosiawan.github.io/indonesian-banks-risk-analytics/",
             },
             {
-              src: "/images/mockup_olist_ecommerce.jpg",
+              src: "/images/max_grid_creative.jpg",
               label: "02 / E-COMMERCE",
               title: "Olist Brazilian E-Commerce Logistics Pipeline",
               href: "https://izamrosiawan.github.io/olist-brazilian-ecommerce-analytics/",
             },
             {
-              src: "/images/mockup_asean_recovery.jpg",
+              src: "/images/max_grid_director.jpg",
               label: "03 / MACROECONOMICS",
               title: "ASEAN Post-Pandemic Economic Recovery",
               href: "https://izamrosiawan.github.io/asean-economic-recovery/",
             },
           ].map((card) => (
             <div key={card.label} className="group cursor-pointer">
-              <div className="relative overflow-hidden" style={{ height: 460, background: "#1a1a1a" }}>
+              <div className="relative overflow-hidden" style={{ height: 480, background: "#1a1a1a" }}>
                 <Image src={card.src} alt={card.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-95" />
               </div>
               <div className="pt-4 space-y-1">
                 <div className="font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#999", letterSpacing: "0.18em" }}>{card.label}</div>
                 <h3 className="font-syne font-extrabold uppercase leading-snug" style={{ fontSize: 16, color: "#111" }}>{card.title}</h3>
-                <a href={card.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#111", letterSpacing: "0.15em" }}>
+                <a href={card.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-syne font-extrabold uppercase hover:underline" style={{ fontSize: 11, color: "#111", letterSpacing: "0.15em" }}>
                   VIEW PROJECT <ArrowUpRight className="w-3 h-3" />
                 </a>
               </div>
@@ -257,14 +263,14 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Stats + Narasi row */}
+        {/* Stats + Editorial Narrative Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-10" style={{ borderTop: "1px solid #ddd" }}>
           <div className="md:col-span-5 grid grid-cols-2 gap-3">
             <div className="relative overflow-hidden" style={{ height: 140 }}>
-              <Image src="/images/mockup_bank_risk.jpg" alt="studio ref 1" fill className="object-cover brightness-90" />
+              <Image src="/images/max_photographer_2.jpg" alt="studio ref 1" fill className="object-cover brightness-90" />
             </div>
             <div className="relative overflow-hidden" style={{ height: 140 }}>
-              <Image src="/images/hero_hand_phone.jpg" alt="studio ref 2" fill className="object-cover brightness-90" />
+              <Image src="/images/max_hero_main.jpg" alt="studio ref 2" fill className="object-cover brightness-90" />
             </div>
           </div>
           <div className="md:col-span-3 flex flex-col justify-center gap-5">
@@ -283,7 +289,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* MARQUEE 2 - Steps */}
+      {/* MARQUEE 2 - Quick Setup */}
       <div
         className="w-full overflow-hidden"
         style={{ borderTop: "1.5px solid #111", borderBottom: "1.5px solid #111", padding: "14px 0", background: "#fff" }}
@@ -294,7 +300,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* STEPS SECTION */}
+      {/* STEPS & FAQ SECTION - Grey Studio Background */}
       <section id="steps" className="w-full" style={{ background: "#cac8c4" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="px-8 sm:px-14 py-16 space-y-4">
@@ -321,7 +327,7 @@ export default function HomePage() {
               </div>
             ))}
 
-            {/* FAQ block */}
+            {/* FAQ Accordion */}
             <div className="mt-4" style={{ background: "rgba(185,183,179,0.75)", backdropFilter: "blur(8px)" }}>
               <div className="overflow-hidden py-2.5 px-5" style={{ borderBottom: "1px solid rgba(100,100,100,0.25)" }}>
                 <div
@@ -360,12 +366,12 @@ export default function HomePage() {
           </div>
 
           <div className="relative hidden lg:block" style={{ minHeight: 700 }}>
-            <Image src="/images/hero_hand_phone.jpg" alt="Editorial portfolio showcase" fill className="object-cover object-center" />
+            <Image src="/images/max_photographer_2.jpg" alt="Editorial portfolio showcase" fill className="object-cover object-center" />
           </div>
         </div>
       </section>
 
-      {/* WHO IS SECTION */}
+      {/* WHO IS IZAM SECTION */}
       <section className="w-full" style={{ background: "#d4d2ce" }}>
         <div className="overflow-hidden" style={{ borderTop: "1.5px solid #666", borderBottom: "1.5px solid #666", padding: "14px 0" }}>
           <div className="inline-flex gap-16 whitespace-nowrap animate-marquee font-syne font-extrabold uppercase" style={{ fontSize: 13, letterSpacing: "0.14em", color: "#111" }}>
@@ -375,7 +381,7 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-2" style={{ height: 520 }}>
           <div className="relative overflow-hidden">
-            <Image src="/images/mockup_bank_risk.jpg" alt="Who is Izam left" fill className="object-cover brightness-90" />
+            <Image src="/images/max_hero_main.jpg" alt="Who is Izam left" fill className="object-cover brightness-90" />
             <div className="absolute bottom-6 left-6">
               <div className="font-syne font-black uppercase" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "#fff", lineHeight: 1.05 }}>
                 WHO<br />IS<br />IZAM
@@ -383,7 +389,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="relative overflow-hidden">
-            <Image src="/images/mockup_asean_recovery.jpg" alt="Who is Izam right" fill className="object-cover brightness-90" />
+            <Image src="/images/max_photographer_2.jpg" alt="Who is Izam right" fill className="object-cover brightness-90" />
             <div className="absolute top-1/2 -translate-y-1/2 right-8 max-w-[260px] text-right">
               <div className="font-syne font-extrabold uppercase leading-tight" style={{ fontSize: 15, color: "#fff" }}>
                 TEMPLATES<br />DESIGNED THE WAY<br />I'D WANT TO BUY<br />THEM.
@@ -403,10 +409,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* GIANT WORDMARK */}
+      {/* GIANT OVERLAPPING WORDMARK SECTION */}
       <section className="w-full relative overflow-hidden" style={{ background: "#fff" }}>
         <div className="relative" style={{ height: "65vh", minHeight: 400 }}>
-          <Image src="/images/mockup_olist_ecommerce.jpg" alt="Presentation editorial background" fill className="object-cover object-center" />
+          <Image src="/images/max_photographer_2.jpg" alt="Presentation editorial background" fill className="object-cover object-center" />
           <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-14">
             <div
               className="font-syne font-black uppercase leading-none select-none"
@@ -437,7 +443,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* RESEARCH ARCHIVE */}
+      {/* RESEARCH ARCHIVE - COMPLETE MONOGRAPH COLLECTION */}
       <section id="monographs" className="w-full bg-white px-8 sm:px-14 py-20">
         <div className="mb-12" style={{ borderBottom: "1px solid #ddd", paddingBottom: 32 }}>
           <div className="font-syne font-extrabold uppercase mb-3" style={{ fontSize: 11, color: "#999", letterSpacing: "0.2em" }}>
@@ -510,14 +516,14 @@ export default function HomePage() {
                   </div>
                   <div className="lg:col-span-3 flex flex-col items-start lg:items-end justify-between gap-3 h-full">
                     {hasWebDemo && (
-                      <a href={project.demoUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1.5 font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#111", letterSpacing: "0.15em" }}>
+                      <a href={project.demoUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1.5 font-syne font-extrabold uppercase hover:underline" style={{ fontSize: 11, color: "#111", letterSpacing: "0.15em" }}>
                         VIEW DEMO <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
-                    <button type="button" onClick={(e) => { e.stopPropagation(); setActiveProject(project); }} className="inline-flex items-center gap-1.5 font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#777", letterSpacing: "0.15em" }}>
+                    <button type="button" onClick={(e) => { e.stopPropagation(); setActiveProject(project); }} className="inline-flex items-center gap-1.5 font-syne font-extrabold uppercase hover:underline" style={{ fontSize: 11, color: "#777", letterSpacing: "0.15em" }}>
                       VIEW DETAIL <BookOpen className="w-3 h-3" />
                     </button>
-                    <a href={project.githubUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 font-syne font-extrabold uppercase" style={{ fontSize: 11, color: "#bbb", letterSpacing: "0.15em" }}>
+                    <a href={project.githubUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 font-syne font-extrabold uppercase hover:underline" style={{ fontSize: 11, color: "#bbb", letterSpacing: "0.15em" }}>
                       GITHUB <ArrowUpRight className="w-3 h-3" />
                     </a>
                   </div>
@@ -528,7 +534,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER - White background with real thumbnail strip */}
       <footer className="w-full bg-white" style={{ borderTop: "1px solid #e8e8e8" }}>
         <div className="px-8 sm:px-14 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" style={{ borderBottom: "1px solid #e8e8e8" }}>
           <div className="flex flex-wrap gap-8 items-center">
@@ -538,7 +544,7 @@ export default function HomePage() {
                 href={item.href}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noreferrer" : undefined}
-                className="font-syne font-extrabold uppercase"
+                className="font-syne font-extrabold uppercase hover:underline"
                 style={{ fontSize: 11, color: item.bold ? "#111" : "#aaa", letterSpacing: "0.18em" }}
               >
                 {item.label}
@@ -560,7 +566,7 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* MODAL */}
+      {/* MODAL VIEW */}
       {activeProject && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
           <div className="bg-white max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style={{ border: "1px solid #e5e5e5" }}>

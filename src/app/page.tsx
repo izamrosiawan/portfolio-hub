@@ -26,6 +26,15 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeProject, setActiveProject] = useState<ProjectDetail | null>(null);
+  const [activeService, setActiveService] = useState<{
+    num: string;
+    title: string;
+    tagline: string;
+    desc: string;
+    capabilities: string[];
+    techStack: string[];
+    categoryFilter?: string;
+  } | null>(null);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -50,22 +59,58 @@ export default function HomePage() {
     {
       num: "01",
       title: "Data Analytics & BI",
+      tagline: "Executive Visual Intelligence & Business Decisions",
       desc: "Transform complex operational datasets into interactive, actionable dashboards with Power BI, advanced SQL analytics, and automated decision support systems.",
+      capabilities: [
+        "Interactive Power BI Dashboard Engineering & KPI Tracking",
+        "Complex SQL Query Optimization, Aggregations & Window Functions",
+        "Exploratory Data Analysis (EDA) & Skewness/Variance Diagnostics",
+        "Business Metric Decomposition & Actionable Executive Reporting"
+      ],
+      techStack: ["Microsoft Power BI", "Microsoft Excel", "PostgreSQL", "Pandas", "Python"],
+      categoryFilter: "All"
     },
     {
       num: "02",
       title: "Data Engineering",
+      tagline: "Resilient ETL Pipelines & Database Governance",
       desc: "Architect automated extraction, transformation, and loading (ETL) data pipelines with Python and relational database governance for maximum reliability.",
+      capabilities: [
+        "Automated Python ETL & Multi-source Data Ingestion Scripts",
+        "Relational Schema Design & 3NF Database Normalization",
+        "Data Validation, Cleansing, and Missingness Auditing (MCAR/MAR)",
+        "API Integration & Task Automation for Operational Workflows"
+      ],
+      techStack: ["Python", "SQL", "PostgreSQL", "MySQL", "DuckDB", "REST APIs"],
+      categoryFilter: "Systems"
     },
     {
       num: "03",
       title: "Quantitative ML",
+      tagline: "Zero-Leakage Statistical Learning & Actuarial Models",
       desc: "Develop rigorous predictive models (GLM Tweedie, GARCH volatility, and QWK optimization) with strict zero-leakage validation protocols.",
+      capabilities: [
+        "Strict Train-Only Fitting & Anti-Leakage Feature Preprocessing",
+        "Compound Poisson-Gamma Tweedie Modeling for Pure Premium Pricing",
+        "Time-Series Walk-Forward Expanding Window Cross-Validation",
+        "Multi-Metric Evaluation (AUC-ROC, RMSE, Cohen's Kappa, Gini)"
+      ],
+      techStack: ["Scikit-learn", "LightGBM", "XGBoost", "Statsmodels", "NumPy", "SciPy"],
+      categoryFilter: "Insurance"
     },
     {
       num: "04",
       title: "Motion Sensor AI",
+      tagline: "Kinematic Biomechanics & Laboratory Instrumentation",
       desc: "Process high-frequency kinematic sensor signals, camera calibration, and reflective marker data at MOSHEE Lab for advanced biomechanical analysis.",
+      capabilities: [
+        "Multi-Camera Optical Space Calibration & Coordinate Transformation",
+        "Reflective Marker Kinematic Tracking & Noise Filtering",
+        "High-frequency Accelerometer & Gyroscope Signal Processing",
+        "Gait Cycle Phase Segmentation & Biomechanical Anomaly Detection"
+      ],
+      techStack: ["MOSHEE Lab Systems", "Biomechanical Signal Processing", "Python", "NumPy", "OpenCV"],
+      categoryFilter: "Healthcare"
     },
   ];
 
@@ -252,7 +297,8 @@ export default function HomePage() {
             {services.map((s) => (
               <div
                 key={s.num}
-                className="group flex flex-col justify-between min-h-[380px] p-8 rounded-[24px] bg-white/[0.04] hover:bg-[#595cef] border border-white/10 hover:border-transparent transition-all duration-500"
+                onClick={() => setActiveService(s)}
+                className="group cursor-pointer flex flex-col justify-between min-h-[380px] p-8 rounded-[24px] bg-white/[0.04] hover:bg-[#595cef] border border-white/10 hover:border-transparent transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1"
               >
                 <div className="space-y-6">
                   <span className="block text-2xl font-light text-[#595cef] group-hover:text-white transition-colors">
@@ -267,8 +313,13 @@ export default function HomePage() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-white/10 group-hover:border-white/20 flex items-center justify-between text-xs font-medium text-white">
-                  <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <button
+                    type="button"
+                    className="font-medium text-white group-hover:underline"
+                  >
+                    Learn more
+                  </button>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                 </div>
               </div>
             ))}
@@ -944,6 +995,106 @@ export default function HomePage() {
                   GITHUB REPO <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SERVICE DETAIL MODAL */}
+      {activeService && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
+          <div className="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-[28px] shadow-2xl border border-[#e0e0e0]">
+            <div className="p-8 flex items-start justify-between gap-6 sticky top-0 bg-white z-10 border-b border-[#e0e0e0]">
+              <div>
+                <span className="font-medium text-xs text-[#595cef] tracking-wider uppercase mb-1 block">
+                  SERVICE DOMAIN // {activeService.num}
+                </span>
+                <h2 className="font-semibold text-2xl text-[#090909] leading-tight">
+                  {activeService.title}
+                </h2>
+                <p className="text-xs text-[#6b6b6b] mt-1">{activeService.tagline}</p>
+              </div>
+              <button
+                onClick={() => setActiveService(null)}
+                className="p-2 hover:bg-[#f0f0f0] rounded-full transition-colors flex-shrink-0"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5 text-[#666666]" />
+              </button>
+            </div>
+
+            <div className="p-8 space-y-6 text-sm font-light text-[#333333]">
+              <div>
+                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-2">
+                  OVERVIEW & STRATEGIC VALUE
+                </div>
+                <p className="leading-relaxed text-[#090909]">{activeService.desc}</p>
+              </div>
+
+              <div>
+                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-3">
+                  CORE TECHNICAL CAPABILITIES
+                </div>
+                <div className="space-y-2.5">
+                  {activeService.capabilities.map((cap, i) => (
+                    <div
+                      key={i}
+                      className="p-3.5 rounded-xl bg-[#f4f4f4] border border-[#e8e8e8] flex items-start gap-3"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-[#595cef] flex-shrink-0 mt-0.5" />
+                      <span className="text-xs text-[#090909] leading-relaxed">{cap}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-3">
+                  PRIMARY TECH STACK & TOOLS
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {activeService.techStack.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3.5 py-1.5 rounded-full bg-[#595cef]/10 border border-[#595cef]/20 text-[#595cef] text-xs font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0 bg-white border-t border-[#e0e0e0]">
+              <button
+                onClick={() => {
+                  if (activeService.categoryFilter) {
+                    setSelectedCategory(activeService.categoryFilter);
+                  }
+                  setActiveService(null);
+                  const el = document.getElementById("portfolio");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#595cef] hover:bg-[#474ae0] text-white text-xs font-semibold rounded-full transition-all"
+              >
+                <span>EXPLORE RELATED MONOGRAPHS</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                onClick={() => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    interest: activeService.title,
+                  }));
+                  setActiveService(null);
+                  const el = document.getElementById("contact");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#f4f4f4] hover:bg-[#e0e0e0] text-[#090909] text-xs font-semibold rounded-full border border-[#e0e0e0] transition-all"
+              >
+                <span>INQUIRE ABOUT THIS</span>
+              </button>
             </div>
           </div>
         </div>

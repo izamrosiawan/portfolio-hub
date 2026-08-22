@@ -277,26 +277,90 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. ROI-FOCUSED STRATEGIST (comp-lyh9q1fo) - EXACT PALE BLUE SECTION WITH DOTS-LINES ART */}
+      {/* 3. STRATEGIC DATA MINDSET (comp-lyh9q1fo) */}
       <section id="about" className="w-full bg-[#d6dbe2] text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-          {/* Left: Dots-lines graphic art in rounded frame */}
+          {/* Left: Clean, High-Precision Vector Analytics & Sensor Card */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-[420px] aspect-[4/5] rounded-[32px] overflow-hidden bg-white shadow-sm flex items-center justify-center p-8">
-              <Image
-                src="/images/jr_dots_lines.jpg"
-                alt="Data resonance pattern"
-                fill
-                className="object-contain p-4"
-              />
+            <div className="relative w-full max-w-[440px] aspect-[4/5] rounded-[32px] overflow-hidden bg-[#090909] text-white p-7 shadow-lg flex flex-col justify-between border border-black/10">
+              {/* Header Telemetry */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#595cef] animate-pulse" />
+                  <span className="text-[11px] font-medium tracking-wider uppercase text-white/80">
+                    Analytics & Sensor Lab
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-white/40">MOSHEE // 2026</span>
+              </div>
+
+              {/* Center: Waveform & Vector Data Flow */}
+              <div className="my-auto space-y-5 py-4">
+                <div className="relative h-32 w-full bg-white/[0.03] rounded-2xl p-4 border border-white/5 flex flex-col justify-between overflow-hidden">
+                  <div className="flex justify-between text-[10px] text-white/40 font-mono">
+                    <span>KINEMATIC ACCELEROMETRY</span>
+                    <span className="text-[#595cef]">99.9% RIGOR</span>
+                  </div>
+                  
+                  {/* SVG Waveform Curve */}
+                  <svg className="w-full h-16" viewBox="0 0 300 80" fill="none">
+                    <path
+                      d="M0,45 Q25,10 50,40 T100,55 T150,20 T200,60 T250,25 T300,40"
+                      stroke="#595cef"
+                      strokeWidth="2.5"
+                      fill="none"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M0,45 Q25,10 50,40 T100,55 T150,20 T200,60 T250,25 T300,40 L300,80 L0,80 Z"
+                      fill="url(#purpleGrad)"
+                      opacity="0.15"
+                    />
+                    <circle cx="150" cy="20" r="4" fill="#595cef" />
+                    <circle cx="250" cy="25" r="4" fill="#ffffff" />
+                    <defs>
+                      <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#595cef" />
+                        <stop offset="100%" stopColor="#595cef" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                {/* Pipeline Flow Badges */}
+                <div className="grid grid-cols-2 gap-2 text-[11px] font-medium">
+                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
+                    <span className="text-white/60">ETL Pipeline</span>
+                    <span className="text-white font-mono">Python/SQL</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
+                    <span className="text-white/60">BI Reporting</span>
+                    <span className="text-[#595cef] font-mono">Power BI</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
+                    <span className="text-white/60">ML Models</span>
+                    <span className="text-white font-mono">Zero-Leakage</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
+                    <span className="text-white/60">Motion Lab</span>
+                    <span className="text-[#595cef] font-mono">Calibration</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer Stat */}
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/50">
+                <span>Telkom University Surabaya</span>
+                <span className="text-white font-semibold">Undergraduate</span>
+              </div>
             </div>
           </div>
 
           {/* Right: Narrative + CTA */}
           <div className="lg:col-span-7 space-y-8 lg:pl-6">
             <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] leading-tight tracking-tight">
-              ROI-Focused
+              ROI Focused
               <br />
               <span className="font-semibold text-[#595cef]">Strategist</span>
             </h2>

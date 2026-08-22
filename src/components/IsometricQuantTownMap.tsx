@@ -614,7 +614,7 @@ export default function IsometricQuantTownMap({
                     {selectedDistrict.icon}
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl font-bold text-white">{selectedDistrict.name} — Denah Dalam (Interior)</h3>
+                    <h3 className="font-serif text-xl font-bold text-white">{selectedDistrict.name} - Denah Dalam (Interior)</h3>
                     <p className="text-xs font-mono text-indigo-300">Pilih Ruang Laboratorium untuk Menginspeksi Kode & Aplikasi Web Live</p>
                   </div>
                 </div>

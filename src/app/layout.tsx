@@ -22,8 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Izam Rosiawan — Selected Works in Quantitative Science & Applied Machine Learning",
-  description: "A disciplined, editorial showcase of production repositories, actuarial formulations, and financial risk models.",
+  title: "Izam Rosiawan | Data Science & Business Intelligence Portfolio",
+  description: "Disciplined showcase of production repositories, actuarial formulations, data analytics, and applied machine learning.",
 };
 
 export default function RootLayout({

@@ -2,16 +2,23 @@
 
 import React, { useState, useMemo } from "react";
 import { DETAILED_PROJECTS, ProjectDetail } from "@/data/projects_detail";
+import InteractiveResearchTown from "@/components/InteractiveResearchTown";
 import { 
   ArrowUpRight, 
   Github, 
   Mail, 
   X, 
   Check, 
-  Copy
+  Copy,
+  ExternalLink,
+  Map,
+  ListFilter,
+  Sparkles,
+  BookOpen
 } from "lucide-react";
 
 export default function HomePage() {
+  const [viewMode, setViewMode] = useState<"town" | "stream">("town");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeProject, setActiveProject] = useState<ProjectDetail | null>(null);
@@ -79,13 +86,14 @@ export default function HomePage() {
       </header>
 
       {/* 2. Main Content */}
-      <main className="max-w-6xl mx-auto px-6 sm:px-10 py-16 sm:py-20">
+      <main className="max-w-6xl mx-auto px-6 sm:px-10 py-12 sm:py-16">
         
         {/* Editorial Introduction */}
-        <section className="mb-16 max-w-3xl">
-          <p className="text-xs font-mono text-[#525252] font-semibold uppercase tracking-widest mb-4">
-            Koleksi Riset & Rekayasa Terapan (2024 — 2026)
-          </p>
+        <section className="mb-12 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#f4f4f5] border border-[#e4e4e7] rounded-full text-xs font-mono text-[#525252] font-semibold uppercase tracking-widest mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
+            <span>Koleksi Riset & Rekayasa Terapan (2024 — 2026)</span>
+          </div>
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-[3.25rem] text-[#111213] leading-[1.15] font-normal">
             Koleksi sains data industri, formulasi aktuaria, dan arsitektur risiko kuantitatif.
           </h1>
@@ -94,98 +102,135 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* Curation Filter & Search Strip (No Box, Pure Lines) */}
-        <section className="border-t border-b border-[#e5e5e5] py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
-          {/* Categories Underline Links */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono font-medium">
-            {categories.map((cat) => {
-              const isActive = selectedCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`transition-colors text-left ${
-                    isActive
-                      ? "text-[#111213] font-bold underline underline-offset-8 decoration-2 decoration-[#111213]"
-                      : "text-[#525252] hover:text-[#111213]"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Search Line */}
-          <div className="relative min-w-[240px]">
-            <input
-              type="text"
-              placeholder="Cari topik, algoritma, rumus..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-0 border-b border-[#a3a3a3] py-1 text-xs text-[#111213] font-medium placeholder-[#525252] focus:outline-none focus:border-[#111213] transition-colors font-mono"
-            />
-          </div>
-        </section>
-
-        {/* 3. Open Horizontal Minimalissimo Stream (Zero Boxed Cards, Pure Editorial Lines) */}
-        <section className="divide-y divide-[#e5e5e5]">
-          {filteredProjects.map((project, idx) => (
-            <article
-              key={project.id}
-              onClick={() => setActiveProject(project)}
-              className="py-10 sm:py-12 group cursor-pointer transition-colors hover:bg-black/[0.015] -mx-4 px-4"
+        {/* View Mode Switcher Strip (Borraginol Town Style vs Stream) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-b border-[#e5e5e5] py-4 mb-10">
+          <div className="flex items-center gap-2 p-1 bg-[#e4e4e7]/60 rounded-xl font-mono text-xs font-bold">
+            <button
+              onClick={() => setViewMode("town")}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                viewMode === "town"
+                  ? "bg-[#111213] text-white shadow-xs"
+                  : "text-[#525252] hover:text-[#111213]"
+              }`}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-baseline">
-                {/* Index & Domain */}
-                <div className="lg:col-span-3">
-                  <span className="text-xs font-mono text-[#525252] font-semibold block mb-1">
-                    {String(idx + 1).padStart(2, "0")} / {project.domain}
-                  </span>
-                  <div className="text-xs font-mono text-[#262626] font-medium">
-                    {project.datasetInfo.name}
-                  </div>
-                </div>
+              <Map className="w-4 h-4" />
+              <span>Peta Interaktif (Research Town)</span>
+            </button>
 
-                {/* Title, Problem & Tech */}
-                <div className="lg:col-span-6">
-                  <h2 className="font-serif text-xl sm:text-2xl text-[#111213] group-hover:underline underline-offset-4 decoration-1 decoration-[#111213] transition-colors leading-snug font-medium">
-                    {project.title}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-[#262626] mt-3 leading-relaxed font-normal">
-                    {project.problem}
-                  </p>
-                  
-                  {/* Tech stack inline tags */}
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {project.techStack.map((t, i) => (
-                      <span key={i} className="text-[11px] font-mono text-[#525252] font-medium">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+            <button
+              onClick={() => setViewMode("stream")}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                viewMode === "stream"
+                  ? "bg-[#111213] text-white shadow-xs"
+                  : "text-[#525252] hover:text-[#111213]"
+              }`}
+            >
+              <ListFilter className="w-4 h-4" />
+              <span>Daftar Monograf (Editorial Stream)</span>
+            </button>
+          </div>
 
-                {/* Primary Metric & Link CTA */}
-                <div className="lg:col-span-3 lg:text-right flex lg:flex-col justify-between items-end gap-2">
-                  <div>
-                    <div className="text-[11px] font-mono text-[#525252] uppercase font-semibold">
-                      {project.metrics[0].label}
-                    </div>
-                    <div className="font-mono text-lg sm:text-xl font-bold text-[#111213] mt-0.5">
-                      {project.metrics[0].value}
-                    </div>
-                  </div>
+          <div className="text-xs font-mono text-[#525252] font-semibold">
+            {viewMode === "town" ? "🗺️ Peta Distrik Interaktif Aktif" : "📄 Tampilan Daftar Monograf Aktif"}
+          </div>
+        </div>
 
-                  <span className="inline-flex items-center gap-1 text-xs font-mono text-[#111213] font-bold group-hover:translate-x-0.5 transition-transform pt-2">
-                    <span>Lihat Kasus</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
+        {/* Dynamic View Rendering */}
+        {viewMode === "town" ? (
+          <InteractiveResearchTown
+            projects={DETAILED_PROJECTS}
+            onSelectProject={setActiveProject}
+          />
+        ) : (
+          <div>
+            {/* Curation Filter & Search Strip */}
+            <section className="border-b border-[#e5e5e5] pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono font-medium">
+                {categories.map((cat) => {
+                  const isActive = selectedCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`transition-colors text-left ${
+                        isActive
+                          ? "text-[#111213] font-bold underline underline-offset-8 decoration-2 decoration-[#111213]"
+                          : "text-[#525252] hover:text-[#111213]"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  );
+                })}
               </div>
-            </article>
-          ))}
-        </section>
+
+              <div className="relative min-w-[240px]">
+                <input
+                  type="text"
+                  placeholder="Cari topik, algoritma, rumus..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-transparent border-0 border-b border-[#a3a3a3] py-1 text-xs text-[#111213] font-medium placeholder-[#525252] focus:outline-none focus:border-[#111213] transition-colors font-mono"
+                />
+              </div>
+            </section>
+
+            {/* Stream List */}
+            <section className="divide-y divide-[#e5e5e5]">
+              {filteredProjects.map((project, idx) => (
+                <article
+                  key={project.id}
+                  onClick={() => setActiveProject(project)}
+                  className="py-10 sm:py-12 group cursor-pointer transition-colors hover:bg-black/[0.015] -mx-4 px-4"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-baseline">
+                    <div className="lg:col-span-3">
+                      <span className="text-xs font-mono text-[#525252] font-semibold block mb-1">
+                        {String(idx + 1).padStart(2, "0")} / {project.domain}
+                      </span>
+                      <div className="text-xs font-mono text-[#262626] font-medium">
+                        {project.datasetInfo.name}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-6">
+                      <h2 className="font-serif text-xl sm:text-2xl text-[#111213] group-hover:underline underline-offset-4 decoration-1 decoration-[#111213] transition-colors leading-snug font-medium">
+                        {project.title}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#262626] mt-3 leading-relaxed font-normal">
+                        {project.problem}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {project.techStack.map((t, i) => (
+                          <span key={i} className="text-[11px] font-mono text-[#525252] font-medium">
+                            #{t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-3 lg:text-right flex lg:flex-col justify-between items-end gap-2">
+                      <div>
+                        <div className="text-[11px] font-mono text-[#525252] uppercase font-semibold">
+                          {project.metrics[0].label}
+                        </div>
+                        <div className="font-mono text-lg sm:text-xl font-bold text-[#111213] mt-0.5">
+                          {project.metrics[0].value}
+                        </div>
+                      </div>
+
+                      <span className="inline-flex items-center gap-1 text-xs font-mono text-[#111213] font-bold group-hover:translate-x-0.5 transition-transform pt-2">
+                        <span>Lihat Monograf</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </section>
+          </div>
+        )}
 
       </main>
 
@@ -197,10 +242,10 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* 5. Clean Modal Monograph (No nested dark boxes, crisp high contrast) */}
+      {/* 5. Clean Modal Monograph */}
       {activeProject && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
-          <div className="bg-[#ffffff] border border-[#e5e5e5] max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+          <div className="bg-[#ffffff] border border-[#e5e5e5] max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl rounded-2xl">
             {/* Modal Header */}
             <div className="p-8 border-b border-[#e5e5e5] flex items-start justify-between gap-6 sticky top-0 bg-[#ffffff] z-10">
               <div>
@@ -214,7 +259,7 @@ export default function HomePage() {
 
               <button
                 onClick={() => setActiveProject(null)}
-                className="p-1.5 text-[#525252] hover:text-[#111213] transition-colors"
+                className="p-1.5 text-[#525252] hover:text-[#111213] transition-colors rounded-lg bg-[#f4f4f5]"
                 aria-label="Tutup"
               >
                 <X className="w-6 h-6" />
@@ -249,7 +294,7 @@ export default function HomePage() {
                 <h3 className="text-xs font-mono text-[#525252] font-bold uppercase tracking-widest mb-2">
                   03 / Formulasi Matematika ({activeProject.formula.title})
                 </h3>
-                <div className="p-4 bg-[#f4f4f5] border border-[#e5e5e5] font-mono text-[#111213] text-xs sm:text-sm overflow-x-auto my-2 font-semibold">
+                <div className="p-4 bg-[#f4f4f5] border border-[#e5e5e5] font-mono text-[#111213] text-xs sm:text-sm overflow-x-auto my-2 font-semibold rounded-xl">
                   <code>{activeProject.formula.latex}</code>
                 </div>
                 <p className="text-xs font-mono text-[#525252] font-medium">
@@ -264,7 +309,7 @@ export default function HomePage() {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {activeProject.metrics.map((m, idx) => (
-                    <div key={idx} className="p-4 bg-[#fafaf9] border border-[#e5e5e5]">
+                    <div key={idx} className="p-4 bg-[#fafaf9] border border-[#e5e5e5] rounded-xl">
                       <div className="text-[11px] font-mono text-[#525252] uppercase font-bold">{m.label}</div>
                       <div className="font-mono text-xl font-bold text-[#111213] mt-1">{m.value}</div>
                       <div className="text-xs font-mono text-[#525252] mt-1 font-medium">{m.desc}</div>
@@ -299,27 +344,41 @@ export default function HomePage() {
                     {copiedCode ? "[Tersalin]" : "[Salin Kode]"}
                   </button>
                 </div>
-                <pre className="p-4 bg-[#18181b] text-[#f4f4f5] font-mono text-xs overflow-x-auto leading-relaxed">
+                <pre className="p-4 bg-[#18181b] text-[#f4f4f5] font-mono text-xs overflow-x-auto leading-relaxed rounded-xl">
                   <code>{activeProject.codeSnippet}</code>
                 </pre>
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="p-8 border-t border-[#e5e5e5] bg-[#fafaf9] flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0">
+            <div className="p-8 border-t border-[#e5e5e5] bg-[#fafaf9] flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0 rounded-b-2xl">
               <span className="text-xs font-mono text-[#525252] font-medium">
                 {activeProject.datasetInfo.size}
               </span>
 
-              <a
-                href={activeProject.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#111213] text-white hover:bg-black font-mono font-bold text-xs transition-colors shadow-xs"
-              >
-                <span>Buka Repositori GitHub</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                {activeProject.demoUrl && (
+                  <a
+                    href={activeProject.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#2563eb] text-white hover:bg-[#1d4ed8] font-mono font-bold text-xs rounded-xl transition-colors shadow-xs"
+                  >
+                    <span>Buka Demo Web Interaktif</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+
+                <a
+                  href={activeProject.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#111213] text-white hover:bg-black font-mono font-bold text-xs rounded-xl transition-colors shadow-xs"
+                >
+                  <span>GitHub Repositori</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

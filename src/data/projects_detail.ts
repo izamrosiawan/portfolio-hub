@@ -12,6 +12,7 @@ export interface ProjectDetail {
   codeSnippet: string;
   techStack: string[];
   githubUrl: string;
+  demoUrl?: string;
   datasetInfo: { name: string; size: string; source: string };
 }
 
@@ -118,6 +119,7 @@ print("=== Historical VaR & Expected Shortfall (95%) ===")
 print(var_df)`,
     techStack: ["Python 3.11", "Statsmodels", "Scipy Stats", "Time Series ADF", "Yahoo Finance API", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/indonesian-banks-risk-analytics",
+    demoUrl: "https://izamrosiawan.github.io/indonesian-banks-risk-analytics/",
     datasetInfo: { name: "BEI Big Banks Adjusted Close", size: "2,840 hari perdagangan (2015-2026)", source: "Yahoo Finance Engine" }
   },
   {
@@ -153,6 +155,7 @@ rfm = engine.calculate_rfm(df_orders, df_payments)
 print(f"Total Pelanggan Tersegmentasi: {len(rfm):,}")`,
     techStack: ["Python 3.11", "Pandas", "Mermaid ERD", "Seaborn 300 DPI", "Pytest", "SQLite"],
     githubUrl: "https://github.com/izamrosiawan/olist-brazilian-ecommerce-analytics",
+    demoUrl: "https://izamrosiawan.github.io/olist-brazilian-ecommerce-analytics/",
     datasetInfo: { name: "Olist Brazilian E-Commerce Dataset", size: "9 Tabel Relasional, 100k Pesanan", source: "Kaggle Public Marketplace" }
   },
   {
@@ -218,6 +221,36 @@ print(f"Total Program Studi Terolah: {len(df_prodi)}")`,
     techStack: ["Python 3.11", "Pandas", "JSON Pipeline", "Seaborn", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/campus-id",
     datasetInfo: { name: "Campus-ID Academic Statistics", size: "Universitas & Program Studi Nasional", source: "Kemendikbudristek & SNPMB" }
+  },
+  {
+    id: "asean-economic-recovery",
+    title: "ASEAN Economic Recovery Analytics",
+    domain: "Macro-Economic Analysis",
+    category: "PublicPolicy",
+    tagline: "Post-Pandemic Macro-Indicator Forecasting and Tourism Revival Modeling",
+    problem: "Ketidakpastian pemulihan ekonomi kawasan ASEAN pasca-pandemi memerlukan pemodelan indikator makro yang akurat untuk kebijakan fiskal.",
+    methodology: "Analisis deret waktu indikator makro ekonomi ASEAN menggunakan model ARIMA dan SARIMA untuk peramalan PDB dan sektor pariwisata.",
+    findings: [
+      "Sektor pariwisata ASEAN menunjukkan tren pemulihan V-shape yang konsisten di tahun 2024.",
+      "Korelasi kuat antara peningkatan konektivitas penerbangan dengan devisa sektor jasa."
+    ],
+    metrics: [
+      { label: "Growth", value: "5.2%", desc: "Proyeksi Pertumbuhan" }
+    ],
+    formula: {
+      title: "Macroeconomic Forecasting",
+      latex: "\\Delta y_t = \\alpha + \\phi \\Delta y_{t-1} + \\epsilon_t",
+      explanation: "Model autoregresif untuk memprediksi perubahan indikator ekonomi."
+    },
+    codeSnippet: `from src.campus_analytics import CampusAnalytics
+
+analytics = CampusAnalytics()
+df_prodi = analytics.process_study_programs()
+print(f"Total Program Studi Terolah: {len(df_prodi)}")`,
+    techStack: ["Python 3.11", "Pandas", "Econometric Forecasting", "Matplotlib", "Time Series", "Pytest"],
+    githubUrl: "https://github.com/izamrosiawan/asean-economic-recovery",
+    demoUrl: "https://izamrosiawan.github.io/asean-economic-recovery/",
+    datasetInfo: { name: "ASEAN Inbound Tourism & Macro Indicators", size: "10 Negara Anggota (2019-2027F)", source: "UNWTO & ASEAN Stats" }
   },
   {
     id: "supply-chain-demand-forecasting",

@@ -39,6 +39,7 @@ export default function HomePage() {
   const [currentTestimonial, setCurrentTestimonial] = useState<number>(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeLabTab, setActiveLabTab] = useState<"engineering" | "bi" | "kinematics">("engineering");
   const [activeProject, setActiveProject] = useState<ProjectDetail | null>(null);
   const [activeService, setActiveService] = useState<{
     num: string;
@@ -346,79 +347,195 @@ export default function HomePage() {
       <section id="about" className="w-full bg-[#d6dbe2] text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-          {/* Left: Clean, High-Precision Vector Analytics & Sensor Card */}
+          {/* Left: High-End Interactive Scientific & Engineering Bento Card */}
           <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-[440px] aspect-[4/5] rounded-[32px] overflow-hidden bg-[#090909] text-white p-7 shadow-lg flex flex-col justify-between border border-black/10">
-              {/* Header Telemetry */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#595cef] animate-pulse" />
-                  <span className="text-[11px] font-medium tracking-wider uppercase text-white/80">
-                    Analytics & Sensor Lab
+            <div className="relative w-full max-w-[460px] rounded-[32px] bg-white text-[#090909] p-7 shadow-xl border border-white/80 flex flex-col justify-between space-y-6">
+              
+              {/* Top Header & Campus Context */}
+              <div className="flex items-center justify-between border-b border-[#ececec] pb-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#595cef]" />
+                  <span className="text-xs font-semibold text-[#090909]">
+                    Telkom University Surabaya
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-white/40">MOSHEE // 2026</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#f0f2f5] text-[#555555]">
+                  S1 Sains Data
+                </span>
               </div>
 
-              {/* Center: Waveform & Vector Data Flow */}
-              <div className="my-auto space-y-5 py-4">
-                <div className="relative h-32 w-full bg-white/[0.03] rounded-2xl p-4 border border-white/5 flex flex-col justify-between overflow-hidden">
-                  <div className="flex justify-between text-[10px] text-white/40 font-mono">
-                    <span>KINEMATIC ACCELEROMETRY</span>
-                    <span className="text-[#595cef]">99.9% RIGOR</span>
+              {/* Interactive Module Tabs */}
+              <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#f4f4f6] rounded-2xl">
+                <button
+                  type="button"
+                  onClick={() => setActiveLabTab("engineering")}
+                  className={`py-2 text-[11px] font-medium rounded-xl transition-all ${
+                    activeLabTab === "engineering"
+                      ? "bg-white text-[#090909] shadow-sm font-semibold"
+                      : "text-[#777777] hover:text-[#090909]"
+                  }`}
+                >
+                  Data Pipelines
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLabTab("bi")}
+                  className={`py-2 text-[11px] font-medium rounded-xl transition-all ${
+                    activeLabTab === "bi"
+                      ? "bg-white text-[#090909] shadow-sm font-semibold"
+                      : "text-[#777777] hover:text-[#090909]"
+                  }`}
+                >
+                  BI & KPIs
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLabTab("kinematics")}
+                  className={`py-2 text-[11px] font-medium rounded-xl transition-all ${
+                    activeLabTab === "kinematics"
+                      ? "bg-white text-[#090909] shadow-sm font-semibold"
+                      : "text-[#777777] hover:text-[#090909]"
+                  }`}
+                >
+                  MOSHEE Lab
+                </button>
+              </div>
+
+              {/* Dynamic Interactive Workbench Canvas */}
+              <div className="space-y-4">
+                {activeLabTab === "engineering" && (
+                  <div className="space-y-3.5 animate-fadeIn">
+                    <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#ebebeb] space-y-2.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-[#090909]">UKM CODER IT Pipeline</span>
+                        <span className="text-[10px] font-mono text-[#595cef] bg-[#595cef]/10 px-2 py-0.5 rounded-full font-medium">PostgreSQL 3NF</span>
+                      </div>
+                      <p className="text-xs text-[#666666] leading-relaxed">
+                        Automated Python & SQL ingestion pipelines transforming raw member records into validated relational data structures with zero loss.
+                      </p>
+                      <div className="pt-2 flex items-center justify-between text-[11px] font-medium text-[#444444] border-t border-[#e8e8e8]">
+                        <span>• Data Cleaning & Validation</span>
+                        <span>• 100% Zero-Loss</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
+                        <div className="text-[#888888] text-[10px]">Stack</div>
+                        <div className="font-semibold text-[#090909] mt-0.5">Python & SQL</div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
+                        <div className="text-[#888888] text-[10px]">Governance</div>
+                        <div className="font-semibold text-[#595cef] mt-0.5">ACID Integrity</div>
+                      </div>
+                    </div>
                   </div>
-                  
-                  {/* SVG Waveform Curve */}
-                  <svg className="w-full h-16" viewBox="0 0 300 80" fill="none">
-                    <path
-                      d="M0,45 Q25,10 50,40 T100,55 T150,20 T200,60 T250,25 T300,40"
-                      stroke="#595cef"
-                      strokeWidth="2.5"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M0,45 Q25,10 50,40 T100,55 T150,20 T200,60 T250,25 T300,40 L300,80 L0,80 Z"
-                      fill="url(#purpleGrad)"
-                      opacity="0.15"
-                    />
-                    <circle cx="150" cy="20" r="4" fill="#595cef" />
-                    <circle cx="250" cy="25" r="4" fill="#ffffff" />
-                    <defs>
-                      <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#595cef" />
-                        <stop offset="100%" stopColor="#595cef" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
+                )}
+
+                {activeLabTab === "bi" && (
+                  <div className="space-y-3.5 animate-fadeIn">
+                    <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#ebebeb] space-y-2.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-[#090909]">Executive Analytics</span>
+                        <span className="text-[10px] font-mono text-[#595cef] bg-[#595cef]/10 px-2 py-0.5 rounded-full font-medium">Power BI & Excel</span>
+                      </div>
+                      <p className="text-xs text-[#666666] leading-relaxed">
+                        Interactive multi-dimensional dashboards with DAX measures, automated weekly refresh, and cross-filter data exploration.
+                      </p>
+                      {/* Mini Metric Bars */}
+                      <div className="space-y-1.5 pt-1">
+                        <div className="flex justify-between text-[10px] text-[#777777]">
+                          <span>Reporting Efficiency</span>
+                          <span className="font-semibold text-[#090909]">+85%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-[#e5e7eb] rounded-full overflow-hidden">
+                          <div className="w-[85%] h-full bg-[#595cef] rounded-full" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
+                        <div className="text-[#888888] text-[10px]">Modeling</div>
+                        <div className="font-semibold text-[#090909] mt-0.5">Star Schema</div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
+                        <div className="text-[#888888] text-[10px]">Delivery</div>
+                        <div className="font-semibold text-[#595cef] mt-0.5">Live Reports</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeLabTab === "kinematics" && (
+                  <div className="space-y-3.5 animate-fadeIn">
+                    <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#ebebeb] space-y-2.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-[#090909]">MOSHEE Biomechanics</span>
+                        <span className="text-[10px] font-mono text-[#595cef] bg-[#595cef]/10 px-2 py-0.5 rounded-full font-medium">Motion Lab</span>
+                      </div>
+                      <p className="text-xs text-[#666666] leading-relaxed">
+                        Multi-camera optical calibration and reflective marker 3D coordinate tracking for human gait trajectory analysis.
+                      </p>
+                      {/* Real Smooth Kinematic Curve */}
+                      <div className="pt-2">
+                        <svg className="w-full h-12" viewBox="0 0 280 60" fill="none">
+                          <path
+                            d="M0,35 Q35,5 70,30 T140,45 T210,15 T280,35"
+                            stroke="#595cef"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeLinecap="round"
+                          />
+                          <circle cx="70" cy="30" r="3.5" fill="#595cef" />
+                          <circle cx="210" cy="15" r="3.5" fill="#090909" />
+                        </svg>
+                        <div className="flex justify-between text-[9px] text-[#888888] font-mono mt-0.5">
+                          <span>Heel Strike</span>
+                          <span>Mid Stance</span>
+                          <span>Toe Off</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
+                        <div className="text-[#888888] text-[10px]">Sensors</div>
+                        <div className="font-semibold text-[#090909] mt-0.5">Optical 3D</div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
+                        <div className="text-[#888888] text-[10px]">Precision</div>
+                        <div className="font-semibold text-[#595cef] mt-0.5">Sub-millimeter</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Verified Credentials Strip */}
+              <div className="pt-4 border-t border-[#ececec] space-y-2">
+                <div className="text-[10px] uppercase font-semibold text-[#888888] tracking-wider">
+                  Verified Certifications
                 </div>
-
-                {/* Pipeline Flow Badges */}
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-medium">
-                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
-                    <span className="text-white/60">ETL Pipeline</span>
-                    <span className="text-white font-mono">Python/SQL</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
-                    <span className="text-white/60">BI Reporting</span>
-                    <span className="text-[#595cef] font-mono">Power BI</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
-                    <span className="text-white/60">ML Models</span>
-                    <span className="text-white font-mono">Zero-Leakage</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between">
-                    <span className="text-white/60">Motion Lab</span>
-                    <span className="text-[#595cef] font-mono">Calibration</span>
-                  </div>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
+                    Azure Data
+                  </span>
+                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
+                    Pandas Python3
+                  </span>
+                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
+                    Power BI
+                  </span>
+                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
+                    IBM Big Data
+                  </span>
+                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
+                    Dicoding ML
+                  </span>
                 </div>
               </div>
 
-              {/* Footer Stat */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/50">
-                <span>Telkom University Surabaya</span>
-                <span className="text-white font-semibold">Undergraduate</span>
-              </div>
             </div>
           </div>
 

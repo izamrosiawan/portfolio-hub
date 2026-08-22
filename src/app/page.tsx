@@ -267,7 +267,7 @@ export default function HomePage() {
           <div className="lg:col-span-5 relative flex justify-center">
             <div className="relative w-full max-w-md aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-[#ecf3ff]">
               <Image
-                src="/images/izam_photo_grey_color.jpg"
+                src="/images/izam_batik_photo.jpg"
                 alt="Izam Rosiawan - Data Science Student"
                 fill
                 className="object-cover object-top"

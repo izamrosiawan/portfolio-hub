@@ -233,7 +233,7 @@ var_metrics = engine.calculate_var_cvar(confidence_level=0.95)
 print(var_metrics.to_string())`,
     techStack: ["Python 3.11", "Statsmodels", "SciPy", "Pandas", "Matplotlib", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/indonesian-banks-risk-analytics",
-    demoUrl: "https://indonesian-banks-risk.streamlit.app",
+    demoUrl: "https://izamrosiawan.github.io/indonesian-banks-risk-analytics/",
     datasetInfo: { name: "IDX Historical Stock Daily Prices (BBCA, BBRI, BMRI, BBNI)", size: "2,840 Baris Data Harian (2015-2026)", source: "Yahoo Finance API" }
   },
   {
@@ -299,7 +299,7 @@ df_rfm = pipeline.build_rfm_segments()
 print(df_rfm[['customer_unique_id', 'RFM_Score', 'Segment']].head())`,
     techStack: ["Python 3.11", "Pandas", "Mermaid.js ERD", "Seaborn", "Scikit-Learn", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/olist-brazilian-ecommerce-analytics",
-    demoUrl: "https://olist-analytics.streamlit.app",
+    demoUrl: "https://izamrosiawan.github.io/olist-brazilian-ecommerce-analytics/",
     datasetInfo: { name: "Olist Brazilian E-Commerce Dataset", size: "100,000 Pesanan, 9 Tabel Relasional", source: "Kaggle Olist" }
   },
   {
@@ -326,6 +326,7 @@ print(df_rfm[['customer_unique_id', 'RFM_Score', 'Segment']].head())`,
       explanation: "Titik pemesanan ulang ROP mencakup ekspektasi permintaan selama lead time ditambah safety stock untuk mengantisipasi deviasi standar permintaan dan lead time."
     },
     codeSnippet: `from src.inventory_optimizer import InventoryOptimizer
+import pandas as pd
 
 opt = InventoryOptimizer(service_level=0.95)
 rop = opt.calculate_reorder_point(avg_demand=500, std_demand=65, avg_lead_time=14, std_lead_time=3)
@@ -397,6 +398,7 @@ print(f"Rekomendasi Alokasi: {recommendation['program']}")`,
       explanation: "Keketatan mengukur persentase daya tampung terhadap total peminat, sementara R_dosen mengukur beban rasio pembinaan akademik."
     },
     codeSnippet: `from src.campus_analytics import CampusDataPipeline
+import pandas as pd
 
 pipeline = CampusDataPipeline()
 selectivity = pipeline.get_top_selective_majors(top_n=5)
@@ -430,12 +432,14 @@ print(selectivity[['university_name', 'major_name', 'selectivity_pct']])`,
       explanation: "Indeks pemulihan mengukur rasio realisasi indikator makroekonomi tahun t terhadap level acuan sebelum krisis (2019)."
     },
     codeSnippet: `from src.macro_recovery import ASEANRecoveryModel
+import pandas as pd
 
 model = ASEANRecoveryModel()
 df_recovery = model.compute_recovery_index(country='IDN')
 print(df_recovery[['Year', 'GDP_Current', 'Recovery_Index']])`,
     techStack: ["Python 3.11", "Pandas", "Time Series Econometrics", "Matplotlib", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/asean-economic-recovery",
+    demoUrl: "https://izamrosiawan.github.io/asean-economic-recovery/",
     datasetInfo: { name: "ASEAN Macroeconomic & Tourism Statistics", size: "10 Negara ASEAN (2019-2027 Proyeksi)", source: "World Bank & ASEAN Secretariat" }
   },
   {

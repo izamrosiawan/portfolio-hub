@@ -36,7 +36,7 @@ function renderLatex(latex: string) {
 }
 
 export default function HomePage() {
-  const [currentTestimonial, setCurrentTestimonial] = useState<number>(0);
+  const [portfolioView, setPortfolioView] = useState<"flagship" | "all">("flagship");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeLabTab, setActiveLabTab] = useState<"engineering" | "bi" | "kinematics">("engineering");
@@ -148,35 +148,15 @@ export default function HomePage() {
     },
   ];
 
-  const testimonials = [
-    {
-      num: "01",
-      name: "Dr. Sarah Chel",
-      role: "Lead Actuary & Quantitative Researcher",
-      company: "TechGrowz Solutions",
-      quote:
-        "Izam's strategic approach, rigorous statistical formulation, and deep understanding of data science transformed our analytical workflow and predictive accuracy.",
-      img: "/images/jr_client_1.jpg",
-    },
-    {
-      num: "02",
-      name: "Janine Fox",
-      role: "Director of Analytics",
-      company: "CloudSov Solutions",
-      quote:
-        "The automated ETL pipelines and dashboard architectures built by Izam provided immediate clarity to our multi-source datasets with flawless execution.",
-      img: "/images/jr_client_2.jpg",
-    },
-    {
-      num: "03",
-      name: "Joe Harris",
-      role: "Senior Operations Specialist",
-      company: "SmileBright Dental",
-      quote:
-        "Exceptional precision and systematic problem-solving. Every data insight was backed by clean code, sound mathematics, and thorough empirical validation.",
-      img: "/images/jr_client_3.jpg",
-    },
-  ];
+  const flagshipProjects = useMemo(() => {
+    const flagshipIds = [
+      "indonesian-banks-risk-analytics",
+      "olist-brazilian-ecommerce-analytics",
+      "asean-economic-recovery",
+      "spotify-tracks-analysis",
+    ];
+    return DETAILED_PROJECTS.filter((p) => flagshipIds.includes(p.id));
+  }, []);
 
   const filteredProjects = useMemo(() => {
     return DETAILED_PROJECTS.filter((project) => {
@@ -205,18 +185,6 @@ export default function HomePage() {
     e.preventDefault();
     setFormSubmitted(true);
     setTimeout(() => setFormSubmitted(false), 4000);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-  };
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
   };
 
   return (
@@ -253,17 +221,17 @@ export default function HomePage() {
       <section className="w-full min-h-[90vh] flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-8 pb-16 bg-[#f4f4f4]">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-4">
 
-          {/* Left: Giant Typography + Subtitle + Pill CTA */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-12">
+          {/* Left: Clean Typography + Subtitle + Pill CTA */}
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-10">
             <div className="space-y-6">
-              <h1 className="text-[52px] sm:text-[85px] lg:text-[110px] xl:text-[124px] font-semibold leading-[0.95] tracking-tight text-[#090909]">
+              <h1 className="text-[46px] sm:text-[72px] lg:text-[92px] xl:text-[104px] font-semibold leading-[0.98] tracking-tight text-[#090909]">
                 Izam Rosiawan
                 <br />
-                <span className="font-extralight text-[#595cef]">Data Science</span>
+                <span className="font-extralight text-[#595cef]">Data &amp; Systems</span>
               </h1>
 
-              <p className="text-base sm:text-xl font-extralight text-[#090909] max-w-lg leading-relaxed pt-4">
-                Amplify your digital resonance with data-driven analytics and structured quantitative solutions.
+              <p className="text-base sm:text-lg font-light text-[#444444] max-w-lg leading-relaxed pt-2">
+                Specializing in quantitative risk modeling, automated ETL data engineering, and interactive analytics dashboards.
               </p>
             </div>
 
@@ -300,10 +268,10 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-white/10 pb-8">
             <h2 className="text-4xl sm:text-6xl font-extralight text-white tracking-tight">
-              Our Services
+              Core Competencies
             </h2>
             <p className="text-sm font-light text-[#a0a0a0] max-w-sm">
-              Tailored data engineering, analytics dashboards, and quantitative modeling frameworks.
+              Modular data engineering, interactive analytics dashboards, and quantitative statistical modeling.
             </p>
           </div>
 
@@ -542,17 +510,17 @@ export default function HomePage() {
           {/* Right: Narrative + CTA */}
           <div className="lg:col-span-7 space-y-8 lg:pl-6">
             <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] leading-tight tracking-tight">
-              ROI Focused
+              Scientific Rigor &amp;
               <br />
-              <span className="font-semibold text-[#595cef]">Strategist</span>
+              <span className="font-semibold text-[#595cef]">Data Engineering</span>
             </h2>
 
             <div className="space-y-4 text-base sm:text-lg font-light text-[#333333] leading-relaxed max-w-xl">
               <p>
-                <strong>Izam Rosiawan</strong> is a results-oriented Data Science student at <strong>Universitas Telkom Surabaya</strong> with proven experience across Data Analytics, Data Engineering, and Business Intelligence.
+                <strong>Izam Rosiawan</strong> is a Data Science student at <strong>Universitas Telkom Surabaya</strong> focusing on Data Analytics, Data Engineering, and Quantitative Modeling.
               </p>
               <p>
-                Specializing in automated Python & SQL data processing pipelines, structured relational database governance, interactive Power BI analytical dashboards, and laboratory motion sensor research at MOSHEE Lab.
+                Dedicated to building automated Python &amp; SQL data pipelines, structured relational database governance, interactive analytical dashboards, and laboratory biomechanical sensor research at MOSHEE Lab.
               </p>
             </div>
 
@@ -579,26 +547,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. PROVEN RESULTS (comp-lymtx4xb) - EXACT PURPLE SECTION WITH 4 GIANT METRIC BOXES */}
-      <section className="w-full bg-[#595cef] text-white px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
+      {/* 4. PROVEN RESULTS - REFINED MONOCHROME-FIRST RESEARCH METRICS */}
+      <section className="w-full bg-[#090909] text-white px-6 sm:px-12 lg:px-16 py-24 lg:py-32 border-y border-white/10">
         <div className="w-full space-y-16">
 
-          <div className="border-b border-white/20 pb-8">
-            <h2 className="text-4xl sm:text-6xl font-extralight text-white tracking-tight">
-              Proven Results
-            </h2>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-white/10 pb-8">
+            <div className="space-y-2">
+              <h2 className="text-4xl sm:text-6xl font-extralight text-white tracking-tight">
+                Empirical Research Milestones
+              </h2>
+            </div>
+            <p className="text-xs font-light text-[#888888] max-w-sm">
+              Standardized reproducibility metrics across actuarial modeling, econometric forecasts, and automated ETL pipelines.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {results.map((r, i) => (
               <div
                 key={i}
-                className="p-8 rounded-[24px] bg-white/10 backdrop-blur-sm border border-white/20 flex flex-col justify-between min-h-[260px] hover:bg-white/15 transition-all duration-300"
+                className="p-8 rounded-[28px] bg-white/[0.03] border border-white/10 flex flex-col justify-between min-h-[260px] hover:border-[#595cef]/50 hover:bg-white/[0.05] transition-all duration-300 group"
               >
-                <div className="text-5xl sm:text-7xl font-semibold text-white tracking-tight">
+                <div className="text-5xl sm:text-6xl font-semibold text-white tracking-tight group-hover:text-[#595cef] transition-colors font-mono">
                   {r.metric}
                 </div>
-                <p className="text-sm sm:text-base font-light text-white/90 leading-relaxed pt-6 border-t border-white/15">
+                <p className="text-xs sm:text-sm font-light text-[#a0a0a0] leading-relaxed pt-6 border-t border-white/10">
                   {r.label}
                 </p>
               </div>
@@ -608,205 +581,379 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. TESTIMONIALS (comp-lyh0cqlf) - EXACT GREY SECTION WITH SLIDER CARDS */}
-      <section className="w-full bg-[#e0e0e0] text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
+      {/* 5. LABORATORY & RESEARCH INITIATIVES (RICH VISUAL SHOWCASE) */}
+      <section className="w-full bg-[#f4f4f4] text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
         <div className="w-full space-y-16">
 
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#c5c5c5] pb-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#d8d8d8] pb-8">
             <div className="space-y-2">
               <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] tracking-tight">
-                Testimonials
+                Academic &amp; Research Affiliations
               </h2>
-              <p className="text-sm font-light text-[#6b6b6b] max-w-lg">
-                See what collaborators and peers say about our analytical rigor and technical precision.
+              <p className="text-xs sm:text-sm font-light text-[#666666] max-w-xl">
+                Active involvement in laboratory instrumentation, university data engineering initiatives, and quantitative research.
               </p>
-            </div>
-
-            {/* Slider Navigation Buttons */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={prevTestimonial}
-                className="w-12 h-12 rounded-full bg-white hover:bg-[#595cef] hover:text-white text-[#090909] shadow-sm flex items-center justify-center transition-all duration-300"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextTestimonial}
-                className="w-12 h-12 rounded-full bg-white hover:bg-[#595cef] hover:text-white text-[#090909] shadow-sm flex items-center justify-center transition-all duration-300"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
             </div>
           </div>
 
-          {/* Testimonial Cards */}
+          {/* Visual Laboratory Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, idx) => {
-              const isHighlighted = idx === currentTestimonial;
-              return (
-                <div
-                  key={t.num}
-                  className={`p-8 rounded-[24px] bg-white border transition-all duration-500 flex flex-col justify-between min-h-[340px] ${
-                    isHighlighted
-                      ? "border-[#595cef] shadow-lg ring-2 ring-[#595cef]/20"
-                      : "border-transparent shadow-sm"
-                  }`}
-                >
-                  <div className="space-y-6">
-                    <span className="text-xl font-light text-[#595cef]">{t.num}</span>
-                    <p className="text-base font-light text-[#333333] leading-relaxed italic">
-                      &ldquo;{t.quote}&rdquo;
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-4 pt-6 border-t border-[#f0f0f0] mt-6">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#f0f0f0] flex-shrink-0">
-                      <Image
-                        src={t.img}
-                        alt={t.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-sm text-[#090909]">
-                        {t.name}
-                      </div>
-                      <div className="text-xs font-light text-[#6b6b6b]">
-                        {t.role} - {t.company}
-                      </div>
-                    </div>
+            {/* Card 1: MOSHEE Lab */}
+            <div className="group rounded-[32px] bg-white border border-[#e2e5eb] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#595cef]/50 transition-all duration-500 flex flex-col justify-between">
+              <div>
+                <div className="relative w-full aspect-[16/10] bg-[#0d1117] overflow-hidden">
+                  <Image
+                    src="/images/lab_moshee_kinematics.png"
+                    alt="MOSHEE Biomechanics Lab - Kinematic Gait Trajectory"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
+                    <span className="text-xs font-semibold text-white px-3 py-1 rounded-full bg-[#595cef]/80 backdrop-blur-sm">
+                      MOSHEE Biomechanics
+                    </span>
                   </div>
                 </div>
-              );
-            })}
+
+                <div className="p-6 space-y-3">
+                  <h3 className="text-xl font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors">
+                    Motion Sensor Instrumentation
+                  </h3>
+                  <p className="text-xs font-light text-[#666666] leading-relaxed">
+                    Multi-camera optical space calibration, reflective marker 3D coordinate tracking, and kinematic time-series signal filtering for human gait trajectory analysis.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[11px] font-mono text-[#888888]">
+                <span>Telkom University</span>
+                <span className="font-semibold text-[#090909]">2024 - Present</span>
+              </div>
+            </div>
+
+            {/* Card 2: UKM CODER */}
+            <div className="group rounded-[32px] bg-white border border-[#e2e5eb] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#595cef]/50 transition-all duration-500 flex flex-col justify-between">
+              <div>
+                <div className="relative w-full aspect-[16/10] bg-[#f8f9fa] overflow-hidden">
+                  <Image
+                    src="/images/olist/brazil_logistics_map.png"
+                    alt="UKM CODER - Data Engineering Pipeline"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
+                    <span className="text-xs font-semibold text-white px-3 py-1 rounded-full bg-[#090909]/80 backdrop-blur-sm border border-white/20">
+                      UKM CODER IT
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-3">
+                  <h3 className="text-xl font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors">
+                    Data Pipeline Architectures
+                  </h3>
+                  <p className="text-xs font-light text-[#666666] leading-relaxed">
+                    Automated Python &amp; SQL data pipeline architectures for organizational member databases with 3NF relational normalization and zero data loss.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[11px] font-mono text-[#888888]">
+                <span>Data &amp; IT Division</span>
+                <span className="font-semibold text-[#090909]">2023 - Present</span>
+              </div>
+            </div>
+
+            {/* Card 3: S1 Data Science */}
+            <div className="group rounded-[32px] bg-white border border-[#e2e5eb] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#595cef]/50 transition-all duration-500 flex flex-col justify-between">
+              <div>
+                <div className="relative w-full aspect-[16/10] bg-[#f8f9fa] overflow-hidden">
+                  <Image
+                    src="/images/banks/returns_vs_var.png"
+                    alt="S1 Sains Data - Applied Statistics & ML"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
+                    <span className="text-xs font-semibold text-white px-3 py-1 rounded-full bg-[#090909]/80 backdrop-blur-sm border border-white/20">
+                      S1 Sains Data
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-3">
+                  <h3 className="text-xl font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors">
+                    Applied Statistics &amp; ML
+                  </h3>
+                  <p className="text-xs font-light text-[#666666] leading-relaxed">
+                    Mathematical statistics, stochastic processes, econometric time-series, and zero-leakage statistical learning algorithms.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[11px] font-mono text-[#888888]">
+                <span>Universitas Telkom</span>
+                <span className="font-semibold text-[#090909]">Undergraduate</span>
+              </div>
+            </div>
           </div>
 
         </div>
       </section>
 
-      {/* PORTFOLIO MONOGRAPHS SECTION (FULL 20 INTERACTIVE MONOGRAPHS) */}
+      {/* PORTFOLIO MONOGRAPHS SECTION (FLAGSHIP 4 SHOWCASE + COMPLETE 20 ARCHIVE) */}
       <section id="portfolio" className="w-full bg-white text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
         <div className="w-full space-y-12">
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#e0e0e0] pb-8">
             <div className="space-y-2">
               <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] tracking-tight">
-                Portfolio & Monographs
+                Featured Flagship Projects
               </h2>
-              <p className="text-sm font-light text-[#6b6b6b]">
-                Complete interactive research archive across 6 specialized quantitative domains.
+              <p className="text-sm font-light text-[#6b6b6b] max-w-2xl">
+                End-to-end data systems combining mathematical rigor, 300 DPI computational plots, and production-grade interactive web applications.
               </p>
             </div>
-            <div className="text-xs font-medium text-[#6b6b6b]">
-              Showing <strong>{filteredProjects.length}</strong> research papers
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setPortfolioView("flagship")}
+                className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all ${
+                  portfolioView === "flagship"
+                    ? "bg-[#090909] text-white shadow-sm"
+                    : "bg-[#f4f4f4] text-[#666666] hover:bg-[#e5e5e5]"
+                }`}
+              >
+                Flagship Showcase (4)
+              </button>
+              <button
+                onClick={() => setPortfolioView("all")}
+                className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all ${
+                  portfolioView === "all"
+                    ? "bg-[#090909] text-white shadow-sm"
+                    : "bg-[#f4f4f4] text-[#666666] hover:bg-[#e5e5e5]"
+                }`}
+              >
+                All Monographs (20)
+              </button>
             </div>
           </div>
 
-          {/* Filter Pills & Search */}
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => {
-                const isActive = selectedCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all duration-300 ${
-                      isActive
-                        ? "bg-[#595cef] text-white shadow-sm"
-                        : "bg-[#f4f4f4] text-[#6b6b6b] hover:bg-[#e8e8e8]"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="relative min-w-[280px]">
-              <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#999999]" />
-              <input
-                type="text"
-                placeholder="Search topic, algorithm, metric..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#f4f4f4] pl-11 pr-4 py-3 rounded-full text-xs font-light focus:outline-none focus:ring-2 focus:ring-[#595cef]/30 text-[#090909]"
-              />
-            </div>
-          </div>
-
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, idx) => {
-              const hasWebDemo = !!project.demoUrl;
-              return (
+          {/* 1. FLAGSHIP 4 HERO SHOWCASE VIEW */}
+          {portfolioView === "flagship" && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fadeIn">
+              {flagshipProjects.map((project, idx) => (
                 <div
                   key={project.id}
                   onClick={() => setActiveProject(project)}
-                  className="group cursor-pointer rounded-[24px] bg-[#f4f4f4] hover:bg-[#d6dbe2] border border-[#e5e5e5] hover:border-[#595cef]/40 p-8 flex flex-col justify-between transition-all duration-500 shadow-sm hover:shadow-md"
+                  className="group cursor-pointer rounded-[32px] bg-[#f8f9fa] hover:bg-[#eceef2] border border-[#e5e7eb] hover:border-[#595cef]/50 p-8 flex flex-col justify-between transition-all duration-500 shadow-sm hover:shadow-xl space-y-6"
                 >
                   <div className="space-y-4">
+                    {/* Top Tag & Number */}
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-medium text-[#595cef] bg-white px-3 py-1 rounded-full shadow-xs">
+                      <span className="text-xs font-semibold text-[#595cef] bg-white px-3.5 py-1.5 rounded-full shadow-xs border border-[#e0e0e0]">
                         {project.domain}
                       </span>
-                      <span className="text-xs font-light text-[#999999]">
-                        #{String(idx + 1).padStart(2, "0")}
+                      <span className="text-xs font-mono font-medium text-[#888888]">
+                        FLAGSHIP #{String(idx + 1).padStart(2, "0")}
                       </span>
                     </div>
 
-                    <h3 className="font-semibold text-lg text-[#090909] group-hover:text-[#595cef] transition-colors leading-snug">
-                      {project.title}
-                    </h3>
+                    {/* Title & Tagline */}
+                    <div>
+                      <h3 className="font-semibold text-2xl text-[#090909] group-hover:text-[#595cef] transition-colors leading-snug">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs font-light text-[#555555] mt-2 leading-relaxed line-clamp-2">
+                        {project.tagline}
+                      </p>
+                    </div>
 
-                    <p className="text-xs font-light text-[#666666] leading-relaxed line-clamp-3">
-                      {project.problem}
-                    </p>
-
-                    {/* Metric Box */}
-                    <div className="p-4 rounded-[16px] bg-white border border-[#e0e0e0] flex items-center justify-between">
-                      <div>
-                        <div className="text-[10px] font-light text-[#888888] uppercase tracking-wider">
-                          {project.metrics[0].label}
-                        </div>
-                        <div className="font-semibold text-xl text-[#090909]">
-                          {project.metrics[0].value}
+                    {/* Full Visual Banner with Live Badge */}
+                    {project.visualHighlights && project.visualHighlights.length > 0 && (
+                      <div className="relative w-full aspect-[16/9] rounded-[20px] overflow-hidden border border-[#e0e0e0] bg-[#ebeef2] group-hover:border-[#595cef]/40 transition-colors">
+                        <Image
+                          src={project.visualHighlights[0].imageUrl}
+                          alt={project.visualHighlights[0].title}
+                          fill
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-between p-4">
+                          <span className="text-xs font-medium text-white px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/20">
+                            {project.visualHighlights[0].title}
+                          </span>
+                          <span className="text-[10px] font-semibold text-emerald-400 px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/30">
+                            ● Live Web App Ready
+                          </span>
                         </div>
                       </div>
-                      <span className="text-[10px] font-light text-[#888888] max-w-[120px] text-right truncate">
-                        {project.datasetInfo.name}
-                      </span>
+                    )}
+
+                    {/* Metrics Summary Strip */}
+                    <div className="grid grid-cols-3 gap-2 pt-2">
+                      {project.metrics.map((m, i) => (
+                        <div key={i} className="p-3 bg-white rounded-[16px] border border-[#e5e7eb]">
+                          <div className="text-[9px] font-medium text-[#777777] uppercase truncate">
+                            {m.label}
+                          </div>
+                          <div className="text-base font-bold text-[#090909] mt-0.5">
+                            {m.value}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-[#e0e0e0] flex items-center justify-between text-xs">
+                  {/* Bottom Action Footer */}
+                  <div className="pt-5 border-t border-[#e5e7eb] flex items-center justify-between text-xs">
                     <button
                       type="button"
-                      className="inline-flex items-center gap-1.5 font-medium text-[#090909] group-hover:text-[#595cef] transition-colors"
+                      className="inline-flex items-center gap-2 font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors"
                     >
-                      <BookOpen className="w-3.5 h-3.5" />
-                      <span>View Monograph</span>
+                      <BookOpen className="w-4 h-4" />
+                      <span>View Complete Monograph</span>
                     </button>
-                    {hasWebDemo && (
+                    {project.demoUrl && (
                       <a
                         href={project.demoUrl}
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#595cef] hover:underline"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#595cef] hover:bg-[#474ae0] text-white font-medium rounded-full text-[11px] shadow-sm transition-all"
                       >
-                        <span>Demo</span>
+                        <span>Open Live Demo</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
+
+          {/* 2. ALL 20 MONOGRAPHS FILTER & SEARCH VIEW */}
+          {portfolioView === "all" && (
+            <div className="space-y-8 animate-fadeIn">
+              {/* Filter Pills & Search */}
+              <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((cat) => {
+                    const isActive = selectedCategory === cat.id;
+                    return (
+                      <button
+                        key={cat.id}
+                        onClick={() => setSelectedCategory(cat.id)}
+                        className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                          isActive
+                            ? "bg-[#595cef] text-white shadow-sm"
+                            : "bg-[#f4f4f4] text-[#6b6b6b] hover:bg-[#e8e8e8]"
+                        }`}
+                      >
+                        {cat.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="relative min-w-[280px]">
+                  <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#999999]" />
+                  <input
+                    type="text"
+                    placeholder="Search topic, algorithm, metric..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-[#f4f4f4] pl-11 pr-4 py-3 rounded-full text-xs font-light focus:outline-none focus:ring-2 focus:ring-[#595cef]/30 text-[#090909]"
+                  />
+                </div>
+              </div>
+
+              {/* Projects Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredProjects.map((project, idx) => {
+                  const hasWebDemo = !!project.demoUrl;
+                  return (
+                    <div
+                      key={project.id}
+                      onClick={() => setActiveProject(project)}
+                      className="group cursor-pointer rounded-[24px] bg-[#f4f4f4] hover:bg-[#d6dbe2] border border-[#e5e5e5] hover:border-[#595cef]/40 p-8 flex flex-col justify-between transition-all duration-500 shadow-sm hover:shadow-md"
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-medium text-[#595cef] bg-white px-3 py-1 rounded-full shadow-xs">
+                            {project.domain}
+                          </span>
+                          <span className="text-xs font-light text-[#999999]">
+                            #{String(idx + 1).padStart(2, "0")}
+                          </span>
+                        </div>
+
+                        <h3 className="font-semibold text-lg text-[#090909] group-hover:text-[#595cef] transition-colors leading-snug">
+                          {project.title}
+                        </h3>
+
+                        <p className="text-xs font-light text-[#666666] leading-relaxed line-clamp-2">
+                          {project.problem}
+                        </p>
+
+                        {/* Visual Highlight Banner if available */}
+                        {project.visualHighlights && project.visualHighlights.length > 0 && (
+                          <div className="relative w-full h-36 rounded-[16px] overflow-hidden border border-[#e0e0e0] bg-[#ebeef2] group-hover:border-[#595cef]/50 transition-colors">
+                            <Image
+                              src={project.visualHighlights[0].imageUrl}
+                              alt={project.visualHighlights[0].title}
+                              fill
+                              className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
+                              <span className="text-[10px] font-medium text-white px-2 py-0.5 rounded-full bg-black/50 backdrop-blur-sm">
+                                {project.visualHighlights[0].type === "web" ? "Interactive Web App" : "300 DPI Notebook Plot"}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Metric Box */}
+                        <div className="p-4 rounded-[16px] bg-white border border-[#e0e0e0] flex items-center justify-between">
+                          <div>
+                            <div className="text-[10px] font-light text-[#888888] uppercase tracking-wider">
+                              {project.metrics[0].label}
+                            </div>
+                            <div className="font-semibold text-xl text-[#090909]">
+                              {project.metrics[0].value}
+                            </div>
+                          </div>
+                          <span className="text-[10px] font-light text-[#888888] max-w-[120px] text-right truncate">
+                            {project.datasetInfo.name}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="pt-6 mt-6 border-t border-[#e0e0e0] flex items-center justify-between text-xs">
+                        <button
+                          type="button"
+                          className="inline-flex items-center gap-1.5 font-medium text-[#090909] group-hover:text-[#595cef] transition-colors"
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                          <span>View Monograph</span>
+                        </button>
+                        {hasWebDemo && (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#595cef] hover:underline"
+                          >
+                            <span>Demo</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
         </div>
       </section>
@@ -819,12 +966,12 @@ export default function HomePage() {
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl sm:text-6xl font-extralight text-white leading-tight tracking-tight">
-                Let&apos;s ignite your
+                Let&apos;s build robust
                 <br />
-                <span className="font-semibold text-[#595cef]">digital success</span>
+                <span className="font-semibold text-[#595cef]">data systems</span>
               </h2>
               <p className="text-base font-light text-[#a0a0a0] leading-relaxed">
-                Book Your Strategy Session or Discuss Data Collaboration
+                Open for Data Science, Data Engineering, and Research Collaborations
               </p>
             </div>
 
@@ -1101,6 +1248,49 @@ export default function HomePage() {
                   <code>{activeProject.codeSnippet}</code>
                 </pre>
               </div>
+
+              {/* 07. VISUAL ARTIFACTS & NOTEBOOK HIGHLIGHTS */}
+              {activeProject.visualHighlights && activeProject.visualHighlights.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider">
+                      07 / VISUAL ARTIFACTS & NOTEBOOK HIGHLIGHTS
+                    </div>
+                    <span className="text-[11px] text-[#595cef] font-medium">
+                      {activeProject.visualHighlights.length} Visual Assets
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {activeProject.visualHighlights.map((v, i) => (
+                      <div
+                        key={i}
+                        className="group/img rounded-[20px] overflow-hidden border border-[#e0e0e0] bg-[#f8f9fa] flex flex-col"
+                      >
+                        <div className="relative w-full aspect-[16/10] bg-[#eef1f5] overflow-hidden">
+                          <Image
+                            src={v.imageUrl}
+                            alt={v.title}
+                            fill
+                            className="object-cover object-top group-hover/img:scale-105 transition-transform duration-500"
+                          />
+                          <span className="absolute top-3 left-3 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-black/70 text-white backdrop-blur-sm">
+                            {v.type === "web" ? "Interactive Web App" : v.type === "notebook" ? "Jupyter EDA" : "300 DPI Chart"}
+                          </span>
+                        </div>
+                        <div className="p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+                          <h4 className="font-semibold text-xs text-[#090909] leading-snug">
+                            {v.title}
+                          </h4>
+                          <p className="text-[11px] text-[#666666] leading-relaxed">
+                            {v.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0 bg-white border-t border-[#e0e0e0]">

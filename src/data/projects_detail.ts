@@ -14,6 +14,12 @@ export interface ProjectDetail {
   githubUrl: string;
   demoUrl?: string;
   datasetInfo: { name: string; size: string; source: string };
+  visualHighlights?: {
+    type: "web" | "notebook" | "chart";
+    title: string;
+    description: string;
+    imageUrl: string;
+  }[];
 }
 
 export const DETAILED_PROJECTS: ProjectDetail[] = [
@@ -234,7 +240,33 @@ print(var_metrics.to_string())`,
     techStack: ["Python 3.11", "Statsmodels", "SciPy", "Pandas", "Matplotlib", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/indonesian-banks-risk-analytics",
     demoUrl: "https://izamrosiawan.github.io/indonesian-banks-risk-analytics/",
-    datasetInfo: { name: "IDX Historical Stock Daily Prices (BBCA, BBRI, BMRI, BBNI)", size: "2,840 Baris Data Harian (2015-2026)", source: "Yahoo Finance API" }
+    datasetInfo: { name: "IDX Historical Stock Daily Prices (BBCA, BBRI, BMRI, BBNI)", size: "2,840 Baris Data Harian (2015-2026)", source: "Yahoo Finance API" },
+    visualHighlights: [
+      {
+        type: "web",
+        title: "Interactive Stress-Test & Solvency Studio",
+        description: "Dashboard web interaktif untuk simulasi skenario Basel III stress-test dan kurva efisien Markowitz.",
+        imageUrl: "/images/ss_web_banks.png"
+      },
+      {
+        type: "chart",
+        title: "Historical Return vs Value at Risk (VaR 95%)",
+        description: "Visualisasi plot komputasi 300 DPI sebaran log-return harian terhadap ambang batas VaR & ES.",
+        imageUrl: "/images/banks/returns_vs_var.png"
+      },
+      {
+        type: "notebook",
+        title: "Longitudinal Maximum Drawdown Trajectory",
+        description: "Analisis kedalaman penurunan harga saham (drawdowns) Big Four bank selama periode krisis dan pemulihan.",
+        imageUrl: "/images/banks/drawdowns.png"
+      },
+      {
+        type: "chart",
+        title: "Cumulative Return & Alpha Comparison",
+        description: "Kinerja imbal hasil kumulatif emiten perbankan terhadap IHSG acuan komparatif.",
+        imageUrl: "/images/banks/cumulative_returns.png"
+      }
+    ]
   },
   {
     id: "stock-price-simulation-jsmr",
@@ -300,7 +332,33 @@ print(df_rfm[['customer_unique_id', 'RFM_Score', 'Segment']].head())`,
     techStack: ["Python 3.11", "Pandas", "Mermaid.js ERD", "Seaborn", "Scikit-Learn", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/olist-brazilian-ecommerce-analytics",
     demoUrl: "https://izamrosiawan.github.io/olist-brazilian-ecommerce-analytics/",
-    datasetInfo: { name: "Olist Brazilian E-Commerce Dataset", size: "100,000 Pesanan, 9 Tabel Relasional", source: "Kaggle Olist" }
+    datasetInfo: { name: "Olist Brazilian E-Commerce Dataset", size: "100,000 Pesanan, 9 Tabel Relasional", source: "Kaggle Olist" },
+    visualHighlights: [
+      {
+        type: "web",
+        title: "Interactive E-Commerce & Logistics Studio",
+        description: "Dashboard analitik interaktif untuk eksplorasi RFM matrix, SLA pengiriman, dan estimasi CLV.",
+        imageUrl: "/images/ss_web_olist.png"
+      },
+      {
+        type: "chart",
+        title: "Brazil Interstate Logistics & Geo-Delivery Map",
+        description: "Pemetaan spasial rute logistik pengiriman antar-negara bagian Brasil dan titik friksi keterlambatan.",
+        imageUrl: "/images/olist/brazil_logistics_map.png"
+      },
+      {
+        type: "notebook",
+        title: "Review Score vs Delivery Delay Impact Curve",
+        description: "Plot empiris pengaruh keterlambatan hari pengiriman terhadap degradasi rating kepuasan pelanggan.",
+        imageUrl: "/images/olist/review_score_vs_delivery_time.png"
+      },
+      {
+        type: "chart",
+        title: "Sales Seasonality & Monthly Revenue Trend",
+        description: "Dekomposisi tren transaksi bulanan dan lonjakan musiman Black Friday pada 100k order.",
+        imageUrl: "/images/olist/sales_seasonality_trend.png"
+      }
+    ]
   },
   {
     id: "supply-chain-demand-forecasting",
@@ -440,7 +498,33 @@ print(df_recovery[['Year', 'GDP_Current', 'Recovery_Index']])`,
     techStack: ["Python 3.11", "Pandas", "Time Series Econometrics", "Matplotlib", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/asean-economic-recovery",
     demoUrl: "https://izamrosiawan.github.io/asean-economic-recovery/",
-    datasetInfo: { name: "ASEAN Macroeconomic & Tourism Statistics", size: "10 Negara ASEAN (2019-2027 Proyeksi)", source: "World Bank & ASEAN Secretariat" }
+    datasetInfo: { name: "ASEAN Macroeconomic & Tourism Statistics", size: "10 Negara ASEAN (2019-2027 Proyeksi)", source: "World Bank & ASEAN Secretariat" },
+    visualHighlights: [
+      {
+        type: "web",
+        title: "Interactive ASEAN Geo-Economic Dashboard",
+        description: "Dashboard web interaktif untuk eksplorasi geospatial trajectory pemulihan PDB dan wisatawan 10 negara.",
+        imageUrl: "/images/ss_web_asean.png"
+      },
+      {
+        type: "chart",
+        title: "ASEAN Tourist Arrivals & GDP Trajectory Forecast",
+        description: "Grafik proyeksi deret waktu pemulihan penuh 2019-2027F pada 10 negara anggota ASEAN.",
+        imageUrl: "/images/asean/asean_forecast.png"
+      },
+      {
+        type: "notebook",
+        title: "Economic Resilience Index Ranking",
+        description: "Peringkat ketahanan makroekonomi pasca krisis berdasarkan kecepatan rebound PDB domestik.",
+        imageUrl: "/images/asean/resilience_ranking.png"
+      },
+      {
+        type: "chart",
+        title: "Tourism Sensitivity vs Growth Resilience",
+        description: "Scatterplot korelasi ketergantungan pariwisata terhadap kecepatan pemulihan ekonomi.",
+        imageUrl: "/images/asean/resilience_scatter.png"
+      }
+    ]
   },
   {
     id: "mlp-vs-random-forest-breast-cancer",
@@ -644,7 +728,34 @@ cluster = profiler.predict_track_cluster(danceability=0.78, energy=0.85, loudnes
 print(f"Klaster Audio Musik: {cluster}")`,
     techStack: ["Python 3.11", "Pandas", "Scikit-Learn", "K-Means", "Seaborn", "Pytest"],
     githubUrl: "https://github.com/izamrosiawan/spotify-tracks-analysis",
-    datasetInfo: { name: "Spotify 114k Tracks Audio Dataset", size: "114,000 Lagu, 125 Genre Musik", source: "Spotify Web API / Kaggle" }
+    demoUrl: "https://izamrosiawan.github.io/spotify-tracks-analysis/",
+    datasetInfo: { name: "Spotify 114k Tracks Audio Dataset", size: "114,000 Lagu, 125 Genre Musik", source: "Spotify Web API / Kaggle" },
+    visualHighlights: [
+      {
+        type: "web",
+        title: "Interactive Spotify Audio Studio & Synthesizer",
+        description: "Dashboard web interaktif untuk eksplorasi klaster audio, synthesizer sinyal, dan hit predictor.",
+        imageUrl: "/images/ss_web_spotify.png"
+      },
+      {
+        type: "chart",
+        title: "Audio Feature 2D PCA & K-Means Clusters",
+        description: "Visualisasi 300 DPI sebaran 114k trek dalam ruang proyeksi klaster akustik K-Means.",
+        imageUrl: "/images/spotify/spotify_clusters.png"
+      },
+      {
+        type: "notebook",
+        title: "Audio Energy vs Loudness (dB) Correlation Dynamics",
+        description: "Analisis regresi non-linier antara tingkat energi sonik terhadap persepsi kenyaringan suara.",
+        imageUrl: "/images/spotify/energy_vs_loudness.png"
+      },
+      {
+        type: "chart",
+        title: "Audio Feature Correlation Matrix",
+        description: "Matriks korelasi Pearson komputasional antar-fitur sinyal audio (danceability, valence, tempo).",
+        imageUrl: "/images/spotify/correlation_matrix.png"
+      }
+    ]
   },
   {
     id: "cic-music-player",

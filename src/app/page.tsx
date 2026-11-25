@@ -1,1427 +1,715 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import katex from "katex";
 import { DETAILED_PROJECTS, ProjectDetail } from "@/data/projects_detail";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  X,
-  ExternalLink,
-  BookOpen,
-  Search,
-  CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
-  Send,
-  Linkedin,
-  Github,
-  Mail,
-  MapPin,
-  FileText,
-} from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 
-function renderLatex(latex: string) {
-  try {
-    return {
-      __html: katex.renderToString(latex, {
-        displayMode: true,
-        throwOnError: false,
-      }),
-    };
-  } catch {
-    return { __html: latex };
-  }
-}
+const FEATURED_WORKS = [
+  {
+    id: "indonesian-banks-risk-analytics",
+    title: "Risiko Empat Bank Besar",
+    caption:
+      "ANALISIS RISIKO KUANTITATIF, VALUE AT RISK (VAR 95%), DAN DRAWDOWN HISTORIS PERBANKAN INDONESIA",
+    image: "/images/ss_web_banks.png",
+  },
+  {
+    id: "olist-brazilian-ecommerce-analytics",
+    title: "Analitika Logistik Olist",
+    caption:
+      "PEMETAAN RANTAI PASOK SPASIAL, TREN MUSIMAN PENJUALAN, DAN EVALUASI PENGIRIMAN E-COMMERCE",
+    image: "/images/ss_web_olist.png",
+  },
+  {
+    id: "asean-economic-recovery",
+    title: "Ketahanan Ekonomi ASEAN",
+    caption:
+      "PEMODELAN MAKROEKONOMI DAN PROYEKSI PEMULIHAN EKONOMI KAWASAN ASIA TENGGARA",
+    image: "/images/ss_web_asean.png",
+  },
+];
+
+const COLLAGE_ITEMS = [
+  {
+    id: "spotify-tracks-analysis",
+    image: "/images/ss_web_spotify.png",
+    alt: "Spotify Audio Analytics Dashboard",
+  },
+  {
+    id: "indonesian-banks-risk-analytics",
+    image: "/images/banks/returns_vs_var.png",
+    alt: "Historical Return vs VaR 95%",
+  },
+  {
+    id: "olist-brazilian-ecommerce-analytics",
+    image: "/images/olist/brazil_logistics_map.png",
+    alt: "Spatial Logistics Map",
+  },
+  {
+    id: "asean-economic-recovery",
+    image: "/images/asean/resilience_ranking.png",
+    alt: "ASEAN Resilience Ranking",
+  },
+  {
+    id: "spotify-tracks-analysis",
+    image: "/images/spotify/correlation_matrix.png",
+    alt: "Audio Feature Correlation",
+  },
+  {
+    id: "indonesian-banks-risk-analytics",
+    image: "/images/banks/cumulative_returns.png",
+    alt: "Cumulative Return Comparison",
+  },
+];
 
 export default function HomePage() {
-  const [portfolioView, setPortfolioView] = useState<"flagship" | "all">("flagship");
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [activeLabTab, setActiveLabTab] = useState<"engineering" | "bi" | "kinematics">("engineering");
   const [activeProject, setActiveProject] = useState<ProjectDetail | null>(null);
-  const [activeService, setActiveService] = useState<{
-    num: string;
-    title: string;
-    tagline: string;
-    desc: string;
-    capabilities: string[];
-    techStack: string[];
-    categoryFilter?: string;
-  } | null>(null);
-  const [copiedCode, setCopiedCode] = useState<boolean>(false);
-  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    interest: "Select",
-    message: "",
-  });
+  const [showAllArchive, setShowAllArchive] = useState<boolean>(false);
 
-  const categories = [
-    { id: "All", label: "All (20)" },
-    { id: "Insurance", label: "Actuarial (5)" },
-    { id: "Banking", label: "Banking (2)" },
-    { id: "SupplyChain", label: "Supply Chain (2)" },
-    { id: "PublicPolicy", label: "Public Policy (3)" },
-    { id: "Healthcare", label: "Healthcare AI (4)" },
-    { id: "Systems", label: "MLOps (4)" },
-  ];
-
-  const services = [
-    {
-      num: "01",
-      title: "Data Analytics & BI",
-      tagline: "Executive Visual Intelligence & Business Decisions",
-      desc: "Transform complex operational datasets into interactive, actionable dashboards with Power BI, advanced SQL analytics, and automated decision support systems.",
-      capabilities: [
-        "Interactive Power BI Dashboard Engineering & KPI Tracking",
-        "Complex SQL Query Optimization, Aggregations & Window Functions",
-        "Exploratory Data Analysis (EDA) & Skewness/Variance Diagnostics",
-        "Business Metric Decomposition & Actionable Executive Reporting"
-      ],
-      techStack: ["Microsoft Power BI", "Microsoft Excel", "PostgreSQL", "Pandas", "Python"],
-      categoryFilter: "All"
-    },
-    {
-      num: "02",
-      title: "Data Engineering",
-      tagline: "Resilient ETL Pipelines & Database Governance",
-      desc: "Architect automated extraction, transformation, and loading (ETL) data pipelines with Python and relational database governance for maximum reliability.",
-      capabilities: [
-        "Automated Python ETL & Multi-source Data Ingestion Scripts",
-        "Relational Schema Design & 3NF Database Normalization",
-        "Data Validation, Cleansing, and Missingness Auditing (MCAR/MAR)",
-        "API Integration & Task Automation for Operational Workflows"
-      ],
-      techStack: ["Python", "SQL", "PostgreSQL", "MySQL", "DuckDB", "REST APIs"],
-      categoryFilter: "Systems"
-    },
-    {
-      num: "03",
-      title: "Quantitative ML",
-      tagline: "Zero-Leakage Statistical Learning & Actuarial Models",
-      desc: "Develop rigorous predictive models (GLM Tweedie, GARCH volatility, and QWK optimization) with strict zero-leakage validation protocols.",
-      capabilities: [
-        "Strict Train-Only Fitting & Anti-Leakage Feature Preprocessing",
-        "Compound Poisson-Gamma Tweedie Modeling for Pure Premium Pricing",
-        "Time-Series Walk-Forward Expanding Window Cross-Validation",
-        "Multi-Metric Evaluation (AUC-ROC, RMSE, Cohen's Kappa, Gini)"
-      ],
-      techStack: ["Scikit-learn", "LightGBM", "XGBoost", "Statsmodels", "NumPy", "SciPy"],
-      categoryFilter: "Insurance"
-    },
-    {
-      num: "04",
-      title: "Motion Sensor AI",
-      tagline: "Kinematic Biomechanics & Laboratory Instrumentation",
-      desc: "Process high-frequency kinematic sensor signals, camera calibration, and reflective marker data at MOSHEE Lab for advanced biomechanical analysis.",
-      capabilities: [
-        "Multi-Camera Optical Space Calibration & Coordinate Transformation",
-        "Reflective Marker Kinematic Tracking & Noise Filtering",
-        "High-frequency Accelerometer & Gyroscope Signal Processing",
-        "Gait Cycle Phase Segmentation & Biomechanical Anomaly Detection"
-      ],
-      techStack: ["MOSHEE Lab Systems", "Biomechanical Signal Processing", "Python", "NumPy", "OpenCV"],
-      categoryFilter: "Healthcare"
-    },
-  ];
-
-  const results = [
-    {
-      metric: "20+",
-      label: "Research monographs published across 6 domains",
-    },
-    {
-      metric: "99.9%",
-      label: "Zero-leakage data split & methodology rigor",
-    },
-    {
-      metric: "5+",
-      label: "Interactive analytical web applications deployed live",
-    },
-    {
-      metric: "100%",
-      label: "Deterministic reproducibility & automated test suites",
-    },
-  ];
-
-  const flagshipProjects = useMemo(() => {
-    const flagshipIds = [
-      "indonesian-banks-risk-analytics",
-      "olist-brazilian-ecommerce-analytics",
-      "asean-economic-recovery",
-      "spotify-tracks-analysis",
-    ];
-    return DETAILED_PROJECTS.filter((p) => flagshipIds.includes(p.id));
-  }, []);
-
-  const filteredProjects = useMemo(() => {
-    return DETAILED_PROJECTS.filter((project) => {
-      const matchCat =
-        selectedCategory === "All" || project.category === selectedCategory;
-      const matchSearch =
-        searchQuery.trim() === "" ||
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.problem.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.domain.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.techStack.some((t) =>
-          t.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      return matchCat && matchSearch;
-    });
-  }, [selectedCategory, searchQuery]);
-
-  const handleCopyCode = (code: string) => {
-    navigator.clipboard.writeText(code);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => setFormSubmitted(false), 4000);
+  const openById = (id: string) => {
+    const found = DETAILED_PROJECTS.find((p) => p.id === id);
+    if (found) setActiveProject(found);
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f4f4] text-[#090909] font-poppins selection:bg-[#595cef] selection:text-white">
-
-      {/* HEADER / NAVIGATION - EXACT WIX JR DIGITAL HEADER */}
-      <header className="w-full bg-[#f4f4f4] sticky top-0 z-50 px-6 sm:px-12 lg:px-16 py-6 flex items-center justify-between">
-        <a href="#" className="flex flex-col">
-          <span className="font-semibold text-lg sm:text-xl tracking-tight text-[#090909]">
+    <div className="min-h-screen bg-white text-black">
+      {/* Minimal Editorial Top Nav */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-12">
+          <a
+            href="#beranda"
+            className="font-serif text-xl tracking-normal text-black"
+          >
             Izam Rosiawan
-          </span>
-          <span className="text-[11px] font-light text-[#6b6b6b] -mt-1 tracking-wider uppercase">
-            Data Science & Analytics
-          </span>
-        </a>
+          </a>
 
-        <nav className="flex items-center gap-6 sm:gap-10 text-[13px] font-light tracking-wide text-[#090909]">
-          <a href="#about" className="hover:text-[#595cef] transition-colors">
-            ABOUT
+          <nav className="hidden items-center gap-7 text-[11px] uppercase tracking-[0.22em] text-neutral-700 md:flex">
+            <a href="#tentang" className="hover:text-black">Tentang</a>
+            <a href="#pengalaman" className="hover:text-black">Pengalaman</a>
+            <a href="#pendidikan" className="hover:text-black">Pendidikan</a>
+            <a href="#keahlian" className="hover:text-black">Keahlian</a>
+            <a href="#karya" className="hover:text-black">Karya</a>
+            <a href="#kontak" className="hover:text-black">Kontak</a>
+          </nav>
+
+          <a
+            href="/cv-izam-rosiawan.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#EBEBEB] px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-black transition hover:bg-neutral-300"
+          >
+            Unduh CV
           </a>
-          <a href="#services" className="hover:text-[#595cef] transition-colors">
-            SERVICES
-          </a>
-          <a href="#portfolio" className="hover:text-[#595cef] transition-colors">
-            PORTFOLIO
-          </a>
-          <a href="#contact" className="hover:text-[#595cef] transition-colors">
-            CONTACT
-          </a>
-        </nav>
+        </div>
       </header>
 
-      {/* 1. HERO SECTION - EXACT WIX LAYOUT: GIANT HEADLINE + CONSULTANT PHOTO */}
-      <section className="w-full min-h-[90vh] flex flex-col justify-between px-6 sm:px-12 lg:px-16 pt-8 pb-16 bg-[#f4f4f4]">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-4">
+      {/* PAGE 1: EDITORIAL HERO (Overlapping Name + Tilted B&W Portrait + PORTOFOLIO) */}
+      <section
+        id="beranda"
+        className="mx-auto flex min-h-[88vh] max-w-6xl flex-col items-center justify-center px-6 py-14 md:px-12 md:py-20"
+      >
+        <div className="relative flex w-full flex-col items-center justify-center">
+          {/* Top Overlapping Serif Name */}
+          <h1 className="relative z-20 -mb-6 select-none text-center font-serif text-[3.4rem] font-normal leading-none tracking-[-0.02em] text-black sm:-mb-10 sm:text-[5.5rem] md:-mb-12 md:text-[7.2rem]">
+            Izam Rosiawan
+          </h1>
 
-          {/* Left: Clean Typography + Subtitle + Pill CTA */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-10">
-            <div className="space-y-6">
-              <h1 className="text-[46px] sm:text-[72px] lg:text-[92px] xl:text-[104px] font-semibold leading-[0.98] tracking-tight text-[#090909]">
-                Izam Rosiawan
-                <br />
-                <span className="font-extralight text-[#595cef]">Data &amp; Systems</span>
-              </h1>
+          {/* Center Tilted Monochrome Portrait */}
+          <div className="relative z-10 h-[250px] w-[300px] -rotate-[3.5deg] overflow-hidden bg-neutral-100 shadow-sm sm:h-[320px] sm:w-[400px] md:h-[360px] md:w-[450px]">
+            <Image
+              src="/images/izam_photo_grey_bw.jpg"
+              alt="Izam Rosiawan"
+              fill
+              priority
+              className="object-cover object-top grayscale contrast-110"
+            />
+          </div>
 
-              <p className="text-base sm:text-lg font-light text-[#444444] max-w-lg leading-relaxed pt-2">
-                Specializing in quantitative risk modeling, automated ETL data engineering, and interactive analytics dashboards.
+          {/* Bottom Overlapping Sans PORTOFOLIO */}
+          <p className="relative z-20 -mt-8 select-none text-center font-sans text-[3rem] font-normal uppercase leading-none tracking-[0.06em] text-black sm:-mt-12 sm:text-[5.2rem] md:-mt-14 md:text-[7.2rem]">
+            PORTOFOLIO
+          </p>
+        </div>
+
+        <p className="mt-8 text-center font-sans text-base font-light tracking-wide text-neutral-800 sm:text-xl">
+          Data Science, Data Engineering dan Business Intelligence
+        </p>
+
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#karya"
+            className="bg-[#EBEBEB] px-10 py-3.5 text-xs uppercase tracking-[0.28em] text-black transition hover:bg-neutral-300 sm:text-sm"
+          >
+            Lihat Karya Saya
+          </a>
+        </div>
+      </section>
+
+      {/* PAGE 2 - SECTION 01: SEDIKIT TENTANG SAYA */}
+      <section id="tentang" className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-28">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <p className="text-sm font-normal text-black">01</p>
+            <h2 className="mt-2 font-sans text-4xl font-normal uppercase leading-[1.08] tracking-tight text-black sm:text-5xl md:text-[3.5rem]">
+              SEDIKIT
+              <br />
+              TENTANG
+              <br />
+              SAYA
+            </h2>
+
+            <div className="mt-12 md:pl-20">
+              <p className="text-sm leading-[1.75] text-neutral-800 sm:text-[15px]">
+                Saya mahasiswa S1 Sains Data di Universitas Telkom Surabaya yang saat ini berbasis
+                di Surabaya. Saya aktif merancang skrip otomasi pemrosesan data berbasis Python dan
+                SQL, mengelola basis data relasional terstruktur, serta menyusun visualisasi
+                dashboard analitik interaktif Power BI. Fokus utama saya adalah mengubah data
+                mentah operasional menjadi informasi akurat untuk pengambilan keputusan.
               </p>
-            </div>
-
-            <div>
-              <a
-                href="#services"
-                className="inline-flex items-center gap-4 px-8 py-4 bg-[#595cef] hover:bg-[#474ae0] text-white text-sm font-semibold rounded-full transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-              >
-                <span>Start exploring</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
             </div>
           </div>
 
-          {/* Right: Full-bleed Portrait Card */}
-          <div className="lg:col-span-5 relative flex justify-end">
-            <div className="relative w-full max-w-[480px] aspect-[4/5] rounded-[32px] overflow-hidden shadow-sm bg-[#e0e0e0]">
+          <div className="flex flex-col justify-between gap-10 md:col-span-6">
+            <div className="relative ml-auto h-[240px] w-full max-w-[380px] overflow-hidden bg-neutral-100">
               <Image
-                src="/images/izam_batik_photo.jpg"
-                alt="Izam Rosiawan"
+                src="/images/izam-candid-laptop.jpg"
+                alt="Izam Rosiawan bersama Laptop"
                 fill
-                className="object-cover object-top"
-                priority
+                className="object-cover object-center grayscale contrast-110"
+              />
+            </div>
+
+            <div className="relative ml-auto h-[230px] w-[190px] overflow-hidden bg-neutral-100 md:mr-8">
+              <Image
+                src="/images/lab_moshee_kinematics.png"
+                alt="Laboratorium Riset"
+                fill
+                className="object-cover grayscale contrast-110"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PAGE 2 - SECTION 02: PENGALAMAN KERJA & ORGANISASI */}
+      <section id="pengalaman" className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-24">
+        <p className="text-sm font-normal text-black">02</p>
+        <h2 className="mt-2 font-sans text-4xl font-normal uppercase leading-[1.08] tracking-tight text-black sm:text-5xl md:text-[3.5rem]">
+          PENGALAMAN
+          <br />
+          KERJA
+        </h2>
+
+        <div className="mt-14 grid items-start gap-10 md:grid-cols-12">
+          {/* Left B&W Editorial Photo */}
+          <div className="md:col-span-4">
+            <div className="relative h-[220px] w-full overflow-hidden bg-neutral-100">
+              <Image
+                src="/images/mockup_bank_risk.jpg"
+                alt="Pengalaman Data dan Riset"
+                fill
+                className="object-cover grayscale contrast-110"
               />
             </div>
           </div>
 
-        </div>
-      </section>
+          {/* Middle Column: Lab & Project */}
+          <div className="md:col-span-4">
+            <h3 className="font-serif text-2xl font-normal text-black">
+              Laboratorium &amp; Proyek
+            </h3>
 
-      {/* 2. OUR SERVICES (comp-lyguuf88) - EXACT 4 VERTICAL CARDS (01, 02, 03, 04) */}
-      <section id="services" className="w-full bg-[#090909] text-white px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
-        <div className="w-full space-y-16">
-
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-white/10 pb-8">
-            <h2 className="text-4xl sm:text-6xl font-extralight text-white tracking-tight">
-              Core Competencies
-            </h2>
-            <p className="text-sm font-light text-[#a0a0a0] max-w-sm">
-              Modular data engineering, interactive analytics dashboards, and quantitative statistical modeling.
-            </p>
-          </div>
-
-          {/* 4 Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((s) => (
-              <div
-                key={s.num}
-                onClick={() => setActiveService(s)}
-                className="group cursor-pointer flex flex-col justify-between min-h-[380px] p-8 rounded-[24px] bg-white/[0.04] hover:bg-[#595cef] border border-white/10 hover:border-transparent transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1"
-              >
-                <div className="space-y-6">
-                  <span className="block text-2xl font-light text-[#595cef] group-hover:text-white transition-colors">
-                    {s.num}
-                  </span>
-                  <h3 className="text-2xl font-semibold text-white leading-snug">
-                    {s.title}
-                  </h3>
-                  <p className="text-sm font-light text-[#a0a0a0] group-hover:text-white/90 leading-relaxed transition-colors">
-                    {s.desc}
-                  </p>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-white/10 group-hover:border-white/20 flex items-center justify-between text-xs font-medium text-white">
-                  <button
-                    type="button"
-                    className="font-medium text-white group-hover:underline"
-                  >
-                    Learn more
-                  </button>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* 3. STRATEGIC DATA MINDSET (comp-lyh9q1fo) */}
-      <section id="about" className="w-full bg-[#d6dbe2] text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
-          {/* Left: High-End Interactive Scientific & Engineering Bento Card */}
-          <div className="lg:col-span-5 relative flex justify-center">
-            <div className="relative w-full max-w-[460px] rounded-[32px] bg-white text-[#090909] p-7 shadow-xl border border-white/80 flex flex-col justify-between space-y-6">
-              
-              {/* Top Header & Campus Context */}
-              <div className="flex items-center justify-between border-b border-[#ececec] pb-4">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#595cef]" />
-                  <span className="text-xs font-semibold text-[#090909]">
-                    Telkom University Surabaya
-                  </span>
-                </div>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#f0f2f5] text-[#555555]">
-                  S1 Sains Data
-                </span>
-              </div>
-
-              {/* Interactive Module Tabs */}
-              <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#f4f4f6] rounded-2xl">
-                <button
-                  type="button"
-                  onClick={() => setActiveLabTab("engineering")}
-                  className={`py-2 text-[11px] font-medium rounded-xl transition-all ${
-                    activeLabTab === "engineering"
-                      ? "bg-white text-[#090909] shadow-sm font-semibold"
-                      : "text-[#777777] hover:text-[#090909]"
-                  }`}
-                >
-                  Data Pipelines
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLabTab("bi")}
-                  className={`py-2 text-[11px] font-medium rounded-xl transition-all ${
-                    activeLabTab === "bi"
-                      ? "bg-white text-[#090909] shadow-sm font-semibold"
-                      : "text-[#777777] hover:text-[#090909]"
-                  }`}
-                >
-                  BI & KPIs
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLabTab("kinematics")}
-                  className={`py-2 text-[11px] font-medium rounded-xl transition-all ${
-                    activeLabTab === "kinematics"
-                      ? "bg-white text-[#090909] shadow-sm font-semibold"
-                      : "text-[#777777] hover:text-[#090909]"
-                  }`}
-                >
-                  MOSHEE Lab
-                </button>
-              </div>
-
-              {/* Dynamic Interactive Workbench Canvas */}
-              <div className="space-y-4">
-                {activeLabTab === "engineering" && (
-                  <div className="space-y-3.5 animate-fadeIn">
-                    <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#ebebeb] space-y-2.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#090909]">UKM CODER IT Pipeline</span>
-                        <span className="text-[10px] font-mono text-[#595cef] bg-[#595cef]/10 px-2 py-0.5 rounded-full font-medium">PostgreSQL 3NF</span>
-                      </div>
-                      <p className="text-xs text-[#666666] leading-relaxed">
-                        Automated Python & SQL ingestion pipelines transforming raw member records into validated relational data structures with zero loss.
-                      </p>
-                      <div className="pt-2 flex items-center justify-between text-[11px] font-medium text-[#444444] border-t border-[#e8e8e8]">
-                        <span>• Data Cleaning & Validation</span>
-                        <span>• 100% Zero-Loss</span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
-                        <div className="text-[#888888] text-[10px]">Stack</div>
-                        <div className="font-semibold text-[#090909] mt-0.5">Python & SQL</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
-                        <div className="text-[#888888] text-[10px]">Governance</div>
-                        <div className="font-semibold text-[#595cef] mt-0.5">ACID Integrity</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {activeLabTab === "bi" && (
-                  <div className="space-y-3.5 animate-fadeIn">
-                    <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#ebebeb] space-y-2.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#090909]">Executive Analytics</span>
-                        <span className="text-[10px] font-mono text-[#595cef] bg-[#595cef]/10 px-2 py-0.5 rounded-full font-medium">Power BI & Excel</span>
-                      </div>
-                      <p className="text-xs text-[#666666] leading-relaxed">
-                        Interactive multi-dimensional dashboards with DAX measures, automated weekly refresh, and cross-filter data exploration.
-                      </p>
-                      {/* Mini Metric Bars */}
-                      <div className="space-y-1.5 pt-1">
-                        <div className="flex justify-between text-[10px] text-[#777777]">
-                          <span>Reporting Efficiency</span>
-                          <span className="font-semibold text-[#090909]">+85%</span>
-                        </div>
-                        <div className="w-full h-1.5 bg-[#e5e7eb] rounded-full overflow-hidden">
-                          <div className="w-[85%] h-full bg-[#595cef] rounded-full" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
-                        <div className="text-[#888888] text-[10px]">Modeling</div>
-                        <div className="font-semibold text-[#090909] mt-0.5">Star Schema</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
-                        <div className="text-[#888888] text-[10px]">Delivery</div>
-                        <div className="font-semibold text-[#595cef] mt-0.5">Live Reports</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {activeLabTab === "kinematics" && (
-                  <div className="space-y-3.5 animate-fadeIn">
-                    <div className="p-4 rounded-2xl bg-[#f8f9fa] border border-[#ebebeb] space-y-2.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#090909]">MOSHEE Biomechanics</span>
-                        <span className="text-[10px] font-mono text-[#595cef] bg-[#595cef]/10 px-2 py-0.5 rounded-full font-medium">Motion Lab</span>
-                      </div>
-                      <p className="text-xs text-[#666666] leading-relaxed">
-                        Multi-camera optical calibration and reflective marker 3D coordinate tracking for human gait trajectory analysis.
-                      </p>
-                      {/* Real Smooth Kinematic Curve */}
-                      <div className="pt-2">
-                        <svg className="w-full h-12" viewBox="0 0 280 60" fill="none">
-                          <path
-                            d="M0,35 Q35,5 70,30 T140,45 T210,15 T280,35"
-                            stroke="#595cef"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeLinecap="round"
-                          />
-                          <circle cx="70" cy="30" r="3.5" fill="#595cef" />
-                          <circle cx="210" cy="15" r="3.5" fill="#090909" />
-                        </svg>
-                        <div className="flex justify-between text-[9px] text-[#888888] font-mono mt-0.5">
-                          <span>Heel Strike</span>
-                          <span>Mid Stance</span>
-                          <span>Toe Off</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 text-[11px]">
-                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
-                        <div className="text-[#888888] text-[10px]">Sensors</div>
-                        <div className="font-semibold text-[#090909] mt-0.5">Optical 3D</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-[#f4f4f6] border border-[#e8e8e8]">
-                        <div className="text-[#888888] text-[10px]">Precision</div>
-                        <div className="font-semibold text-[#595cef] mt-0.5">Sub-millimeter</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Verified Credentials Strip */}
-              <div className="pt-4 border-t border-[#ececec] space-y-2">
-                <div className="text-[10px] uppercase font-semibold text-[#888888] tracking-wider">
-                  Verified Certifications
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
-                    Azure Data
-                  </span>
-                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
-                    Pandas Python3
-                  </span>
-                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
-                    Power BI
-                  </span>
-                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
-                    IBM Big Data
-                  </span>
-                  <span className="text-[10px] font-medium px-2.5 py-1 bg-[#f0f2f5] text-[#333333] rounded-lg">
-                    Dicoding ML
-                  </span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          {/* Right: Narrative + CTA */}
-          <div className="lg:col-span-7 space-y-8 lg:pl-6">
-            <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] leading-tight tracking-tight">
-              Scientific Rigor &amp;
-              <br />
-              <span className="font-semibold text-[#595cef]">Data Engineering</span>
-            </h2>
-
-            <div className="space-y-4 text-base sm:text-lg font-light text-[#333333] leading-relaxed max-w-xl">
-              <p>
-                <strong>Izam Rosiawan</strong> is a Data Science student at <strong>Universitas Telkom Surabaya</strong> focusing on Data Analytics, Data Engineering, and Quantitative Modeling.
-              </p>
-              <p>
-                Dedicated to building automated Python &amp; SQL data pipelines, structured relational database governance, interactive analytical dashboards, and laboratory biomechanical sensor research at MOSHEE Lab.
-              </p>
-            </div>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <a
-                href="#portfolio"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-[#090909] hover:bg-[#595cef] text-white text-sm font-semibold rounded-full transition-all duration-300 shadow-sm"
-              >
-                <span>See my work</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/izam-rosiawan-86089627a/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-[#eaeef3] text-[#090909] text-sm font-semibold rounded-full transition-all duration-300 border border-[#c5cdd6]"
-              >
-                <Linkedin className="w-4 h-4 text-[#595cef]" />
-                <span>LinkedIn</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 4. PROVEN RESULTS - REFINED MONOCHROME-FIRST RESEARCH METRICS */}
-      <section className="w-full bg-[#090909] text-white px-6 sm:px-12 lg:px-16 py-24 lg:py-32 border-y border-white/10">
-        <div className="w-full space-y-16">
-
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-white/10 pb-8">
-            <div className="space-y-2">
-              <h2 className="text-4xl sm:text-6xl font-extralight text-white tracking-tight">
-                Empirical Research Milestones
-              </h2>
-            </div>
-            <p className="text-xs font-light text-[#888888] max-w-sm">
-              Standardized reproducibility metrics across actuarial modeling, econometric forecasts, and automated ETL pipelines.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {results.map((r, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-[28px] bg-white/[0.03] border border-white/10 flex flex-col justify-between min-h-[260px] hover:border-[#595cef]/50 hover:bg-white/[0.05] transition-all duration-300 group"
-              >
-                <div className="text-5xl sm:text-6xl font-semibold text-white tracking-tight group-hover:text-[#595cef] transition-colors font-mono">
-                  {r.metric}
-                </div>
-                <p className="text-xs sm:text-sm font-light text-[#a0a0a0] leading-relaxed pt-6 border-t border-white/10">
-                  {r.label}
+            <div className="mt-5 space-y-7 text-xs uppercase leading-[1.7] tracking-[0.04em] text-neutral-900">
+              <div>
+                <p className="font-medium">MOSHEE LAB - TELKOM UNIVERSITY SURABAYA</p>
+                <p className="mt-2">- MOTION LABORATORY ASSISTANT (JULI 2025 - SEKARANG)</p>
+                <p className="mt-1 normal-case tracking-normal text-neutral-700">
+                  Operasional riset gait analysis, kalibrasi multi-kamera, reflective marker, dan
+                  pra-pemrosesan data sensor gerak.
                 </p>
               </div>
+
+              <div>
+                <p className="font-medium">PENGABDIAN MASYARAKAT - SDN WONOKROMO III</p>
+                <p className="mt-2">- WEB DEVELOPER &amp; PROJECT TEAM (FEB 2025 - JUN 2025)</p>
+                <p className="mt-1 normal-case tracking-normal text-neutral-700">
+                  Pengembangan situs resmi sekolah, konfigurasi domain sch.id &amp; hosting, Black
+                  Box Testing, serta pelatihan guru dan staf.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Organisasi */}
+          <div className="md:col-span-4">
+            <h3 className="font-serif text-2xl font-normal text-black">
+              Organisasi &amp; Divisi Data
+            </h3>
+
+            <div className="mt-5 space-y-7 text-xs uppercase leading-[1.7] tracking-[0.04em] text-neutral-900">
+              <div>
+                <p className="font-medium">UKM CODER IT TELKOM SURABAYA</p>
+                <p className="mt-2">- MEMBER OF DATA ENGINEER (OKT 2024 - SEKARANG)</p>
+                <p className="mt-1 normal-case tracking-normal text-neutral-700">
+                  Otomasi skrip ekstraksi, transformasi, dan pembersihan data berbasis Python &amp;
+                  SQL, tata kelola basis data relasional, serta kepanitiaan LUMINA.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PAGE 2 - SECTION 03: PENDIDIKAN & SERTIFIKASI */}
+      <section id="pendidikan" className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-24">
+        <div className="grid items-start gap-10 md:grid-cols-12">
+          {/* Left Column: 03 PENDIDIKAN + Vertical Photo */}
+          <div className="md:col-span-5">
+            <p className="text-sm font-normal text-black">03</p>
+            <h2 className="mt-2 font-sans text-4xl font-normal uppercase leading-[1.08] tracking-tight text-black sm:text-5xl md:text-[3.3rem]">
+              PENDIDIKAN
+            </h2>
+
+            <div className="relative mt-12 h-[300px] w-[215px] overflow-hidden bg-neutral-100 md:ml-16">
+              <Image
+                src="/images/izam-almamater-wide.jpg"
+                alt="Pendidikan Universitas Telkom Surabaya"
+                fill
+                className="object-cover object-bottom grayscale contrast-105"
+              />
+            </div>
+          </div>
+
+          {/* Middle Column: Pendidikan Formal */}
+          <div className="md:col-span-3 md:pt-7">
+            <h3 className="font-serif text-2xl font-normal text-black">Pendidikan</h3>
+
+            <div className="mt-5 space-y-7 text-xs uppercase leading-[1.7] tracking-[0.04em] text-neutral-900">
+              <div>
+                <p className="font-medium">UNIVERSITAS TELKOM SURABAYA</p>
+                <p>S1 SAINS DATA (DATA SCIENCE)</p>
+                <p className="text-neutral-600">(AGUSTUS 2024 - SEKARANG)</p>
+              </div>
+
+              <div>
+                <p className="font-medium">SMAN 1 KAMAL</p>
+                <p>MATEMATIKA DAN ILMU PENGETAHUAN ALAM (MIPA)</p>
+                <p className="text-neutral-600">(JULI 2021 - MEI 2024)</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Sertifikasi & Pelatihan */}
+          <div className="md:col-span-4 md:pt-7">
+            <h3 className="font-serif text-2xl font-normal text-black">
+              Sertifikasi &amp; Pelatihan
+            </h3>
+
+            <div className="mt-5 space-y-5 text-xs uppercase leading-[1.65] tracking-[0.04em] text-neutral-900">
+              <div>
+                <p className="font-medium">PANDAS BOOTCAMP: DATA ANALYSIS WITH PYTHON3</p>
+                <p className="text-neutral-600">PELATIHAN INTENSIF, 2025</p>
+              </div>
+              <div>
+                <p className="font-medium">MASTER THE BASICS OF AZURE: DATA FUNDAMENTALS</p>
+                <p className="text-neutral-600">MICROSOFT AZURE</p>
+              </div>
+              <div>
+                <p className="font-medium">MICROSOFT POWER BI FOR BEGINNERS &amp; EXCEL USERS</p>
+                <p className="text-neutral-600">MICROSOFT</p>
+              </div>
+              <div>
+                <p className="font-medium">BIG DATA 101</p>
+                <p className="text-neutral-600">COGNITIVE CLASS / IBM</p>
+              </div>
+              <div>
+                <p className="font-medium">BELAJAR MACHINE LEARNING UNTUK PEMULA</p>
+                <p className="text-neutral-600">DICODING INDONESIA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PAGE 2 - SECTION 04: KETERAMPILAN & KEAHLIAN */}
+      <section id="keahlian" className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-24">
+        <div className="grid items-start gap-10 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <p className="text-sm font-normal text-black">04</p>
+            <h2 className="mt-2 font-sans text-4xl font-normal uppercase leading-[1.08] tracking-tight text-black sm:text-5xl md:text-[3.3rem]">
+              KETERAMPILAN
+              <br />
+              &amp; KEAHLIAN
+            </h2>
+          </div>
+
+          <div className="md:col-span-6">
+            <div className="relative h-[200px] w-full overflow-hidden bg-neutral-100">
+              <Image
+                src="/images/mockup_asean_recovery.jpg"
+                alt="Keahlian Analitika Data"
+                fill
+                className="object-cover grayscale contrast-110"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-14 grid gap-10 sm:grid-cols-3 md:max-w-3xl">
+          <div>
+            <h3 className="font-serif text-2xl font-normal text-black">Bahasa &amp; Alat</h3>
+            <ul className="mt-4 space-y-1.5 text-sm text-neutral-800">
+              <li>- Python</li>
+              <li>- SQL</li>
+              <li>- HTML &amp; CSS</li>
+              <li>- WordPress CMS</li>
+              <li>- Git &amp; GitHub</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-serif text-2xl font-normal text-black">Analisis &amp; Data</h3>
+            <ul className="mt-4 space-y-1.5 text-sm text-neutral-800">
+              <li>- Data Analysis</li>
+              <li>- Data Engineering</li>
+              <li>- Pandas</li>
+              <li>- Microsoft Power BI</li>
+              <li>- Microsoft Excel</li>
+              <li>- Azure Data Fundamentals</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-serif text-2xl font-normal text-black">Keahlian Teknis</h3>
+            <ul className="mt-4 space-y-1.5 text-sm text-neutral-800">
+              <li>- Pengelolaan Basis Data</li>
+              <li>- Otomatisasi Alur Kerja</li>
+              <li>- Black Box Testing</li>
+              <li>- Domain &amp; Hosting</li>
+              <li>- Gait Analysis</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* PAGE 3 - SECTION 05: EDITORIAL STATEMENT DIVIDER ("ANALITIKA BERTEMU PRESISI") */}
+      <section className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-28">
+        <p className="text-sm font-normal text-black">05</p>
+
+        <div className="relative mt-6 grid items-center gap-8 md:grid-cols-12">
+          <div className="md:col-span-3">
+            <div className="relative h-[230px] w-full max-w-[220px] overflow-hidden bg-neutral-100">
+              <Image
+                src="/images/izam_photo_grey_color.jpg"
+                alt="Potret Kerja"
+                fill
+                className="object-cover object-top grayscale contrast-105"
+              />
+            </div>
+          </div>
+
+          <div className="z-10 text-left md:col-span-6 md:-ml-6">
+            <p className="font-sans text-4xl font-normal uppercase leading-[1.08] tracking-[0.04em] text-black sm:text-6xl md:text-[4.2rem]">
+              ANALITIKA
+            </p>
+            <p className="font-serif text-5xl italic font-normal leading-[1.05] text-black sm:text-6xl md:ml-6 md:text-[4.5rem]">
+              BERTEMU
+            </p>
+            <p className="font-sans text-4xl font-normal uppercase leading-[1.08] tracking-[0.04em] text-black sm:text-6xl md:ml-2 md:text-[4.2rem]">
+              PRESISI
+            </p>
+          </div>
+
+          <div className="md:col-span-3 md:mt-24">
+            <div className="relative ml-auto h-[230px] w-full max-w-[200px] overflow-hidden bg-neutral-100">
+              <Image
+                src="/images/jr_dots_lines.jpg"
+                alt="Visualisasi Kuantitatif"
+                fill
+                className="object-cover grayscale contrast-110"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PAGE 3 - SECTION 06: KARYA SAYA (3-Column Visual Featured Works) */}
+      <section id="karya" className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-24">
+        <p className="text-sm font-normal text-black">06</p>
+        <h2 className="mt-2 font-sans text-4xl font-normal uppercase leading-[1.08] tracking-tight text-black sm:text-5xl md:text-[3.5rem]">
+          KARYA SAYA
+        </h2>
+
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
+          {FEATURED_WORKS.map((work) => (
+            <article
+              key={work.id}
+              onClick={() => openById(work.id)}
+              className="group cursor-pointer"
+            >
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100 border border-neutral-200">
+                <Image
+                  src={work.image}
+                  alt={work.title}
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <h3 className="mt-4 font-serif text-2xl font-normal text-black group-hover:underline">
+                {work.title}
+              </h3>
+              <p className="mt-1.5 text-[11px] uppercase leading-[1.6] tracking-[0.05em] text-neutral-700">
+                {work.caption}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* PAGE 3 - SECTION 07: PROYEK LAINNYA (Collage + Tilted Feature + Full Archive Toggle) */}
+      <section className="mx-auto max-w-5xl px-6 py-20 md:px-12 md:py-24">
+        <div className="grid items-end gap-8 md:grid-cols-12">
+          <div className="md:col-span-6">
+            <p className="text-sm font-normal text-black">07</p>
+            <h2 className="mt-2 font-sans text-4xl font-normal uppercase leading-[1.08] tracking-tight text-black sm:text-5xl md:text-[3.5rem]">
+              PROYEK
+              <br />
+              LAINNYA
+            </h2>
+          </div>
+
+          <div className="md:col-span-6">
+            <p className="max-w-sm text-xs uppercase leading-[1.65] tracking-[0.05em] text-neutral-800">
+              KUMPULAN RISET KUANTITATIF, PIPELINE DATA, DAN PEMODELAN PREDIKTIF YANG DIKONSEPKAN,
+              DIRANCANG, DAN DIKEMBANGKAN OLEH SAYA
+            </p>
+          </div>
+        </div>
+
+        {/* Collage + Tilted Feature Card */}
+        <div className="mt-14 grid items-center gap-8 md:grid-cols-12">
+          <div className="grid grid-cols-3 gap-2 md:col-span-8">
+            {COLLAGE_ITEMS.map((item, idx) => (
+              <div
+                key={idx}
+                onClick={() => openById(item.id)}
+                className="group relative aspect-[4/3] cursor-pointer overflow-hidden border border-neutral-200 bg-neutral-100"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  fill
+                  className="object-cover transition duration-300 group-hover:scale-105"
+                />
+              </div>
             ))}
           </div>
 
+          <div className="flex justify-center md:col-span-4">
+            <div
+              onClick={() => openById("spotify-tracks-analysis")}
+              className="group relative h-[280px] w-[220px] -rotate-[4deg] cursor-pointer overflow-hidden border border-neutral-200 bg-neutral-100 shadow-sm transition hover:rotate-0"
+            >
+              <Image
+                src="/images/spotify/spotify_clusters.png"
+                alt="Spotify Audio Clustering"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
-      </section>
 
-      {/* 5. LABORATORY & RESEARCH INITIATIVES (RICH VISUAL SHOWCASE) */}
-      <section className="w-full bg-[#f4f4f4] text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
-        <div className="w-full space-y-16">
+        {/* Minimal Editorial Toggle for Complete 20-Project Index */}
+        <div className="mt-14">
+          <button
+            onClick={() => setShowAllArchive((prev) => !prev)}
+            className="bg-[#EBEBEB] px-8 py-3 text-xs uppercase tracking-[0.24em] text-black transition hover:bg-neutral-300"
+          >
+            {showAllArchive
+              ? "Tutup Indeks Proyek"
+              : `Lihat Indeks Lengkap (${DETAILED_PROJECTS.length} Proyek)`}
+          </button>
 
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#d8d8d8] pb-8">
-            <div className="space-y-2">
-              <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] tracking-tight">
-                Academic &amp; Research Affiliations
-              </h2>
-              <p className="text-xs sm:text-sm font-light text-[#666666] max-w-xl">
-                Active involvement in laboratory instrumentation, university data engineering initiatives, and quantitative research.
-              </p>
-            </div>
-          </div>
-
-          {/* Visual Laboratory Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1: MOSHEE Lab */}
-            <div className="group rounded-[32px] bg-white border border-[#e2e5eb] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#595cef]/50 transition-all duration-500 flex flex-col justify-between">
-              <div>
-                <div className="relative w-full aspect-[16/10] bg-[#0d1117] overflow-hidden">
-                  <Image
-                    src="/images/lab_moshee_kinematics.png"
-                    alt="MOSHEE Biomechanics Lab - Kinematic Gait Trajectory"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
-                    <span className="text-xs font-semibold text-white px-3 py-1 rounded-full bg-[#595cef]/80 backdrop-blur-sm">
-                      MOSHEE Biomechanics
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-xl font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors">
-                    Motion Sensor Instrumentation
-                  </h3>
-                  <p className="text-xs font-light text-[#666666] leading-relaxed">
-                    Multi-camera optical space calibration, reflective marker 3D coordinate tracking, and kinematic time-series signal filtering for human gait trajectory analysis.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[11px] font-mono text-[#888888]">
-                <span>Telkom University</span>
-                <span className="font-semibold text-[#090909]">2024 - Present</span>
-              </div>
-            </div>
-
-            {/* Card 2: UKM CODER */}
-            <div className="group rounded-[32px] bg-white border border-[#e2e5eb] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#595cef]/50 transition-all duration-500 flex flex-col justify-between">
-              <div>
-                <div className="relative w-full aspect-[16/10] bg-[#f8f9fa] overflow-hidden">
-                  <Image
-                    src="/images/olist/brazil_logistics_map.png"
-                    alt="UKM CODER - Data Engineering Pipeline"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
-                    <span className="text-xs font-semibold text-white px-3 py-1 rounded-full bg-[#090909]/80 backdrop-blur-sm border border-white/20">
-                      UKM CODER IT
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-xl font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors">
-                    Data Pipeline Architectures
-                  </h3>
-                  <p className="text-xs font-light text-[#666666] leading-relaxed">
-                    Automated Python &amp; SQL data pipeline architectures for organizational member databases with 3NF relational normalization and zero data loss.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[11px] font-mono text-[#888888]">
-                <span>Data &amp; IT Division</span>
-                <span className="font-semibold text-[#090909]">2023 - Present</span>
-              </div>
-            </div>
-
-            {/* Card 3: S1 Data Science */}
-            <div className="group rounded-[32px] bg-white border border-[#e2e5eb] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#595cef]/50 transition-all duration-500 flex flex-col justify-between">
-              <div>
-                <div className="relative w-full aspect-[16/10] bg-[#f8f9fa] overflow-hidden">
-                  <Image
-                    src="/images/banks/returns_vs_var.png"
-                    alt="S1 Sains Data - Applied Statistics & ML"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
-                    <span className="text-xs font-semibold text-white px-3 py-1 rounded-full bg-[#090909]/80 backdrop-blur-sm border border-white/20">
-                      S1 Sains Data
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6 space-y-3">
-                  <h3 className="text-xl font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors">
-                    Applied Statistics &amp; ML
-                  </h3>
-                  <p className="text-xs font-light text-[#666666] leading-relaxed">
-                    Mathematical statistics, stochastic processes, econometric time-series, and zero-leakage statistical learning algorithms.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[11px] font-mono text-[#888888]">
-                <span>Universitas Telkom</span>
-                <span className="font-semibold text-[#090909]">Undergraduate</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* PORTFOLIO MONOGRAPHS SECTION (FLAGSHIP 4 SHOWCASE + COMPLETE 20 ARCHIVE) */}
-      <section id="portfolio" className="w-full bg-white text-[#090909] px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
-        <div className="w-full space-y-12">
-
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#e0e0e0] pb-8">
-            <div className="space-y-2">
-              <h2 className="text-4xl sm:text-6xl font-extralight text-[#090909] tracking-tight">
-                Featured Flagship Projects
-              </h2>
-              <p className="text-sm font-light text-[#6b6b6b] max-w-2xl">
-                End-to-end data systems combining mathematical rigor, 300 DPI computational plots, and production-grade interactive web applications.
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setPortfolioView("flagship")}
-                className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all ${
-                  portfolioView === "flagship"
-                    ? "bg-[#090909] text-white shadow-sm"
-                    : "bg-[#f4f4f4] text-[#666666] hover:bg-[#e5e5e5]"
-                }`}
-              >
-                Flagship Showcase (4)
-              </button>
-              <button
-                onClick={() => setPortfolioView("all")}
-                className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all ${
-                  portfolioView === "all"
-                    ? "bg-[#090909] text-white shadow-sm"
-                    : "bg-[#f4f4f4] text-[#666666] hover:bg-[#e5e5e5]"
-                }`}
-              >
-                All Monographs (20)
-              </button>
-            </div>
-          </div>
-
-          {/* 1. FLAGSHIP 4 HERO SHOWCASE VIEW */}
-          {portfolioView === "flagship" && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fadeIn">
-              {flagshipProjects.map((project, idx) => (
+          {showAllArchive && (
+            <div className="mt-10 divide-y divide-neutral-200 border-y border-neutral-200">
+              {DETAILED_PROJECTS.map((proj, index) => (
                 <div
-                  key={project.id}
-                  onClick={() => setActiveProject(project)}
-                  className="group cursor-pointer rounded-[32px] bg-[#f8f9fa] hover:bg-[#eceef2] border border-[#e5e7eb] hover:border-[#595cef]/50 p-8 flex flex-col justify-between transition-all duration-500 shadow-sm hover:shadow-xl space-y-6"
+                  key={proj.id}
+                  onClick={() => setActiveProject(proj)}
+                  className="group flex cursor-pointer flex-col justify-between gap-2 py-4 transition hover:bg-neutral-50 sm:flex-row sm:items-center"
                 >
-                  <div className="space-y-4">
-                    {/* Top Tag & Number */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-[#595cef] bg-white px-3.5 py-1.5 rounded-full shadow-xs border border-[#e0e0e0]">
-                        {project.domain}
-                      </span>
-                      <span className="text-xs font-mono font-medium text-[#888888]">
-                        FLAGSHIP #{String(idx + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    {/* Title & Tagline */}
+                  <div className="flex items-baseline gap-4">
+                    <span className="w-6 text-xs text-neutral-400">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                     <div>
-                      <h3 className="font-semibold text-2xl text-[#090909] group-hover:text-[#595cef] transition-colors leading-snug">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs font-light text-[#555555] mt-2 leading-relaxed line-clamp-2">
-                        {project.tagline}
+                      <p className="font-serif text-xl text-black group-hover:underline">
+                        {proj.title}
                       </p>
-                    </div>
-
-                    {/* Full Visual Banner with Live Badge */}
-                    {project.visualHighlights && project.visualHighlights.length > 0 && (
-                      <div className="relative w-full aspect-[16/9] rounded-[20px] overflow-hidden border border-[#e0e0e0] bg-[#ebeef2] group-hover:border-[#595cef]/40 transition-colors">
-                        <Image
-                          src={project.visualHighlights[0].imageUrl}
-                          alt={project.visualHighlights[0].title}
-                          fill
-                          className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-between p-4">
-                          <span className="text-xs font-medium text-white px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/20">
-                            {project.visualHighlights[0].title}
-                          </span>
-                          <span className="text-[10px] font-semibold text-emerald-400 px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/30">
-                            ● Live Web App Ready
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Metrics Summary Strip */}
-                    <div className="grid grid-cols-3 gap-2 pt-2">
-                      {project.metrics.map((m, i) => (
-                        <div key={i} className="p-3 bg-white rounded-[16px] border border-[#e5e7eb]">
-                          <div className="text-[9px] font-medium text-[#777777] uppercase truncate">
-                            {m.label}
-                          </div>
-                          <div className="text-base font-bold text-[#090909] mt-0.5">
-                            {m.value}
-                          </div>
-                        </div>
-                      ))}
+                      <p className="text-xs text-neutral-600">{proj.tagline}</p>
                     </div>
                   </div>
-
-                  {/* Bottom Action Footer */}
-                  <div className="pt-5 border-t border-[#e5e7eb] flex items-center justify-between text-xs">
-                    <button
-                      type="button"
-                      className="inline-flex items-center gap-2 font-semibold text-[#090909] group-hover:text-[#595cef] transition-colors"
-                    >
-                      <BookOpen className="w-4 h-4" />
-                      <span>View Complete Monograph</span>
-                    </button>
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#595cef] hover:bg-[#474ae0] text-white font-medium rounded-full text-[11px] shadow-sm transition-all"
-                      >
-                        <span>Open Live Demo</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
-                  </div>
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+                    {proj.category}
+                  </span>
                 </div>
               ))}
             </div>
           )}
-
-          {/* 2. ALL 20 MONOGRAPHS FILTER & SEARCH VIEW */}
-          {portfolioView === "all" && (
-            <div className="space-y-8 animate-fadeIn">
-              {/* Filter Pills & Search */}
-              <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((cat) => {
-                    const isActive = selectedCategory === cat.id;
-                    return (
-                      <button
-                        key={cat.id}
-                        onClick={() => setSelectedCategory(cat.id)}
-                        className={`px-5 py-2.5 rounded-full text-xs font-medium transition-all duration-300 ${
-                          isActive
-                            ? "bg-[#595cef] text-white shadow-sm"
-                            : "bg-[#f4f4f4] text-[#6b6b6b] hover:bg-[#e8e8e8]"
-                        }`}
-                      >
-                        {cat.label}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="relative min-w-[280px]">
-                  <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#999999]" />
-                  <input
-                    type="text"
-                    placeholder="Search topic, algorithm, metric..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-[#f4f4f4] pl-11 pr-4 py-3 rounded-full text-xs font-light focus:outline-none focus:ring-2 focus:ring-[#595cef]/30 text-[#090909]"
-                  />
-                </div>
-              </div>
-
-              {/* Projects Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredProjects.map((project, idx) => {
-                  const hasWebDemo = !!project.demoUrl;
-                  return (
-                    <div
-                      key={project.id}
-                      onClick={() => setActiveProject(project)}
-                      className="group cursor-pointer rounded-[24px] bg-[#f4f4f4] hover:bg-[#d6dbe2] border border-[#e5e5e5] hover:border-[#595cef]/40 p-8 flex flex-col justify-between transition-all duration-500 shadow-sm hover:shadow-md"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-medium text-[#595cef] bg-white px-3 py-1 rounded-full shadow-xs">
-                            {project.domain}
-                          </span>
-                          <span className="text-xs font-light text-[#999999]">
-                            #{String(idx + 1).padStart(2, "0")}
-                          </span>
-                        </div>
-
-                        <h3 className="font-semibold text-lg text-[#090909] group-hover:text-[#595cef] transition-colors leading-snug">
-                          {project.title}
-                        </h3>
-
-                        <p className="text-xs font-light text-[#666666] leading-relaxed line-clamp-2">
-                          {project.problem}
-                        </p>
-
-                        {/* Visual Highlight Banner if available */}
-                        {project.visualHighlights && project.visualHighlights.length > 0 && (
-                          <div className="relative w-full h-36 rounded-[16px] overflow-hidden border border-[#e0e0e0] bg-[#ebeef2] group-hover:border-[#595cef]/50 transition-colors">
-                            <Image
-                              src={project.visualHighlights[0].imageUrl}
-                              alt={project.visualHighlights[0].title}
-                              fill
-                              className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
-                              <span className="text-[10px] font-medium text-white px-2 py-0.5 rounded-full bg-black/50 backdrop-blur-sm">
-                                {project.visualHighlights[0].type === "web" ? "Interactive Web App" : "300 DPI Notebook Plot"}
-                              </span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Metric Box */}
-                        <div className="p-4 rounded-[16px] bg-white border border-[#e0e0e0] flex items-center justify-between">
-                          <div>
-                            <div className="text-[10px] font-light text-[#888888] uppercase tracking-wider">
-                              {project.metrics[0].label}
-                            </div>
-                            <div className="font-semibold text-xl text-[#090909]">
-                              {project.metrics[0].value}
-                            </div>
-                          </div>
-                          <span className="text-[10px] font-light text-[#888888] max-w-[120px] text-right truncate">
-                            {project.datasetInfo.name}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="pt-6 mt-6 border-t border-[#e0e0e0] flex items-center justify-between text-xs">
-                        <button
-                          type="button"
-                          className="inline-flex items-center gap-1.5 font-medium text-[#090909] group-hover:text-[#595cef] transition-colors"
-                        >
-                          <BookOpen className="w-3.5 h-3.5" />
-                          <span>View Monograph</span>
-                        </button>
-                        {hasWebDemo && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#595cef] hover:underline"
-                          >
-                            <span>Demo</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
         </div>
       </section>
 
-      {/* 6. CONTACT SECTION (comp-lylsspgl) - EXACT DARK PURPLE / BLACK FORM */}
-      <section id="contact" className="w-full bg-[#090909] text-white px-6 sm:px-12 lg:px-16 py-24 lg:py-32">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      {/* PAGE 4: BEKERJA DENGAN SAYA (Closing Editorial Contact Page) */}
+      <footer
+        id="kontak"
+        className="mx-auto max-w-5xl border-t border-neutral-200 px-6 py-24 md:px-12 md:py-32"
+      >
+        <div className="grid items-center gap-14 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <h2 className="font-sans text-5xl font-normal uppercase leading-[1.06] tracking-tight text-black sm:text-6xl md:text-[4.4rem]">
+              BEKERJA
+              <br />
+              DENGAN
+              <br />
+              SAYA
+            </h2>
 
-          {/* Left: Big Headline & Info */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-4xl sm:text-6xl font-extralight text-white leading-tight tracking-tight">
-                Let&apos;s build robust
-                <br />
-                <span className="font-semibold text-[#595cef]">data systems</span>
-              </h2>
-              <p className="text-base font-light text-[#a0a0a0] leading-relaxed">
-                Open for Data Science, Data Engineering, and Research Collaborations
-              </p>
-            </div>
-
-            <div className="space-y-6 pt-6 border-t border-white/10 text-sm font-light text-[#a0a0a0]">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-[#595cef] flex-shrink-0 mt-0.5" />
-                <span>Surabaya, Jawa Timur, Indonesia</span>
-              </div>
-              <div className="flex items-start gap-4">
-                <Mail className="w-5 h-5 text-[#595cef] flex-shrink-0 mt-0.5" />
+            <div className="mt-12 space-y-3 font-serif text-2xl text-black sm:text-3xl">
+              <p>
                 <a
-                  href="mailto:izamrosiawan13@gmail.com"
-                  className="hover:text-white transition-colors"
+                  href="https://linkedin.com/in/izam-rosiawan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
                 >
+                  linkedin.com/in/izam-rosiawan
+                </a>
+              </p>
+              <p>
+                <a href="mailto:izamrosiawan13@gmail.com" className="hover:underline">
                   izamrosiawan13@gmail.com
                 </a>
-              </div>
-              <div className="flex items-start gap-4">
-                <Linkedin className="w-5 h-5 text-[#595cef] flex-shrink-0 mt-0.5" />
-                <a
-                  href="https://www.linkedin.com/in/izam-rosiawan-86089627a/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors"
-                >
-                  linkedin.com/in/izam-rosiawan-86089627a
-                </a>
-              </div>
-              <div className="flex items-start gap-4">
-                <Github className="w-5 h-5 text-[#595cef] flex-shrink-0 mt-0.5" />
+              </p>
+              <p>
                 <a
                   href="https://github.com/izamrosiawan"
                   target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
                 >
                   github.com/izamrosiawan
                 </a>
-              </div>
+              </p>
+              <p className="text-xl text-neutral-600 sm:text-2xl">Surabaya, Jawa Timur</p>
+            </div>
+
+            <div className="mt-12 flex flex-wrap gap-4">
+              <a
+                href="mailto:izamrosiawan13@gmail.com"
+                className="bg-[#EBEBEB] px-9 py-3.5 text-xs uppercase tracking-[0.28em] text-black transition hover:bg-neutral-300"
+              >
+                Hubungi Saya
+              </a>
+              <a
+                href="/cv-izam-rosiawan.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-neutral-300 bg-white px-9 py-3.5 text-xs uppercase tracking-[0.28em] text-black transition hover:bg-neutral-100"
+              >
+                Unduh CV
+              </a>
             </div>
           </div>
 
-          {/* Right: Exact Form from Template */}
-          <div className="lg:col-span-7 bg-white/[0.04] p-8 sm:p-12 rounded-[32px] border border-white/10">
-            {formSubmitted ? (
-              <div className="p-8 rounded-[24px] bg-[#595cef]/20 border border-[#595cef] text-center space-y-4">
-                <CheckCircle2 className="w-12 h-12 text-[#595cef] mx-auto" />
-                <h4 className="font-semibold text-xl text-white">Inquiry Received!</h4>
-                <p className="text-sm font-light text-white/80">
-                  Thank you for reaching out. I will respond to your message shortly.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleFormSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-light text-[#a0a0a0]">
-                      First name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.firstName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, firstName: e.target.value })
-                      }
-                      className="w-full px-5 py-3.5 rounded-full bg-white/[0.06] border border-white/10 text-sm text-white focus:outline-none focus:border-[#595cef]"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-light text-[#a0a0a0]">
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.lastName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, lastName: e.target.value })
-                      }
-                      className="w-full px-5 py-3.5 rounded-full bg-white/[0.06] border border-white/10 text-sm text-white focus:outline-none focus:border-[#595cef]"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-light text-[#a0a0a0]">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className="w-full px-5 py-3.5 rounded-full bg-white/[0.06] border border-white/10 text-sm text-white focus:outline-none focus:border-[#595cef]"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-light text-[#a0a0a0]">
-                    I&apos;m interested in
-                  </label>
-                  <select
-                    value={formData.interest}
-                    onChange={(e) =>
-                      setFormData({ ...formData, interest: e.target.value })
-                    }
-                    className="w-full px-5 py-3.5 rounded-full bg-[#181818] border border-white/10 text-sm text-white focus:outline-none focus:border-[#595cef]"
-                  >
-                    <option value="Select">Select</option>
-                    <option value="Data Analytics & BI">Data Analytics & BI</option>
-                    <option value="Data Engineering & Pipelines">Data Engineering & Pipelines</option>
-                    <option value="Quantitative Machine Learning">Quantitative Machine Learning</option>
-                    <option value="Motion Sensor & Laboratory Research">Motion Sensor & Laboratory Research</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-light text-[#a0a0a0]">
-                    Message *
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    className="w-full p-5 rounded-[24px] bg-white/[0.06] border border-white/10 text-sm text-white focus:outline-none focus:border-[#595cef]"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-full bg-[#595cef] hover:bg-[#474ae0] text-white text-sm font-semibold tracking-wider uppercase transition-all duration-300 shadow-md"
-                >
-                  SUBMIT
-                </button>
-              </form>
-            )}
-          </div>
-
-        </div>
-      </section>
-
-      {/* FOOTER - EXACT WIX FOOTER (comp-kbgakxmn) */}
-      <footer className="w-full bg-[#090909] text-white/60 px-6 sm:px-12 lg:px-16 py-12 border-t border-white/10 text-xs font-light">
-        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex flex-wrap items-center gap-6">
-            <a
-              href="https://www.linkedin.com/in/izam-rosiawan-86089627a/"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/izamrosiawan"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              GitHub
-            </a>
-            <a href="mailto:izamrosiawan13@gmail.com" className="hover:text-white transition-colors">
-              Email
-            </a>
-          </div>
-
-          <div>
-            © 2026 by Izam Rosiawan. Built on Next.js & Tailwind CSS.
+          <div className="flex justify-center md:col-span-5 md:justify-end">
+            <div className="relative h-[390px] w-[290px] rotate-[4.5deg] overflow-hidden bg-neutral-100 shadow-sm sm:h-[440px] sm:w-[320px]">
+              <Image
+                src="/images/izam_batik_photo.jpg"
+                alt="Izam Rosiawan"
+                fill
+                className="object-cover object-top grayscale contrast-105"
+              />
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* MODAL VIEW */}
+      {/* Minimal Monochrome Case Study Modal */}
       {activeProject && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
-          <div className="bg-white max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-[28px] shadow-2xl border border-[#e0e0e0]">
-            <div className="p-8 flex items-start justify-between gap-6 sticky top-0 bg-white z-10 border-b border-[#e0e0e0]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => setActiveProject(null)}
+        >
+          <div
+            className="max-h-[86vh] w-full max-w-2xl overflow-y-auto bg-white p-8 md:p-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="font-medium text-xs text-[#595cef] tracking-wider uppercase mb-1">
-                  {activeProject.domain} - {activeProject.datasetInfo.name}
-                </div>
-                <h2 className="font-semibold text-2xl text-[#090909] leading-tight">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">
+                  {activeProject.domain}
+                </p>
+                <h3 className="mt-1 font-serif text-3xl font-normal text-black">
                   {activeProject.title}
-                </h2>
+                </h3>
               </div>
               <button
                 onClick={() => setActiveProject(null)}
-                className="p-2 hover:bg-[#f0f0f0] rounded-full transition-colors flex-shrink-0"
-                aria-label="Close"
+                className="p-1 text-neutral-500 hover:text-black"
+                aria-label="Tutup"
               >
-                <X className="w-5 h-5 text-[#666666]" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="p-8 space-y-8 text-sm font-light text-[#333333]">
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-2">
-                  01 / PROBLEM STATEMENT
-                </div>
-                <p className="leading-relaxed text-[#090909]">{activeProject.problem}</p>
-              </div>
+            <p className="mt-5 text-sm leading-relaxed text-neutral-800">
+              {activeProject.problem}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+              {activeProject.methodology}
+            </p>
 
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-2">
-                  02 / METHODOLOGY
-                </div>
-                <p className="leading-relaxed text-[#090909]">{activeProject.methodology}</p>
-              </div>
-
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-2">
-                  03 / FORMULA ({activeProject.formula.title})
-                </div>
-                <div
-                  className="p-5 overflow-x-auto bg-[#f4f4f4] border border-[#e0e0e0] text-[#090909] rounded-[16px] text-center my-2 text-sm sm:text-base leading-relaxed"
-                  dangerouslySetInnerHTML={renderLatex(activeProject.formula.latex)}
-                />
-                <p className="text-xs mt-2 text-[#777777]">{activeProject.formula.explanation}</p>
-              </div>
-
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-3">
-                  04 / EVALUATION METRICS
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {activeProject.metrics.map((m, i) => (
-                    <div key={i} className="p-4 bg-[#f4f4f4] border border-[#e0e0e0] rounded-[16px]">
-                      <div className="font-medium text-[10px] text-[#777777] uppercase tracking-wider">
-                        {m.label}
-                      </div>
-                      <div className="font-semibold text-2xl text-[#595cef] mt-1">
-                        {m.value}
-                      </div>
-                      <div className="text-xs mt-1 text-[#888888]">{m.desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-3">
-                  05 / KEY FINDINGS
-                </div>
-                <ul className="space-y-2">
-                  {activeProject.findings.map((f, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-[#090909]">
-                      <span className="text-[#595cef] font-bold flex-shrink-0">•</span>
-                      <span className="leading-relaxed">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider">
-                    06 / CODE SNIPPET
+            {activeProject.metrics && activeProject.metrics.length > 0 && (
+              <div className="mt-6 grid grid-cols-2 gap-4 border-y border-neutral-200 py-5 sm:grid-cols-3">
+                {activeProject.metrics.map((m) => (
+                  <div key={m.label}>
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-neutral-500">
+                      {m.label}
+                    </p>
+                    <p className="mt-1 font-serif text-2xl text-black">{m.value}</p>
                   </div>
-                  <button
-                    onClick={() => handleCopyCode(activeProject.codeSnippet)}
-                    className="font-medium text-xs text-[#595cef] hover:underline"
-                  >
-                    {copiedCode ? "[COPIED]" : "[COPY CODE]"}
-                  </button>
-                </div>
-                <pre className="p-4 text-xs overflow-x-auto leading-relaxed font-mono bg-[#090909] text-white rounded-[16px]">
-                  <code>{activeProject.codeSnippet}</code>
-                </pre>
+                ))}
               </div>
+            )}
 
-              {/* 07. VISUAL ARTIFACTS & NOTEBOOK HIGHLIGHTS */}
-              {activeProject.visualHighlights && activeProject.visualHighlights.length > 0 && (
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider">
-                      07 / VISUAL ARTIFACTS & NOTEBOOK HIGHLIGHTS
-                    </div>
-                    <span className="text-[11px] text-[#595cef] font-medium">
-                      {activeProject.visualHighlights.length} Visual Assets
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {activeProject.visualHighlights.map((v, i) => (
-                      <div
-                        key={i}
-                        className="group/img rounded-[20px] overflow-hidden border border-[#e0e0e0] bg-[#f8f9fa] flex flex-col"
-                      >
-                        <div className="relative w-full aspect-[16/10] bg-[#eef1f5] overflow-hidden">
-                          <Image
-                            src={v.imageUrl}
-                            alt={v.title}
-                            fill
-                            className="object-cover object-top group-hover/img:scale-105 transition-transform duration-500"
-                          />
-                          <span className="absolute top-3 left-3 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-black/70 text-white backdrop-blur-sm">
-                            {v.type === "web" ? "Interactive Web App" : v.type === "notebook" ? "Jupyter EDA" : "300 DPI Chart"}
-                          </span>
-                        </div>
-                        <div className="p-4 space-y-1.5 flex-1 flex flex-col justify-between">
-                          <h4 className="font-semibold text-xs text-[#090909] leading-snug">
-                            {v.title}
-                          </h4>
-                          <p className="text-[11px] text-[#666666] leading-relaxed">
-                            {v.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {activeProject.techStack.map((t) => (
+                <span
+                  key={t}
+                  className="bg-[#F2F2F2] px-3 py-1 text-[11px] uppercase tracking-[0.12em] text-neutral-800"
+                >
+                  {t}
+                </span>
+              ))}
             </div>
 
-            <div className="p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0 bg-white border-t border-[#e0e0e0]">
-              <span className="text-xs text-[#777777]">
-                Dataset: {activeProject.datasetInfo.name} ({activeProject.datasetInfo.size})
-              </span>
-              <div className="flex flex-wrap items-center gap-3">
-                {activeProject.demoUrl && (
-                  <a
-                    href={activeProject.demoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#595cef] hover:bg-[#474ae0] text-white font-medium text-xs rounded-full transition-all"
-                  >
-                    OPEN DEMO <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                )}
+            {activeProject.githubUrl && (
+              <div className="mt-8">
                 <a
                   href={activeProject.githubUrl}
                   target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#f4f4f4] hover:bg-[#e0e0e0] text-[#090909] font-medium text-xs rounded-full border border-[#e0e0e0] transition-all"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-black px-6 py-3 text-xs uppercase tracking-[0.24em] text-white transition hover:bg-neutral-800"
                 >
-                  GITHUB REPO <ArrowUpRight className="w-3.5 h-3.5" />
+                  Buka Repositori GitHub
+                  <ArrowUpRight className="h-4 w-4" />
                 </a>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
-
-      {/* SERVICE DETAIL MODAL */}
-      {activeService && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
-          <div className="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-[28px] shadow-2xl border border-[#e0e0e0]">
-            <div className="p-8 flex items-start justify-between gap-6 sticky top-0 bg-white z-10 border-b border-[#e0e0e0]">
-              <div>
-                <span className="font-medium text-xs text-[#595cef] tracking-wider uppercase mb-1 block">
-                  SERVICE DOMAIN // {activeService.num}
-                </span>
-                <h2 className="font-semibold text-2xl text-[#090909] leading-tight">
-                  {activeService.title}
-                </h2>
-                <p className="text-xs text-[#6b6b6b] mt-1">{activeService.tagline}</p>
-              </div>
-              <button
-                onClick={() => setActiveService(null)}
-                className="p-2 hover:bg-[#f0f0f0] rounded-full transition-colors flex-shrink-0"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5 text-[#666666]" />
-              </button>
-            </div>
-
-            <div className="p-8 space-y-6 text-sm font-light text-[#333333]">
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-2">
-                  OVERVIEW & STRATEGIC VALUE
-                </div>
-                <p className="leading-relaxed text-[#090909]">{activeService.desc}</p>
-              </div>
-
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-3">
-                  CORE TECHNICAL CAPABILITIES
-                </div>
-                <div className="space-y-2.5">
-                  {activeService.capabilities.map((cap, i) => (
-                    <div
-                      key={i}
-                      className="p-3.5 rounded-xl bg-[#f4f4f4] border border-[#e8e8e8] flex items-start gap-3"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-[#595cef] flex-shrink-0 mt-0.5" />
-                      <span className="text-xs text-[#090909] leading-relaxed">{cap}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="font-semibold text-xs text-[#888888] uppercase tracking-wider mb-3">
-                  PRIMARY TECH STACK & TOOLS
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {activeService.techStack.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3.5 py-1.5 rounded-full bg-[#595cef]/10 border border-[#595cef]/20 text-[#595cef] text-xs font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sticky bottom-0 bg-white border-t border-[#e0e0e0]">
-              <button
-                onClick={() => {
-                  if (activeService.categoryFilter) {
-                    setSelectedCategory(activeService.categoryFilter);
-                  }
-                  setActiveService(null);
-                  const el = document.getElementById("portfolio");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#595cef] hover:bg-[#474ae0] text-white text-xs font-semibold rounded-full transition-all"
-              >
-                <span>EXPLORE RELATED MONOGRAPHS</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-
-              <button
-                onClick={() => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    interest: activeService.title,
-                  }));
-                  setActiveService(null);
-                  const el = document.getElementById("contact");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#f4f4f4] hover:bg-[#e0e0e0] text-[#090909] text-xs font-semibold rounded-full border border-[#e0e0e0] transition-all"
-              >
-                <span>INQUIRE ABOUT THIS</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }

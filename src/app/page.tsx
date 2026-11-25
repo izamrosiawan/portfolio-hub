@@ -163,11 +163,10 @@ export default function HomePage() {
 
             <div className="mt-14 lg:mt-20 lg:pl-32 xl:pl-44">
               <p className="max-w-xl text-base leading-[1.8] text-neutral-800 sm:text-lg xl:text-[19px]">
-                Saya mahasiswa S1 Sains Data di Universitas Telkom Surabaya yang saat ini berbasis
-                di Surabaya. Saya aktif merancang skrip otomasi pemrosesan data berbasis Python dan
-                SQL, mengelola basis data relasional terstruktur, serta menyusun visualisasi
-                dashboard analitik interaktif Power BI. Fokus utama saya adalah mengubah data
-                mentah operasional menjadi informasi akurat untuk pengambilan keputusan.
+                Mahasiswa S1 Sains Data di Universitas Telkom Surabaya yang berdomisili di Surabaya.
+                Sehari-hari saya berkutat dengan pembersihan data mentah menggunakan Python dan SQL,
+                perapian skema basis data, serta penyusunan dashboard Power BI agar data operasional
+                lebih mudah dibaca dan dipakai untuk mengambil keputusan.
               </p>
             </div>
           </div>
@@ -175,8 +174,8 @@ export default function HomePage() {
           <div className="flex flex-col items-end justify-between gap-14 lg:col-span-6">
             <div className="relative aspect-[16/10] w-full max-w-[600px] overflow-hidden bg-neutral-100">
               <Image
-                src="/images/izam-candid-laptop.jpg"
-                alt="Izam Rosiawan bersama Laptop"
+                src="/images/izam-tentang-street.jpg"
+                alt="Izam Rosiawan di Surabaya"
                 fill
                 className="object-cover object-center grayscale contrast-110"
               />
@@ -207,58 +206,76 @@ export default function HomePage() {
         </h2>
 
         <div className="mt-16 grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Left B&W Editorial Over-the-Shoulder Lab Photo */}
+          {/* Left B&W Lab Photo */}
           <div className="lg:col-span-5">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
               <Image
-                src="/images/editorial-over-shoulder-lab.jpg"
-                alt="Aktivitas Riset Laboratorium"
+                src="/images/izam-pengalaman-lab.jpg"
+                alt="Aktivitas Riset dan Pengolahan Data"
                 fill
                 className="object-cover grayscale"
               />
             </div>
           </div>
 
-          {/* Middle Column: Lab & Project */}
+          {/* Middle Column: Kampus & Lab */}
           <div className="lg:col-span-4">
             <h3 className="font-serif text-3xl font-normal text-black lg:text-4xl">
-              Laboratorium &amp; Proyek
+              Kampus &amp; Riset
             </h3>
 
-            <div className="mt-7 space-y-9 text-sm uppercase leading-[1.75] tracking-[0.04em] text-neutral-900 lg:text-[15px]">
+            <div className="mt-7 space-y-8 text-sm uppercase leading-[1.75] tracking-[0.04em] text-neutral-900 lg:text-[15px]">
+              <div>
+                <p className="font-medium">LPPM TELKOM UNIVERSITY SURABAYA</p>
+                <p className="mt-1.5">- STUDENT STAFF DATA MANAGEMENT (OKT 2026 - SEKARANG)</p>
+                <p className="mt-1.5 normal-case tracking-normal text-neutral-700">
+                  Memvalidasi dan merapikan dataset tridarma (hibah riset, pengabdian, dan
+                  publikasi ilmiah) agar sesuai skema platform OneApp.
+                </p>
+              </div>
+
               <div>
                 <p className="font-medium">MOSHEE LAB - TELKOM UNIVERSITY SURABAYA</p>
-                <p className="mt-2">- MOTION LABORATORY ASSISTANT (JULI 2025 - SEKARANG)</p>
-                <p className="mt-2 normal-case tracking-normal text-neutral-700">
-                  Operasional riset gait analysis, kalibrasi multi-kamera, reflective marker, dan
-                  pra-pemrosesan data sensor gerak.
+                <p className="mt-1.5">- MOTION LABORATORY ASSISTANT (JULI 2026 - SEKARANG)</p>
+                <p className="mt-1.5 normal-case tracking-normal text-neutral-700">
+                  Kalibrasi multi-kamera, pengoperasian perangkat tracking, serta akuisisi dan
+                  prapemrosesan data gerak kinematik.
                 </p>
               </div>
 
               <div>
                 <p className="font-medium">PENGABDIAN MASYARAKAT - SDN WONOKROMO III</p>
-                <p className="mt-2">- WEB DEVELOPER &amp; PROJECT TEAM (FEB 2025 - JUN 2025)</p>
-                <p className="mt-2 normal-case tracking-normal text-neutral-700">
-                  Pengembangan situs resmi sekolah, konfigurasi domain sch.id &amp; hosting, Black
-                  Box Testing, serta pelatihan guru dan staf.
+                <p className="mt-1.5">- WEB DEVELOPER &amp; PROJECT TEAM (FEB 2026 - JUNI 2026)</p>
+                <p className="mt-1.5 normal-case tracking-normal text-neutral-700">
+                  Membangun situs resmi sekolah dengan WordPress CMS, konfigurasi domain sch.id,
+                  Black Box Testing, dan pelatihan operator sekolah.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Organisasi */}
+          {/* Right Column: Organisasi & Magang */}
           <div className="lg:col-span-3">
             <h3 className="font-serif text-3xl font-normal text-black lg:text-4xl">
-              Organisasi &amp; Data
+              Organisasi &amp; Magang
             </h3>
 
-            <div className="mt-7 space-y-9 text-sm uppercase leading-[1.75] tracking-[0.04em] text-neutral-900 lg:text-[15px]">
+            <div className="mt-7 space-y-8 text-sm uppercase leading-[1.75] tracking-[0.04em] text-neutral-900 lg:text-[15px]">
               <div>
                 <p className="font-medium">UKM CODER IT TELKOM SURABAYA</p>
-                <p className="mt-2">- MEMBER OF DATA ENGINEER (OKT 2024 - SEKARANG)</p>
-                <p className="mt-2 normal-case tracking-normal text-neutral-700">
-                  Otomasi skrip ekstraksi, transformasi, dan pembersihan data berbasis Python &amp;
-                  SQL, tata kelola basis data relasional, serta kepanitiaan LUMINA.
+                <p className="mt-1.5">- DATA ENGINEER (OKT 2024 - OKT 2026)</p>
+                <p className="mt-1.5 normal-case tracking-normal text-neutral-700">
+                  Menulis skrip otomasi Python dan SQL untuk manajemen database internal serta
+                  terlibat di kepanitiaan acara LUMINA.
+                </p>
+              </div>
+
+              <div>
+                <p className="font-medium">VINIX7</p>
+                <p className="mt-1.5">- HUMAN RESOURCES INTERN (FEB 2026 - JUNI 2026)</p>
+                <p className="mt-1.5 normal-case tracking-normal text-neutral-700">
+                  Membantu pengelolaan data personalia, administrasi kepegawaian, dan koordinasi alur
+                  kerja internal.
                 </p>
               </div>
             </div>
@@ -403,8 +420,8 @@ export default function HomePage() {
               <li>- Pengelolaan Basis Data</li>
               <li>- Otomatisasi Alur Kerja</li>
               <li>- Black Box Testing</li>
-              <li>- Domain &amp; Hosting</li>
-              <li>- Gait Analysis</li>
+              <li>- Motion Capture &amp; Gait Analysis</li>
+              <li>- Schema Alignment</li>
             </ul>
           </div>
         </div>
@@ -501,8 +518,7 @@ export default function HomePage() {
 
           <div className="lg:col-span-6">
             <p className="max-w-lg text-sm uppercase leading-[1.75] tracking-[0.05em] text-neutral-800 lg:text-base">
-              KUMPULAN RISET KUANTITATIF, PIPELINE DATA, DAN PEMODELAN PREDIKTIF YANG DIKONSEPKAN,
-              DIRANCANG, DAN DIKEMBANGKAN OLEH SAYA
+              KUMPULAN RISET DATA, PIPELINE ETL, DAN PEMODELAN YANG SAYA KERJAKAN
             </p>
           </div>
         </div>
@@ -599,12 +615,12 @@ export default function HomePage() {
             <div className="mt-14 space-y-4 font-serif text-2xl text-black sm:text-4xl lg:text-[2.6rem]">
               <p>
                 <a
-                  href="https://linkedin.com/in/izam-rosiawan"
+                  href="https://www.linkedin.com/in/izam-rosiawan-86089627a"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline"
                 >
-                  linkedin.com/in/izam-rosiawan
+                  linkedin.com/in/izam-rosiawan-86089627a
                 </a>
               </p>
               <p>
